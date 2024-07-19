@@ -1,0 +1,9 @@
+PROJECTNAME:str = f"{'AlliedWare':^14}"
+
+WINDOWWEIGHT:int = 800
+WINDOWHEIGHT:int = 700
+WINDOWSIZE:str = f'{WINDOWWEIGHT}x{WINDOWHEIGHT}'
+
+
+
+
