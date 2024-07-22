@@ -1,4 +1,4 @@
-from guiManagement.GUI import GUIMain
+from GUI.GUI import GUIMain
 
 
 if __name__ == "__main__":

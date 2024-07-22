@@ -1,8 +1,10 @@
 import customtkinter
+
 from pathlib import Path
 from tkinter import filedialog
-from guiManagement.config.shareables import ShareHereby
-from guiManagement.frames.patternAbstractClass import AbstractGlobalObject
+
+from GUI.config.shareables import ShareHereby
+from GUI.frames.patternAbstractClass import AbstractGlobalObject
 
 
 class ProgressBarDeploy:
@@ -134,6 +136,7 @@ class LowerFrameForUsage(AbstractGlobalObject):
         
         
     def updateButtonsAndLabel(self):
+        # on Top Frame
         for button in ShareHereby.buttonsFromTopFrame:
             button.configure(state='normal')
             button.configure(fg_color='#1f538d')

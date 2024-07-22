@@ -1,6 +1,9 @@
 class ShareHereby:
+    # Objects from Frames
+    #----------
     buttonsFromTopFrame:list
     labelFromTopFrame:str
+    #----------
     
     # Lists
     #----------
@@ -8,7 +11,5 @@ class ShareHereby:
     ARCHIEVES_CONCLUTED:list = list()
     #----------
     
-    # Frame Objects
-    #----------
-    lowerFrameObjectShared:object
-    #----------
+    
+    

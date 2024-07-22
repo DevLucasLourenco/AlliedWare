@@ -1,5 +1,5 @@
 import customtkinter
-from guiManagement.frames.patternAbstractClass import AbstractGlobalObject
+from GUI.frames.patternAbstractClass import AbstractGlobalObject
 
 
 class ObjectSideBar(AbstractGlobalObject):

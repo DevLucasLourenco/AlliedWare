@@ -1,17 +1,17 @@
 import customtkinter
 
-from guiManagement.frames.lowerFrame import LowerFrameForUsage
-from guiManagement.frames.sideBarFrame import ObjectSideBar
-from guiManagement.frames.topFrame import TopFrameForUsage
+from GUI.frames.lowerFrame import LowerFrameForUsage
+from GUI.frames.sideBarFrame import ObjectSideBar
+from GUI.frames.topFrame import TopFrameForUsage
 
 from .config.windowConfig import (WINDOWSIZE, 
-                                 PROJECTNAME)
+                                 PROJECT_TITLE)
 
 
 class GUIMain:
 
     def __init__(self) -> None:
-        self.projectName = PROJECTNAME
+        self.projectName = PROJECT_TITLE
         self.windowSize = WINDOWSIZE
         self.windowPosition = None
         
@@ -44,7 +44,7 @@ class GUIMain:
         
         customtkinter.set_appearance_mode('dark')
         customtkinter.set_default_color_theme('dark-blue')
-        # customtkinter.set_default_color_theme('guiManagement/config/red-pattern.json')
+        # customtkinter.set_default_color_theme('GUI/config/red-pattern.json')
         
         self.master.geometry(f'{self.windowSize}+{self.windowPosition}')
         self.master.resizable(False, False)
