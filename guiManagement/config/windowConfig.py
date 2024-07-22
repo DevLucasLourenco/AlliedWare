@@ -1,4 +1,4 @@
-PROJECTNAME:str = f"{'AlliedWare':^14}"
+PROJECTNAME:str = f"{'AlliedWare':^14}\nPDFs"
 
 WINDOWWEIGHT:int = 800
 WINDOWHEIGHT:int = 700
