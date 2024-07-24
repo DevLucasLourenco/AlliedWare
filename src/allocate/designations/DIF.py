@@ -35,7 +35,7 @@ class DIF:
         return [folder for folder in directory.iterdir() if folder.is_dir()]
     
     
-    def extractName(self, archieve):
+    def extractName(self, archieve:Path):
         return (archieve.name).split('-')[-1].strip().split('.')[0]
     
     
