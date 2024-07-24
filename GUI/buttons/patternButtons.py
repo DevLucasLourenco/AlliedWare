@@ -1,3 +1,4 @@
+import time
 import customtkinter
 
 class PATTERN_BUTTON():
@@ -11,7 +12,7 @@ class PATTERN_BUTTON():
         self.padTuple = padTuple
         
         self.run()
-    
+
     
     def get(self):
         return self.button
@@ -28,6 +29,7 @@ class PATTERN_BUTTON():
                                               fg_color='#616A6B', border_spacing=5, border_width=2)
         
         self.button.grid(row=self.gridRow, column=self.gridColumn, padx=self.padTuple[0], pady=self.padTuple[1])
+            
             
     
 class PATTERN_BUTTON_WITH_COLUMNSPAN():

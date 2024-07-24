@@ -5,7 +5,9 @@ from GUI.frames.sideBarFrame import ObjectSideBar
 from GUI.frames.topFrame import TopFrameForUsage
 
 from .config.windowConfig import (WINDOWSIZE, 
-                                 PROJECT_TITLE)
+                                 PROJECT_TITLE, 
+                                 APPEARANCE_MODE,
+                                 COLOR_THEME)
 
 
 class GUIMain:
@@ -19,18 +21,18 @@ class GUIMain:
         self.__execution()
             
     
-    def __objects(self):
+    def __objects(self) -> None:
         self.master = None
         self.total_height = None
         self.total_weight = None
             
     
-    def __execution(self):
+    def __execution(self) -> None:
         self.__initialization_GUI_configuration()
         self.executeGUI()
     
     
-    def __initialization_GUI_configuration(self):
+    def __initialization_GUI_configuration(self) -> None:
         self.master = customtkinter.CTk()
         self.master.title(self.projectName)
         
@@ -42,18 +44,18 @@ class GUIMain:
         y = ((self.total_height - int(self.windowSize.split('x')[1])) - 100) // 2
         self.windowPosition = '+'.join([str(x),str(y)])
         
-        customtkinter.set_appearance_mode('dark')
-        customtkinter.set_default_color_theme('dark-blue')
+        customtkinter.set_appearance_mode(APPEARANCE_MODE)
+        customtkinter.set_default_color_theme(COLOR_THEME)
         # customtkinter.set_default_color_theme('GUI/config/red-pattern.json')
         
         self.master.geometry(f'{self.windowSize}+{self.windowPosition}')
         self.master.resizable(False, False)
         
         
-    def executeGUI(self):
+    def executeGUI(self) -> None:
         #------------------------------
         self.OSB = ObjectSideBar(self)
-        self.TFFU = TopFrameForUsage(self)
-        self.LFFU = LowerFrameForUsage(self)
+        self.TF = TopFrameForUsage(self)
+        self.LF = LowerFrameForUsage(self)
         #------------------------------
 

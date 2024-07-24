@@ -1,8 +1,14 @@
 import customtkinter
 
-from GUI.buttons.patternButtons import *
+from data.shareables import ShareHereby
+
 from GUI.frames.patternAbstractClass import AbstractGlobalObject
-from GUI.config.shareables import ShareHereby
+from GUI.buttons.patternButtons import (PATTERN_BUTTON, 
+                                        PATTERN_BUTTON_WITH_COLUMNSPAN)
+
+from src.allocate.allocate import Allocate
+from src.filter.filter import Filter
+from src.filter.byOptions import By
 
 
 
@@ -12,7 +18,7 @@ class TopFrameForUsage(AbstractGlobalObject):
         super().__init__(object)
     
     
-    def get(self):
+    def get(self) -> customtkinter.CTkFrame:
         return self.frameForUsage
         
         
@@ -29,17 +35,27 @@ class TopFrameForUsage(AbstractGlobalObject):
        
        
     def buildButtons(self):
-        buttonDIF = PATTERN_BUTTON(buttonName="DOC. INF. FUNCIONÁRIOS", master=self.frameForUsage, gridRow=1, gridColumn=0, function=print, padTuple=((50, 0), (75, 0)))
-        buttonCC = PATTERN_BUTTON(buttonName="CONTRACHEQUE", master=self.frameForUsage, gridRow=1, gridColumn=1, function=print, padTuple=((35, 0), (75, 0)))
-        buttonCP = PATTERN_BUTTON(buttonName="CARTÃO DE PONTO", master=self.frameForUsage, gridRow=2, gridColumn=0, function=print, padTuple=((50, 0), (25, 0)))
-        buttonHE = PATTERN_BUTTON(buttonName="SOLICITAÇÃO DE HE", master=self.frameForUsage, gridRow=2, gridColumn=1, function=print, padTuple=((35, 0), (25, 0)))
-        buttonAll = PATTERN_BUTTON_WITH_COLUMNSPAN(buttonName="REALIZAR TODOS", master=self.frameForUsage, gridRow=3, gridColumn=0, gridColumnspan=2,
+        self.buttonDIF = PATTERN_BUTTON(buttonName="DOC. INF. FUNCIONÁRIOS", master=self.frameForUsage, gridRow=1, gridColumn=0, 
+                                  function=lambda:Allocate(By.DIF, self.buttonDIF), padTuple=((50, 0), (75, 0)))#lambda:Allocate(By.DFI)
+        
+        self.buttonCC = PATTERN_BUTTON(buttonName="CONTRACHEQUE", master=self.frameForUsage, gridRow=1, gridColumn=1, 
+                                  function=lambda:Allocate(By.CC, self.buttonCC), padTuple=((35, 0), (75, 0)))
+        
+        self.buttonCP = PATTERN_BUTTON(buttonName="CARTÃO DE PONTO", master=self.frameForUsage, gridRow=2, gridColumn=0, 
+                                  function=lambda:Allocate(By.CP, self.buttonCP), padTuple=((50, 0), (25, 0)))
+
+        self.buttonHE = PATTERN_BUTTON(buttonName="SOLICITAÇÃO DE HE", master=self.frameForUsage, gridRow=2, gridColumn=1, 
+                                  function=lambda:Allocate(By.HE, self.buttonHE), padTuple=((35, 0), (25, 0)))
+
+        self.buttonAll = PATTERN_BUTTON_WITH_COLUMNSPAN(buttonName="REALIZAR TODOS", master=self.frameForUsage, gridRow=3, gridColumn=0, gridColumnspan=2,
                                        function=print, padTuple=((50, 0), (50, 0)), sticky='ew')
         
-        ShareHereby.buttonsFromTopFrame = [buttonDIF.get(), buttonCC.get(), buttonCP.get(), buttonHE.get(), buttonAll.get()]
+        
+        ShareHereby.buttonsFromTopFrame = [self.buttonDIF.get(), self.buttonCC.get(), self.buttonCP.get(), self.buttonHE.get(), self.buttonAll.get()]
+        
         
     def buildLabel(self):
-        self.label = customtkinter.CTkLabel(master=self.frameForUsage, text='Defina um Diretório de Orientação', font=("Robolo", 20, "bold"))
-        self.label.grid(row=0, column=0, columnspan=2, padx=(50, 0), pady=(45, 0))
+        self.label = customtkinter.CTkLabel(master=self.frameForUsage, text='', font=("Robolo", 20, "bold"), corner_radius=20)
+        self.label.grid(row=0, column=0, columnspan=2, padx=(50, 0), pady=(45, 0), sticky='ew')
         
         ShareHereby.labelFromTopFrame = self.label
