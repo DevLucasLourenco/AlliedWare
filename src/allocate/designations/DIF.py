@@ -18,7 +18,6 @@ class DIF:
     OP_DIR:Path = FATHERDIR / OP_FOLDER_NAME
     
     
-    
     def __init__(self):
         
         self.hiring_folders_inside:list[Path] = DIF.getFolders(DIF.HIRING_DIR)
@@ -26,7 +25,7 @@ class DIF:
         self.op_folders_inside:list[Path] = DIF.getFolders(DIF.OP_DIR)
         
         self.FOLDER_UNION = self.hiring_folders_inside + self.adm_folders_inside + self.op_folders_inside
-
+        print(self.FOLDER_UNION)
         self.passthrough()
         
         
@@ -51,9 +50,11 @@ class DIF:
                     # continue
                     
                     
-    def MoveToAndRenameIt(self):
+    def moveTo(self):
         ...
-    
+        
+    def renameIt(self):
+        ...
     
     
     
