@@ -5,7 +5,9 @@ from pathlib import Path
 
 from data.shareables import ShareHereby
 
-
+# Quando criar DIFD, colocar uma verificação de só manter a 
+# pasta (quando houver duplicidade) que 
+# tiver a data de modificação mais recente
 
 class DIF:
     HIRING_FOLDER_NAME:str = r'0 - PROCESSO DE CONTRATAÇÃO'
@@ -33,25 +35,31 @@ class DIF:
     def getFolders(directory):
         return [folder for folder in directory.iterdir() if folder.is_dir()]
     
-    
-    def extractName(self, archieve:Path):
+    @staticmethod
+    def extractName(archieve:Path):
         return (archieve.name).split('-')[-1].strip().split('.')[0]
     
     
     def passthrough(self):
         for arq in ShareHereby.ARCHIEVES_FILTERED['DIF']:
             print(arq)
-            folder_name_to_reach = self.extractName(arq)
+            folder_name_to_reach = DIF.extractName(arq)
             for path in self.FOLDER_UNION:
                 if folder_name_to_reach in path.name:
                     print('achei')
                     print(path)
-                    break
-                    # continue
+                    # break
+                    continue
+                # testar break ou continue
                     
                     
     def moveTo(self):
         ...
+    
+    
+    def __verifyPossibilityOfInnerFolders(self):
+        ...
+        
         
     def renameIt(self):
         ...

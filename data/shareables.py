@@ -4,6 +4,11 @@ from pathlib import WindowsPath
 class ShareHereby:
     # Keys
     #----------
+    MAIN_INSTANCE_OF_GUI:object
+    #----------
+    
+    # Keys
+    #----------
     KEYS = ['DIF', 'HE', 'CC', 'CP'] ## falta acrescentar o DIFD
     #----------
     

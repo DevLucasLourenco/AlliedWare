@@ -3,6 +3,7 @@ import customtkinter
 from GUI.frames.lowerFrame import LowerFrameForUsage
 from GUI.frames.sideBarFrame import ObjectSideBar
 from GUI.frames.topFrame import TopFrameForUsage
+from data.shareables import ShareHereby
 
 from .config.windowConfig import (WINDOWSIZE, 
                                  PROJECT_TITLE, 
@@ -25,6 +26,7 @@ class GUIMain:
         self.master = None
         self.total_height = None
         self.total_weight = None
+        
             
     
     def __execution(self) -> None:
@@ -34,6 +36,8 @@ class GUIMain:
     
     def __initialization_GUI_configuration(self) -> None:
         self.master = customtkinter.CTk()
+        ShareHereby.MAIN_INSTANCE_OF_GUI = self.master
+        
         self.master.title(self.projectName)
         
         self.total_weight = self.master.winfo_screenwidth()
@@ -50,6 +54,7 @@ class GUIMain:
         
         self.master.geometry(f'{self.windowSize}+{self.windowPosition}')
         self.master.resizable(False, False)
+        
         
         
     def executeGUI(self) -> None:

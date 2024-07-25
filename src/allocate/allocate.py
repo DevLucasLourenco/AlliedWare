@@ -1,8 +1,11 @@
+import time
+from GUI.alerts.alert import VisualAlert
 from src.filter.byOptions import By
 
 from data.shareables import ShareHereby
 
 from src.allocate.designations.DIF import DIF
+
 
 
 class Allocate:
@@ -23,7 +26,10 @@ class Allocate:
         if self.By:
             match(self.By):
                 case By.DIF:
-                    DIF()
+                    app = VisualAlert(status='ok', message='Aguarde...', 
+                                      color_appearance='dark', windowTitle='teste')
+                    # DIF()
+                    # app.destroy()
                     
                 case By.CC:
                     print('CC')
