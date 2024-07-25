@@ -31,7 +31,6 @@ class VisualAlert:
         self.__config_GUI_inicializacao()
         FQ = FrameQuadro(self)
         self.master.grab_set()
-        # self.master.mainloop()
         
     
     def __config_GUI_inicializacao(self):
