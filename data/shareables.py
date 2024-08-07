@@ -2,7 +2,7 @@ from pathlib import WindowsPath
 
 
 class ShareHereby:
-    # Keys
+    # Instances
     #----------
     MAIN_INSTANCE_OF_GUI:object
     #----------

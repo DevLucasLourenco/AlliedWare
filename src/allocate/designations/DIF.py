@@ -5,6 +5,7 @@ from pathlib import Path
 
 from data.shareables import ShareHereby
 
+
 # Quando criar DIFD, colocar uma verificação de só manter a 
 # pasta (quando houver duplicidade) que 
 # tiver a data de modificação mais recente
@@ -21,19 +22,20 @@ class DIF:
     
     
     def __init__(self):
-        
         self.hiring_folders_inside:list[Path] = DIF.getFolders(DIF.HIRING_DIR)
         self.adm_folders_inside:list[Path] = DIF.getFolders(DIF.ADM_DIR)
         self.op_folders_inside:list[Path] = DIF.getFolders(DIF.OP_DIR)
         
         self.FOLDER_UNION = self.hiring_folders_inside + self.adm_folders_inside + self.op_folders_inside
-        print(self.FOLDER_UNION)
+        # print(self.FOLDER_UNION)
+        
         self.passthrough()
         
         
     @staticmethod
     def getFolders(directory):
         return [folder for folder in directory.iterdir() if folder.is_dir()]
+    
     
     @staticmethod
     def extractName(archieve:Path):
@@ -42,28 +44,29 @@ class DIF:
     
     def passthrough(self):
         for arq in ShareHereby.ARCHIEVES_FILTERED['DIF']:
-            print(arq)
+            # print('arq: ', arq)
             folder_name_to_reach = DIF.extractName(arq)
             for path in self.FOLDER_UNION:
                 if folder_name_to_reach in path.name:
-                    print('achei')
-                    print(path)
-                    # break
+                    # print('path: ', path)
+                    self.moveTo(archieve=arq, pathTo=path)
                     continue
                 # testar break ou continue
                     
-                    
-    def moveTo(self):
-        ...
+    def moveTo(self, archieve:str, pathTo:Path):
+        newPathTo = self.__verifyPossibilityOfInnerFolders(pathTo)
+        shutil.move(archieve, pathTo / self.__renameIt(archieve.name))
     
     
-    def __verifyPossibilityOfInnerFolders(self):
-        ...
+    def __verifyPossibilityOfInnerFolders(self, originalPath) -> Path:
+        print('filtros')
+        
+        if not ():
+            return originalPath
         
         
-    def renameIt(self):
-        ...
-    
-    
-    
-    
+    def __renameIt(self, archieve):
+        for key in ShareHereby.KEYS_TO_IDENTIFY.keys():
+            archieve = archieve.replace(key, '')
+            
+        return archieve.strip()

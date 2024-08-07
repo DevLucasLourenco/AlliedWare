@@ -26,9 +26,10 @@ class Allocate:
         if self.By:
             match(self.By):
                 case By.DIF:
-                    app = VisualAlert(status='ok', message='Aguarde...', 
+                    alert = VisualAlert(status='I', message='\nAguarde...', 
                                       color_appearance='dark', windowTitle='teste')
-                    # DIF()
+                    alert.build()
+                    DIF()
                     # app.destroy()
                     
                 case By.CC:

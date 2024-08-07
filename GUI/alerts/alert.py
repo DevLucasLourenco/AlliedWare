@@ -3,7 +3,7 @@ import customtkinter
 from typing import Literal
 
 from GUI.alerts.config import windowsconfig
-from GUI.alerts.frames.areaframe import FrameQuadro
+from GUI.alerts.frames.areaframe import UsageFrame
 from data.shareables import ShareHereby
 
 
@@ -22,14 +22,16 @@ class VisualAlert:
         self.status = status.upper()
         self.windowTitle = windowTitle if not windowTitle == None else status
         #------------------------------
-        print('1')
-        self.run()
-        print('2')
-        
-        
-    def run(self):
         self.__config_GUI_inicializacao()
-        FQ = FrameQuadro(self)
+    
+    
+    def resizeWindow(self, resize:list[str:str]):
+        # self.
+        self.master.geometry(f'{resize}'+{windowsconfig.WINDOW_POSITION})
+        
+    def build(self):
+        # self.__config_GUI_inicializacao()
+        frame = UsageFrame(self)
         self.master.grab_set()
         
     
