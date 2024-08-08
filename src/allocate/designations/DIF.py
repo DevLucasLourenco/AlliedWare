@@ -3,7 +3,8 @@ import shutil
 
 from pathlib import Path
 
-from data.shareables import ShareHereby
+from src.data.shareables import ShareHereby
+from src.allocate.relocate.relocating import RelocateProcess
 
 
 # Quando criar DIFD, colocar uma verificação de só manter a 
@@ -27,7 +28,6 @@ class DIF:
         self.op_folders_inside:list[Path] = DIF.getFolders(DIF.OP_DIR)
         
         self.FOLDER_UNION = self.hiring_folders_inside + self.adm_folders_inside + self.op_folders_inside
-        # print(self.FOLDER_UNION)
         
         self.passthrough()
         
@@ -44,30 +44,9 @@ class DIF:
     
     def passthrough(self):
         for arq in ShareHereby.ARCHIEVES_FILTERED['DIF']:
-            # print('arq: ', arq)
             folder_name_to_reach = DIF.extractName(arq)
             for path in self.FOLDER_UNION:
                 if folder_name_to_reach in path.name:
-                    # print('path: ', path)
-                    self.moveTo(archieve=arq, pathTo=path)
+                    # RelocateProcess.moveTo(innerFolders=False, archieve=arq, pathTo=path)
+                    RelocateProcess.moveTo(archieve=arq, pathTo=path)
                     continue
-                # testar break ou continue
-                
-                    
-    def moveTo(self, archieve:str, pathTo:Path):
-        newPathTo = self.__verifyPossibilityOfInnerFolders(pathTo)
-        shutil.move(archieve, pathTo / self.__renameIt(archieve.name))
-    
-    
-    def __verifyPossibilityOfInnerFolders(self, originalPath) -> Path:
-        print('filtros')
-        
-        # if not ():
-        #     return originalPath
-        
-        
-    def __renameIt(self, archieve):
-        for key in ShareHereby.KEYS_TO_IDENTIFY.keys():
-            archieve = archieve.replace(key, '')
-            
-        return archieve.strip()

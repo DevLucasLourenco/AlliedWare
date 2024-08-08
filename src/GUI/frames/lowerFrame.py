@@ -3,8 +3,8 @@ import customtkinter
 from pathlib import Path
 from tkinter import filedialog
 
-from data.shareables import ShareHereby
-from GUI.frames.patternAbstractClass import AbstractGlobalObject
+from src.data.shareables import ShareHereby
+from src.GUI.frames.patternAbstractClass import AbstractGlobalObject
 
 from src.filter.filter import Filter
 

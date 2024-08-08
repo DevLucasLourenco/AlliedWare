@@ -1,9 +1,9 @@
 from pathlib import Path
 
 ICONS = {
-        'OK':Path(r'GUI\alerts\imgs\OK.png'),
-        'X':Path(r'GUI\alerts\imgs\X.png'),
-        'I':Path(r'GUI\alerts\imgs\i.png'),
+        'OK':Path(r'src\GUI\alerts\imgs\OK.png'),
+        'X':Path(r'src\GUI\alerts\imgs\X.png'),
+        'I':Path(r'src\GUI\alerts\imgs\i.png'),
         }
         
 BUTTON_COLOR = {
@@ -12,5 +12,5 @@ BUTTON_COLOR = {
         'I':(r'#156da5', r'#024169'),
         }
 
-WINDOW_SIZE = '300x80'
+WINDOW_SIZE = '400x80'
 WINDOW_POSITION = None

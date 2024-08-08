@@ -2,9 +2,9 @@ import customtkinter
 
 from typing import Literal
 
-from GUI.alerts.config import windowsconfig
-from GUI.alerts.frames.areaframe import UsageFrame
-from data.shareables import ShareHereby
+from src.GUI.alerts.config import windowsconfig
+from src.GUI.alerts.frames.areaframe import UsageFrame
+from src.data.shareables import ShareHereby
 
 
 class VisualAlert:

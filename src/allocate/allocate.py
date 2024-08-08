@@ -1,9 +1,8 @@
 import time
-from GUI.alerts.alert import VisualAlert
+
+from src.GUI.alerts.alert import VisualAlert
 from src.filter.byOptions import By
-
-from data.shareables import ShareHereby
-
+from src.data.shareables import ShareHereby
 from src.allocate.designations.DIF import DIF
 
 
@@ -26,11 +25,11 @@ class Allocate:
         if self.By:
             match(self.By):
                 case By.DIF:
-                    alert = VisualAlert(status='I', message='\nAguarde...', 
+                    alert = VisualAlert(status='I', message=f'\nAguarde...\nProcesso {By.DIF} está sendo executado.', 
                                       color_appearance='dark', windowTitle='teste')
                     alert.build()
                     DIF()
-                    # app.destroy()
+                    # alert.destroy()
                     
                 case By.CC:
                     print('CC')

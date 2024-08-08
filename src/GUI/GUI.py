@@ -1,9 +1,9 @@
 import customtkinter
 
-from GUI.frames.lowerFrame import LowerFrameForUsage
-from GUI.frames.sideBarFrame import ObjectSideBar
-from GUI.frames.topFrame import TopFrameForUsage
-from data.shareables import ShareHereby
+from src.GUI.frames.lowerFrame import LowerFrameForUsage
+from src.GUI.frames.sideBarFrame import ObjectSideBar
+from src.GUI.frames.topFrame import TopFrameForUsage
+from src.data.shareables import ShareHereby
 
 from .config.windowConfig import (WINDOWSIZE, 
                                  PROJECT_TITLE, 
@@ -63,4 +63,5 @@ class GUIMain:
         self.TF = TopFrameForUsage(self)
         self.LF = LowerFrameForUsage(self)
         #------------------------------
+
 

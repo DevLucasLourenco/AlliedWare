@@ -1,9 +1,9 @@
 import customtkinter
 
-from data.shareables import ShareHereby
+from src.data.shareables import ShareHereby
 
-from GUI.frames.patternAbstractClass import AbstractGlobalObject
-from GUI.buttons.patternButtons import (PATTERN_BUTTON, 
+from src.GUI.frames.patternAbstractClass import AbstractGlobalObject
+from src.GUI.buttons.patternButtons import (PATTERN_BUTTON, 
                                         PATTERN_BUTTON_WITH_COLUMNSPAN)
 
 from src.allocate.allocate import Allocate

@@ -1,5 +1,5 @@
 from src.filter.byOptions import By
-from data.shareables import ShareHereby
+from src.data.shareables import ShareHereby
 
 
 class Filter:

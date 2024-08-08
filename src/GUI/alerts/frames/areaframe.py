@@ -2,7 +2,7 @@ import customtkinter as ctk
 
 from PIL import Image
 
-from GUI.alerts.config import windowsconfig
+from src.GUI.alerts.config import windowsconfig
 
 
 
