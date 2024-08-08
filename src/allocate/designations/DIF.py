@@ -52,6 +52,7 @@ class DIF:
                     self.moveTo(archieve=arq, pathTo=path)
                     continue
                 # testar break ou continue
+                
                     
     def moveTo(self, archieve:str, pathTo:Path):
         newPathTo = self.__verifyPossibilityOfInnerFolders(pathTo)
@@ -61,8 +62,8 @@ class DIF:
     def __verifyPossibilityOfInnerFolders(self, originalPath) -> Path:
         print('filtros')
         
-        if not ():
-            return originalPath
+        # if not ():
+        #     return originalPath
         
         
     def __renameIt(self, archieve):
