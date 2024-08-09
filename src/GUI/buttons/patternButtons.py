@@ -28,9 +28,14 @@ class PATTERN_BUTTON():
                                               font=("Robolo", 16, "bold"), state='disabled', 
                                               fg_color='#616A6B', border_spacing=5, border_width=2)
         
+    
+    def grid_it(self):
         self.button.grid(row=self.gridRow, column=self.gridColumn, padx=self.padTuple[0], pady=self.padTuple[1])
-            
-            
+        
+        
+    def ungrid_it(self):
+        self.button.grid_forget()
+  
     
 class PATTERN_BUTTON_WITH_COLUMNSPAN():
     
