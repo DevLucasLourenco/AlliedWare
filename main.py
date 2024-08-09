@@ -13,3 +13,4 @@ if __name__ == "__main__":
 # criar botão abaixo do LOG na sidebar de abrir o json GENERAL_CONFIGURATIONS
 
 
+# no botão de general configuration.json, fazer para alterar também a tela principal de toplevel para a pessoa poder designar o difertório de im, novo json
