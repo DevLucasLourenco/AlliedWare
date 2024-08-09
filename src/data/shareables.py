@@ -48,6 +48,11 @@ class ShareHereby:
         }
     #----------
     
+    # Description to ToolTip
+    #----------
+    ToolTipDescription:str = ""
+    #----------
+    
     
     def generateDynamicKeys(self):
         for key in ShareHereby.KEYS:

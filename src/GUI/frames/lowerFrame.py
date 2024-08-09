@@ -51,7 +51,7 @@ class LowerFrameForUsage(AbstractGlobalObject):
     
     def buildFrame(self):
         self.frameForUsage = customtkinter.CTkFrame(master=self.master, corner_radius=20, width=570)
-        self.frameForUsage.grid(row=1, column=1, sticky='nsew', padx=(0,0), pady=(20,0))
+        self.frameForUsage.grid(row=0, column=1, sticky='nsew', padx=(0,0), pady=(20,0))
         self.frameForUsage.grid_propagate(False)
         
         
@@ -79,8 +79,8 @@ class LowerFrameForUsage(AbstractGlobalObject):
         self.labelToInstruciate = customtkinter.CTkLabel(master=self.frameForUsage, text='Defina um Diretório de Orientação', 
                                        font=("Robolo", 16, "bold"), corner_radius=20, fg_color='#154360')
         self.labelToInstruciate.grid(row=0, column=0, columnspan=2, pady=(15,0))
-    
-    
+        
+        
     def countInfos(self, *dir):
         if dir:
             self.__initialInstance()

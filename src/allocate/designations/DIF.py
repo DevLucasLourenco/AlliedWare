@@ -3,8 +3,10 @@ import shutil
 
 from pathlib import Path
 
+from src.data.exportDataWhichDidntRelocated import Archives
+from src.allocate.designations.innerFolders.AutoDesignate import DIFAutoDesignation
 from src.data.shareables import ShareHereby
-from src.allocate.relocate.relocating import RelocateProcess
+# from src.allocate.relocate.relocating import RelocateProcess
 
 
 # Quando criar DIFD, colocar uma verificação de só manter a 
@@ -38,8 +40,15 @@ class DIF:
     
     
     @staticmethod
-    def extractName(archieve:Path):
-        return (archieve.name).split('-')[-1].strip().split('.')[0]
+    def extractName(file:Path):
+        return (file.name).split('-')[-1].strip().split('.')[0]
+    
+    
+    @staticmethod  
+    def __renamingOf(file):
+        for key in ShareHereby.KEYS_TO_IDENTIFY.keys():
+            file = file.replace(key,'')
+        return file.strip()
     
     
     def passthrough(self):
@@ -47,6 +56,24 @@ class DIF:
             folder_name_to_reach = DIF.extractName(arq)
             for path in self.FOLDER_UNION:
                 if folder_name_to_reach in path.name:
-                    # RelocateProcess.moveTo(innerFolders=False, archieve=arq, pathTo=path)
-                    RelocateProcess.moveTo(archieve=arq, pathTo=path)
-                    continue
+                    DIF.moveTo(file=arq, pathTo=path)
+                    
+
+    def moveTo(file:Path, pathTo:Path, innerFolders=True):
+        if innerFolders:
+            DAD = DIFAutoDesignation(file, pathTo, 'DIF')
+            validator = DAD.analyse()
+            
+            if validator:
+                path = DAD.get()
+                shutil.move(file, path / DIF.__renamingOf(file.name))
+                print('Movido: ', path)
+                
+            elif not validator:
+                Archives.NotRelocatedFromEmployee.append(file)
+            
+        elif not innerFolders:
+            shutil.move(file, pathTo / DIF.__renamingOf(file.name))
+            
+            
+        
