@@ -9,7 +9,7 @@ from src.data.shareables import ShareHereby
 
 class VisualAlert:
     
-    def __init__(self, status:Literal['X',"OK"], 
+    def __init__(self, status:Literal['X',"OK", "I"], 
                  message:str, 
                  windowTitle:str=None, 
                  color_appearance:Literal['light','dark']='light') -> None:
@@ -52,6 +52,8 @@ class VisualAlert:
         
         self.master.geometry(f'{windowsconfig.WINDOW_SIZE}+{windowsconfig.WINDOW_POSITION}')
         self.master.resizable(False, False)
+        
+        self.master.grab_set()
         
         
     def destroy(self):

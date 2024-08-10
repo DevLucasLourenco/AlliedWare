@@ -1,5 +1,6 @@
 import customtkinter
 
+from src.data.dirSpotCheck import SpotCheck
 from src.GUI.frames.lowerFrame import LowerFrameForUsage
 from src.GUI.frames.sideBarFrame import ObjectSideBar
 from src.GUI.frames.topFrame import MainInterfaceTopFrame, TopFrameForUsage
@@ -26,7 +27,6 @@ class GUIMain:
         self.master = None
         self.total_height = None
         self.total_weight = None
-        
             
     
     def __execution(self) -> None:
@@ -56,7 +56,6 @@ class GUIMain:
         self.master.resizable(False, False)
         
         
-        
     def executeGUI(self) -> None:
         #------------------------------
         self.OSB = ObjectSideBar(self)
@@ -65,7 +64,11 @@ class GUIMain:
         
         mainInterfaceTF = MainInterfaceTopFrame(self.TF.get())
         mainInterfaceTF.GRID_ALL()
-        # mainInterfaceTF.UNGRID_ALL()
+        
+        self.InicialExecutions()
         #------------------------------
 
 
+    def InicialExecutions(self):
+        SpotCheck.CreateFileIfNotExists()
+        

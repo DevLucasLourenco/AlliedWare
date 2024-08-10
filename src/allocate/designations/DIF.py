@@ -3,7 +3,8 @@ import shutil
 
 from pathlib import Path
 
-from src.data.exportDataWhichDidntRelocated import Archives
+from src.errors.NoInternetConnection import NoInternetConnection
+from src.data.exportData import Archives
 from src.allocate.designations.innerFolders.AutoDesignate import DIFAutoDesignation
 from src.data.shareables import ShareHereby
 # from src.allocate.relocate.relocating import RelocateProcess
@@ -36,8 +37,10 @@ class DIF:
         
     @staticmethod
     def getFolders(directory):
-        return [folder for folder in directory.iterdir() if folder.is_dir()]
-    
+        try:
+            return [folder for folder in directory.iterdir() if folder.is_dir()]
+        except FileNotFoundError:
+            raise NoInternetConnection()
     
     @staticmethod
     def extractName(file:Path):

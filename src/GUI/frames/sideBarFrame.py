@@ -1,6 +1,9 @@
 import customtkinter
-from src.GUI.topLevels.dynamicalWindow import DynamicalWindowApproach
+
+
+from src.data.dirSpotCheck import SpotCheck
 from src.GUI.frames.patternAbstractClass import AbstractGlobalObject
+from src.GUI.topLevels.dynamicalWindow import DynamicalWindowApproach
 
 
 class ObjectSideBar(AbstractGlobalObject):
@@ -48,11 +51,11 @@ class ObjectSideBar(AbstractGlobalObject):
                                             font=('Robolo', 14, 'bold'), border_spacing=5, border_width=2)
         logButton.grid(row=2, column=0, pady=(0, 20))
         
-        
+    
     def __comamnd_alocation(self):
         options = {
-            "Designar Diretório":print,
-            "Visualizar Apontamentos":print,
+            "Designar Diretório":SpotCheck.dir_appointment,
+            "Visualizar Apontamentos":SpotCheck.show_appointment,
         }
         
         app = DynamicalWindowApproach(master=self.sidebarFrame)

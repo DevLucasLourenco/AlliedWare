@@ -8,8 +8,18 @@ class DIFAutoDesignation:
         self.file:Path = file
         self.pathTo:Path = pathTo
         self.TypeOfRule:str = TypeOfRule
-        self.RULES:dict = self.__readJSON(r'GENERAL_CONFIGURATIONS.json')
         
+        
+        
+        self.RULES:dict = self.__readJSON(self.takeDirToReachAppointmentsJSON()) ####
+    
+    
+    def takeDirToReachAppointmentsJSON(self):
+        txt:str
+        with open('src\data\dir_to_json_appointment.txt', 'r') as f:
+            txt = f.read()
+        return txt
+    
         
     def __readJSON(self, config_path):
         with open(config_path, 'r', encoding='utf-8') as file:
@@ -27,7 +37,6 @@ class DIFAutoDesignation:
                 print("true: ", self.file.name)
                 return True
 
-            # return False
         print('não foi possível alocar')
             
 

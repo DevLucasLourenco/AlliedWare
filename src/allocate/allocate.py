@@ -25,9 +25,9 @@ class Allocate:
         if self.By:
             match(self.By):
                 case By.DIF:
-                    alert = VisualAlert(status='I', message=f'\nAguarde...\nProcesso {By.DIF} está sendo executado.', 
-                                      color_appearance='dark', windowTitle='teste')
-                    alert.build()
+                    # alert = VisualAlert(status='I', message=f'\nAguarde...\nProcesso {By.DIF} está sendo executado.', 
+                                    #   color_appearance='dark', windowTitle='teste')
+                    # alert.build()
                     DIF()
                     # alert.destroy()
                     

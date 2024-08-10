@@ -41,7 +41,7 @@ class ScriptSelectionArea:
         
         
     def buildSelectionBox(self):
-        self.SBox = customtkinter.CTkComboBox(master=self.frame, values=['', SortGlobalFiles.__name__, ], width=260, command=self.sendToShareables)
+        self.SBox = NonEditableCTkComboBox(master=self.frame, values=['', SortGlobalFiles.__name__, ], width=260, command=self.sendToShareables)
         self.SBox.set("")
         
         self.tooltip = ToolTip(self.SBox, ShareHereby.ToolTipDescription)
@@ -68,4 +68,9 @@ class ScriptSelectionArea:
                 print('log aq')
             else:
                 MsgBox.showinfo('Recusado', f'{self.SBox.get()} não foi executado.')
-                    
+
+
+class NonEditableCTkComboBox(customtkinter.CTkComboBox):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.bind("<Key>", lambda e: "break")

@@ -4,3 +4,7 @@
 # - pdf mais escuro, com fundo preto puxando pro cinza 
 # (se pa da pra fzr pelo notion e ) expoertar em pdf pra usar esse 
 # (fzr por la pra ficar bonito)
+
+
+
+# melhor, fzr um html explicando tudo

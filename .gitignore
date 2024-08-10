@@ -1,3 +1,4 @@
 .VSCodeCounter/
 *.pyc
 
+src/data/dir_to_json_appointment.txt

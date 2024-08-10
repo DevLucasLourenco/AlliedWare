@@ -1,8 +1,9 @@
 import customtkinter
 
 from pathlib import Path
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 
+from src.data.dirSpotCheck import SpotCheck
 from src.data.shareables import ShareHereby
 from src.GUI.frames.patternAbstractClass import AbstractGlobalObject
 
@@ -95,10 +96,17 @@ class LowerFrameForUsage(AbstractGlobalObject):
 
 
     def __searchDir(self):
-        dir = filedialog.askdirectory()
-        if dir:
-            self.aglomerateUpdates(dir)
-        
+            validator, path = SpotCheck.ReacheableJSON()
+            if not validator:
+                messagebox.showwarning('Atenção - Diretório JSON inalcançável.', f'Dir: {path}\n\nIndique o diretório do JSON para apontamento de alocação.' )
+                SpotCheck.dir_appointment()
+                
+            messagebox.showinfo('Diretório de Arquivos', f'Forneça o diretório onde será procurando os arquivos de {" - ".join(ShareHereby.KEYS)}')
+            dir = filedialog.askdirectory()
+            if dir:
+                self.aglomerateUpdates(dir)
+                                
+                
 
     def aglomerateUpdates(self, dir):
         self.countInfos(dir) # dps mudar pra quantidade q foi filtrada e adc uma maneira de contar totais (mt simples)
