@@ -4,6 +4,7 @@ import subprocess
 from tkinter import filedialog
 from pathlib import Path
 
+from src.LOG.LOG_manager import KingLog
 from src.errors.DirNotFound import DirNotFound
 
 
@@ -15,7 +16,7 @@ class SpotCheck:
         if not path.is_file():
             with path.open('w') as file:
                 file.write('---')
-    
+                
     
     def ReacheableJSON():
         with open('src\data\dir_to_json_appointment.txt', 'r') as f:
@@ -25,13 +26,15 @@ class SpotCheck:
     
     def dir_appointment():
         dir = filedialog.askopenfilename(
-            title="Selecione o Arquivo de Apontamente de Diretório - JSON",
+            title="Selecione o Arquivo de Apontamento de Diretório - JSON",
             filetypes=[("Arquivos JSON", "*.json")],
         )
         
         if dir:
             with open("src\data\dir_to_json_appointment.txt", 'w') as f:
                 f.write(dir)
+                
+            KingLog(f'Nova Especificação de Indicador: {dir}', 'INFO')
                 
         return dir
                 

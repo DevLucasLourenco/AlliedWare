@@ -1,5 +1,6 @@
-
 from tkinter import messagebox
+
+from src.LOG.LOG_manager import KingLog
 from src.GUI.alerts.alert import VisualAlert
 
 
@@ -14,7 +15,7 @@ class NoInternetConnection(FileNotFoundError, OSError):
         def messageBoxShow(self):
             messagebox.showerror('Conexão', 'Sem conexão com o SERVIDOR ou INTERNET')
             
-
+            
         def log_approach(self):
-            ...
+            KingLog('Conexão - Sem conexão com o SERVIDOR ou INTERNET', 'ERROR')
         

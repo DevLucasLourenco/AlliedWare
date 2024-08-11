@@ -1,5 +1,6 @@
 from tkinter import messagebox
-from src.GUI.alerts.alert import VisualAlert
+from src.LOG.LOG_manager import KingLog
+
 
 class DirNotFound(Exception):
     def __init__(self, message: str = "Diretório de Arquivo JSON inalcançável.\nFavor, instrua outro diretório.", dir='') -> None:
@@ -11,14 +12,13 @@ class DirNotFound(Exception):
 
 
     def messageBoxShow(self):
-        print(self.dir)
         if self.dir:
-            print(1)
             messagebox.showerror("Diretório Inalcancável", f'Favor, instrua outro diretório para encontrar o JSON necessário.\nDiretório Informado:\n{self.dir}' )
         else:
             messagebox.showerror("Diretório Inalcancável", 'Favor, instrua outro diretório para encontrar o JSON necessário.' )
     
     
     def log_approach(self):
-        # print('log: ' + self.message)
-        ...
+        KingLog(f'Diretório de Especificaçção de Indicador Inalcançável. Dir: {self.dir}', 'ERROR')
+        
+        

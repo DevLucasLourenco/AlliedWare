@@ -3,12 +3,11 @@ import shutil
 
 from pathlib import Path
 
+from src.LOG.LOG_manager import KingLog
 from src.errors.NoInternetConnection import NoInternetConnection
 from src.data.exportData import Archives
 from src.allocate.designations.innerFolders.AutoDesignate import DIFAutoDesignation
 from src.data.shareables import ShareHereby
-# from src.allocate.relocate.relocating import RelocateProcess
-
 
 # Quando criar DIFD, colocar uma verificação de só manter a 
 # pasta (quando houver duplicidade) que 
@@ -70,13 +69,23 @@ class DIF:
             if validator:
                 path = DAD.get()
                 shutil.move(file, path / DIF.__renamingOf(file.name))
-                print('Movido: ', path)
+                Archives.RelocatedFromEmployee.append((file, path))
+                KingLog(f'DE: {file} | PARA: {path}', 'INFO')
                 
             elif not validator:
-                Archives.NotRelocatedFromEmployee.append(file)
+                Archives.NotRelocatedFromEmployee.append(file, path)
+                KingLog(f'NÃO MOVIDO POR: <Parâmetro de Alocação Inexistente> - {file}', 'WARNING')
             
         elif not innerFolders:
             shutil.move(file, pathTo / DIF.__renamingOf(file.name))
             
             
+    
+    def _generate_unique_filename(destination: Path, filename: str) -> Path:
+        base_name, ext = filename.rsplit('.', 1)
+        counter = 1
         
+        while (destination / f"{base_name}_{counter}.{ext}").exists():
+            counter += 1
+        
+        return destination / f"{base_name}_{counter}.{ext}"

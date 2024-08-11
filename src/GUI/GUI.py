@@ -1,5 +1,6 @@
 import customtkinter
 
+from src.LOG.LOG_manager import KingLog
 from src.data.dirSpotCheck import SpotCheck
 from src.GUI.frames.lowerFrame import LowerFrameForUsage
 from src.GUI.frames.sideBarFrame import ObjectSideBar
@@ -7,7 +8,8 @@ from src.GUI.frames.topFrame import MainInterfaceTopFrame, TopFrameForUsage
 from src.data.shareables import ShareHereby
 
 from .config.windowConfig import (WINDOWSIZE, 
-                                 PROJECT_TITLE, 
+                                 PROJECT_TITLE,
+                                 PROJECTNAME, 
                                  APPEARANCE_MODE,
                                  COLOR_THEME)
 
@@ -70,5 +72,7 @@ class GUIMain:
 
 
     def InicialExecutions(self):
+        KingLog(f'=============== {PROJECTNAME} ===============', 'INFO')
+        KingLog(f'{PROJECTNAME} Inicializado', 'INFO')
         SpotCheck.CreateFileIfNotExists()
         

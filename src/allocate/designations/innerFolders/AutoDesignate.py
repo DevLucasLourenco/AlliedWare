@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+from src.data.dirSpotCheck import SpotCheck
+
 
 class DIFAutoDesignation:
     
@@ -9,10 +11,11 @@ class DIFAutoDesignation:
         self.pathTo:Path = pathTo
         self.TypeOfRule:str = TypeOfRule
         
+
+        # self.RULES:dict = self.__readJSON(self.takeDirToReachAppointmentsJSON()) ####
         
-        
-        self.RULES:dict = self.__readJSON(self.takeDirToReachAppointmentsJSON()) ####
-    
+        self.RULES:dict = self.__readJSON(SpotCheck.ReacheableJSON()(1)) ####
+            
     
     def takeDirToReachAppointmentsJSON(self):
         txt:str
@@ -29,16 +32,11 @@ class DIFAutoDesignation:
 
     def analyse(self):
         for key, folder in self.RULES.items():
-            print('key: ', key)
-            print('name: ', self.file.name)
             if key in self.file.name:
                 self.newPathTo = self.pathTo / folder
                 self.newPathTo.mkdir(parents=True, exist_ok=True)
-                print("true: ", self.file.name)
                 return True
 
-        print('não foi possível alocar')
-            
 
     def get(self) -> Path:
         return self.newPathTo

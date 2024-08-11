@@ -8,4 +8,3 @@ if __name__ == "__main__":
 
 # trocar para puxar tudo, não só PDFs
 
-
