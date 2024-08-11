@@ -49,7 +49,7 @@ class MainInterfaceTopFrame:
     
     def buildButtons(self):
         self.buttonDIF = PATTERN_BUTTON(buttonName="DOC. INF. FUNCIONÁRIOS", master=self.frameForUsageFromInstance, gridRow=1, gridColumn=0, 
-                                  function=lambda:Allocate(By.DIF, self.buttonDIF), padTuple=((50, 0), (75, 0))) #lambda:Allocate(By.DIF)
+                                  function=lambda:Allocate(By.DIF, self.buttonDIF, self.frameForUsageFromInstance), padTuple=((50, 0), (75, 0))) #lambda:Allocate(By.DIF)
         
         self.buttonCC = PATTERN_BUTTON(buttonName="CONTRACHEQUE", master=self.frameForUsageFromInstance, gridRow=1, gridColumn=1, 
                                   function=lambda:Allocate(By.CC, self.buttonCC), padTuple=((35, 0), (75, 0)))

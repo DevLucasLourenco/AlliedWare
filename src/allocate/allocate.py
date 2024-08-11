@@ -1,5 +1,6 @@
 import time
 
+from src.GUI.frames.frameAlteration.DIFFrame import FrameDIF
 from src.GUI.alerts.alert import VisualAlert
 from src.filter.byOptions import By
 from src.data.shareables import ShareHereby
@@ -8,9 +9,10 @@ from src.allocate.designations.DIF import DIF
 
 
 class Allocate:
-    def __init__(self, By:By, objectOfButton) -> None:
+    def __init__(self, By:By, objectOfButton, *args) -> None:
         self.By = Allocate.__verifyIntegrity(By)
         self.objectOfButton = objectOfButton
+        self.args = args
         
         self.ALLOCATION_OF_ARCHIEVES()
         
@@ -25,11 +27,10 @@ class Allocate:
         if self.By:
             match(self.By):
                 case By.DIF:
-                    # alert = VisualAlert(status='I', message=f'\nAguarde...\nProcesso {By.DIF} está sendo executado.', 
-                                    #   color_appearance='dark', windowTitle='teste')
-                    # alert.build()
-                    DIF()
-                    # alert.destroy()
+                    # DIF(self.args)
+                    print(1)
+                    FrameDIF(self.args)
+                    print(2)
                     
                 case By.CC:
                     print('CC')

@@ -24,7 +24,9 @@ class DIF:
     OP_DIR:Path = FATHERDIR / OP_FOLDER_NAME
     
     
-    def __init__(self):
+    def __init__(self, *args):
+        self.args = args
+        
         self.hiring_folders_inside:list[Path] = DIF.getFolders(DIF.HIRING_DIR)
         self.adm_folders_inside:list[Path] = DIF.getFolders(DIF.ADM_DIR)
         self.op_folders_inside:list[Path] = DIF.getFolders(DIF.OP_DIR)
@@ -58,10 +60,10 @@ class DIF:
             folder_name_to_reach = DIF.extractName(arq)
             for path in self.FOLDER_UNION:
                 if folder_name_to_reach in path.name:
-                    DIF.moveTo(file=arq, pathTo=path)
+                    self.moveTo(file=arq, pathTo=path, innerFolders=self.args)
                     
 
-    def moveTo(file:Path, pathTo:Path, innerFolders=True):
+    def moveTo(self, file:Path, pathTo:Path, innerFolders=True):
         if innerFolders:
             DAD = DIFAutoDesignation(file, pathTo, 'DIF')
             validator = DAD.analyse()
