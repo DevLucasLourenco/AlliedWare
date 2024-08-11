@@ -97,14 +97,16 @@ class LowerFrameForUsage(AbstractGlobalObject):
 
     def __searchDir(self):
             validator, path = SpotCheck.ReacheableJSON()
+            self.state_returned = None
             if not validator:
                 messagebox.showwarning('Atenção - Diretório JSON inalcançável.', f'Dir: {path}\n\nIndique o diretório do JSON para apontamento de alocação.' )
-                SpotCheck.dir_appointment()
-                
-            messagebox.showinfo('Diretório de Arquivos', f'Forneça o diretório onde será procurando os arquivos de {" - ".join(ShareHereby.KEYS)}')
-            dir = filedialog.askdirectory()
-            if dir:
-                self.aglomerateUpdates(dir)
+                self.state_returned = SpotCheck.dir_appointment()
+            
+            if self.state_returned != "":   
+                messagebox.showinfo('Diretório de Arquivos', f'Forneça o diretório que será procurado os arquivos de\n{" - ".join(ShareHereby.KEYS)}')
+                dir = filedialog.askdirectory()
+                if dir:
+                    self.aglomerateUpdates(dir)
                                 
                 
 

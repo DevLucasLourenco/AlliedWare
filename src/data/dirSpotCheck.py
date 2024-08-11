@@ -33,6 +33,8 @@ class SpotCheck:
             with open("src\data\dir_to_json_appointment.txt", 'w') as f:
                 f.write(dir)
                 
+        return dir
+                
                 
     def show_appointment():
         validator, path = SpotCheck.ReacheableJSON()

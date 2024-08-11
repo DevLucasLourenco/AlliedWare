@@ -1,7 +1,8 @@
 import customtkinter
 
-import tkinter.messagebox as MsgBox
+from tkinter import messagebox
 
+from src.data.dirSpotCheck import SpotCheck
 from src.GUI.topLevels.tooltip.ToolTipForComboBox import ToolTip
 from scripts.scriptService.SortingFiles import SortGlobalFiles
 from src.data.shareables import ShareHereby
@@ -61,13 +62,21 @@ class ScriptSelectionArea:
         
     def __execute(self):
         if self.SBox.get() != "":
-            res = MsgBox.askquestion("Confirmação", "Tem certeza que deseja executar {}?".format(self.SBox.get()))
+            res = messagebox.askquestion("Confirmação", "Tem certeza que deseja executar {}?".format(self.SBox.get()))
             if res=='yes':
-                ScriptSelectionArea.lookupTable[self.SBox.get()].run(self)
-                MsgBox.showinfo('Finalizado', f'{self.SBox.get()} foi finalizado.')
-                print('log aq')
+                
+                ## aqui, conferir se o diretório de alocador ja é alcançável
+                validator, path = SpotCheck.ReacheableJSON()
+                if not validator:
+                    messagebox.showwarning('Atenção - Diretório JSON inalcançável.', f'Dir: {path}\n\nIndique o diretório do JSON para apontamento de alocação.' )
+                    self.state_returned = SpotCheck.dir_appointment()
+                    
+                if validator:
+                    ScriptSelectionArea.lookupTable[self.SBox.get()].run(self)
+                    messagebox.showinfo('Finalizado', f'{self.SBox.get()} foi finalizado.')
+                    print('log aq')
             else:
-                MsgBox.showinfo('Recusado', f'{self.SBox.get()} não foi executado.')
+                messagebox.showinfo('Recusado', f'{self.SBox.get()} não foi executado.')
 
 
 class NonEditableCTkComboBox(customtkinter.CTkComboBox):

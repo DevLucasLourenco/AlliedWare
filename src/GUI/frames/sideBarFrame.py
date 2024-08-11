@@ -1,6 +1,8 @@
 import customtkinter
 
+from PIL import Image
 
+from src.data.exportData import ExportWindow
 from src.data.dirSpotCheck import SpotCheck
 from src.GUI.frames.patternAbstractClass import AbstractGlobalObject
 from src.GUI.topLevels.dynamicalWindow import DynamicalWindowApproach
@@ -15,8 +17,10 @@ class ObjectSideBar(AbstractGlobalObject):
     def run(self):
         self.buildFrame()
         self.labelProjectName()
-        self.buttonCheckLOG()
+        self.buttonExport()
+        self.buttonLOG()
         self.buttonAlocationConfiguration()
+        self.buttonTutorial()
         self.projectOwnerWaterMark()
         
     
@@ -40,24 +44,42 @@ class ObjectSideBar(AbstractGlobalObject):
         label.grid(row=10, column=0, sticky='s', pady=(0, 10))
         
         
-    def buttonCheckLOG(self):
-        logButton = customtkinter.CTkButton(master=self.sidebarFrame, text='Visualizar\nLOG', command=print, 
+    def buttonExport(self):
+        logButton = customtkinter.CTkButton(master=self.sidebarFrame, text='Exportar',
+                                            command=ExportWindow,
+                                            image=customtkinter.CTkImage(light_image=Image.open(r'src\GUI\images\export_icon.png').resize((50,50)), dark_image=Image.open(r'src\GUI\images\export_icon.png').resize((50,50))),
                                             font=('Robolo', 14, 'bold'), border_spacing=5, border_width=2)
         logButton.grid(row=1, column=0, pady=(0, 20))
-        
-    
-    def buttonAlocationConfiguration(self):
-        logButton = customtkinter.CTkButton(master=self.sidebarFrame, text='Apontamento de\nAlocadores', command=self.__comamnd_alocation, 
+
+
+    def buttonLOG(self):
+        logButton = customtkinter.CTkButton(master=self.sidebarFrame, text='Acessar LOG',
+                                            command=print,
+                                            image=customtkinter.CTkImage(light_image=Image.open(r'src\GUI\images\log_icon.png').resize((50,50)), dark_image=Image.open(r'src\GUI\images\log_icon.png').resize((50,50))),
                                             font=('Robolo', 14, 'bold'), border_spacing=5, border_width=2)
         logButton.grid(row=2, column=0, pady=(0, 20))
+
+    
+    def buttonAlocationConfiguration(self):
+        logButton = customtkinter.CTkButton(master=self.sidebarFrame, text='Alocadores', command=self.__comamnd_alocation, 
+                                            image=customtkinter.CTkImage(light_image=Image.open(r'src\GUI\images\indicator_icon.png').resize((50,50)), dark_image=Image.open(r'src\GUI\images\indicator_icon.png').resize((50,50))),
+                                            font=('Robolo', 14, 'bold'), border_spacing=5, border_width=2)
+        logButton.grid(row=3, column=0, pady=(0, 20))
+        
+    def buttonTutorial(self):
+        logButton = customtkinter.CTkButton(master=self.sidebarFrame, command=print, text='Tutorial',
+                                            image=customtkinter.CTkImage(light_image=Image.open(r'src\GUI\images\tutorial_icon.png').resize((50,50)), dark_image=Image.open(r'src\GUI\images\tutorial_icon.png').resize((50,50))),
+                                            font=('Robolo', 14, 'bold'), border_spacing=5, border_width=2)
+        logButton.grid(row=4, column=0, pady=(0, 20))
         
     
     def __comamnd_alocation(self):
         options = {
-            "Designar Diretório":SpotCheck.dir_appointment,
+            "Designar Indicador":SpotCheck.dir_appointment,
             "Visualizar Apontamentos":SpotCheck.show_appointment,
         }
         
         app = DynamicalWindowApproach(master=self.sidebarFrame)
         app.giveOptions(options_dict=options)
         
+    
