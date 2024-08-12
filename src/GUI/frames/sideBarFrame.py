@@ -47,7 +47,7 @@ class ObjectSideBar(AbstractGlobalObject):
         
     def buttonExport(self):
         logButton = customtkinter.CTkButton(master=self.sidebarFrame, text='Exportar',
-                                            command=ExportWindow,
+                                            command=lambda: ExportWindow(self.sidebarFrame),
                                             image=customtkinter.CTkImage(light_image=Image.open(r'src\GUI\images\export_icon.png').resize((50,50)), dark_image=Image.open(r'src\GUI\images\export_icon.png').resize((50,50))),
                                             font=('Robolo', 14, 'bold'), border_spacing=5, border_width=2)
         logButton.grid(row=1, column=0, pady=(0, 20))

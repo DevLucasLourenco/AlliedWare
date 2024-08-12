@@ -1,0 +1,17 @@
+{
+    "RelocatedFromEmployee": [
+        {
+            "File": "C:\\Users\\lucas.lourenco\\Downloads\\AREA TESTE\\DIF - TESTE ASO - LUCAS LOURENÇO.pdf",
+            "Destination": "G:\\Recursos Humanos\\01 - PESSOAL\\01 - FUNCIONÁRIOS\\1 - ADMINISTRATIVO\\LUCAS LOURENÇO\\ASO"
+        },
+        {
+            "File": "C:\\Users\\lucas.lourenco\\Downloads\\AREA TESTE\\DIF - TESTE FICHA DE ADMISSÃO - LUCAS LOURENÇO.pdf",
+            "Destination": "G:\\Recursos Humanos\\01 - PESSOAL\\01 - FUNCIONÁRIOS\\1 - ADMINISTRATIVO\\LUCAS LOURENÇO\\DOCUMENTOS ADMISSIONAIS"
+        },
+        {
+            "File": "C:\\Users\\lucas.lourenco\\Downloads\\AREA TESTE\\DIF - TESTE RG DEP - LUCAS LOURENÇO.pdf",
+            "Destination": "G:\\Recursos Humanos\\01 - PESSOAL\\01 - FUNCIONÁRIOS\\1 - ADMINISTRATIVO\\LUCAS LOURENÇO\\DEPENDENTES"
+        }
+    ],
+    "NotRelocatedFromEmployee": []
+}
