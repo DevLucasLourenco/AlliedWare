@@ -4,7 +4,7 @@ from tkinter import messagebox
 
 from src.data.dirSpotCheck import SpotCheck
 from src.GUI.topLevels.tooltip.ToolTipForComboBox import ToolTip
-from scripts.scriptService.SortingFiles import SortGlobalFiles
+from scripts.SortingFiles import SortGlobalFiles
 from src.data.shareables import ShareHereby
 
 

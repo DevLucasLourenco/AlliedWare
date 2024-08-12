@@ -59,6 +59,7 @@ class GUIMain:
         
         
     def executeGUI(self) -> None:
+        self.InicialExecutions()
         #------------------------------
         self.OSB = ObjectSideBar(self)
         self.TF = TopFrameForUsage(self)
@@ -66,8 +67,6 @@ class GUIMain:
         
         mainInterfaceTF = MainInterfaceTopFrame(self.TF.get())
         mainInterfaceTF.GRID_ALL()
-        
-        self.InicialExecutions()
         #------------------------------
 
 

@@ -5,7 +5,8 @@ import customtkinter
 class FrameDIF():
 
     def __init__(self, master):
-        self.masterForUsage = master[0]
+        self.masterForUsage = master
+        
         self.validatorToInnerFolder = customtkinter.BooleanVar(value=True)
         self.validatorToRemovePreffixDIF = customtkinter.BooleanVar(value=True)
         self.validatorDuplicatedFilename = customtkinter.BooleanVar(value=True)
@@ -55,10 +56,9 @@ class FrameDIF():
                                                         text='Renomear Duplicidade\nTERMIANARLOGICA', 
                                                         variable=self.validatorDuplicatedFilename)
         
-        
     def buildExecutionButton(self):
         self.execButton = customtkinter.CTkButton(self.top, 
                                                   text="Executar DIF", 
-                                                  command=lambda:DIF(self.validatorToInnerFolder))
+                                                  command=lambda:DIF(self.validatorToInnerFolder, ))
     
     

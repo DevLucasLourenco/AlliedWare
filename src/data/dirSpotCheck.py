@@ -1,5 +1,5 @@
 import os
-import subprocess
+import subprocess           
 
 from tkinter import filedialog
 from pathlib import Path
@@ -11,7 +11,7 @@ from src.errors.DirNotFound import DirNotFound
 class SpotCheck:
     
     def CreateFileIfNotExists():
-        path = Path('src\data\dir_to_json_appointment.txt')
+        path = Path(r'src\data\dir_to_json_appointment.txt')
         
         if not path.is_file():
             with path.open('w') as file:
@@ -19,7 +19,7 @@ class SpotCheck:
                 
     
     def ReacheableJSON():
-        with open('src\data\dir_to_json_appointment.txt', 'r') as f:
+        with open(r'src\data\dir_to_json_appointment.txt', 'r') as f:
             txt = f.read()
         return [Path(txt).exists(), txt]
         
@@ -31,7 +31,7 @@ class SpotCheck:
         )
         
         if dir:
-            with open("src\data\dir_to_json_appointment.txt", 'w') as f:
+            with open(r"src\data\dir_to_json_appointment.txt", 'w') as f:
                 f.write(dir)
                 
             KingLog(f'Nova Especificação de Indicador: {dir}', 'INFO')
@@ -51,4 +51,3 @@ class SpotCheck:
             raise DirNotFound(dir=path)
             
             
-    

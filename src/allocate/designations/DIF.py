@@ -2,6 +2,7 @@ import os
 import shutil
 
 from pathlib import Path
+from tkinter import messagebox
 
 from src.LOG.LOG_manager import KingLog
 from src.errors.NoInternetConnection import NoInternetConnection
@@ -36,6 +37,7 @@ class DIF:
         self.passthrough()
         
         
+    
     @staticmethod
     def getFolders(directory):
         try:
@@ -43,9 +45,12 @@ class DIF:
         except FileNotFoundError:
             raise NoInternetConnection()
     
+    
+    
     @staticmethod
     def extractName(file:Path):
         return (file.name).split('-')[-1].strip().split('.')[0]
+    
     
     
     @staticmethod  
@@ -55,13 +60,17 @@ class DIF:
         return file.strip()
     
     
+    
     def passthrough(self):
         for arq in ShareHereby.ARCHIEVES_FILTERED['DIF']:
             folder_name_to_reach = DIF.extractName(arq)
             for path in self.FOLDER_UNION:
                 if folder_name_to_reach in path.name:
                     self.moveTo(file=arq, pathTo=path, innerFolders=self.args)
+        
+        messagebox.showinfo("Concluído", "Alocações realizadas")
                     
+
 
     def moveTo(self, file:Path, pathTo:Path, innerFolders=True):
         if innerFolders:
@@ -72,7 +81,7 @@ class DIF:
                 path = DAD.get()
                 shutil.move(file, path / DIF.__renamingOf(file.name))
                 Archives.RelocatedFromEmployee.append((file, path))
-                KingLog(f'DE: {file} | PARA: {path}', 'INFO')
+                KingLog(f'ALOCAÇÃO:\nDE:\n{file}\nPARA: \n{path}\n--------------------', 'INFO')
                 
             elif not validator:
                 Archives.NotRelocatedFromEmployee.append(file, path)

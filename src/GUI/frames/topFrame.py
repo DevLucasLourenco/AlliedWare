@@ -8,7 +8,7 @@ from src.GUI.buttons.patternButtons import (PATTERN_BUTTON,
                                         PATTERN_BUTTON_WITH_COLUMNSPAN)
 
 
-from src.allocate.allocate import Allocate
+from src.allocate.allocate import Allocate, Request
 from src.filter.filter import Filter
 from src.filter.byOptions import By
 
@@ -43,13 +43,15 @@ class MainInterfaceTopFrame:
     
         
     def run(self):
+        self.realizeRequests()
+        
         self.buildLabel()
         self.buildButtons()
     
     
     def buildButtons(self):
         self.buttonDIF = PATTERN_BUTTON(buttonName="DOC. INF. FUNCIONÁRIOS", master=self.frameForUsageFromInstance, gridRow=1, gridColumn=0, 
-                                  function=lambda:Allocate(By.DIF, self.buttonDIF, self.frameForUsageFromInstance), padTuple=((50, 0), (75, 0))) #lambda:Allocate(By.DIF)
+                                  function=lambda:Allocate(request=self.DIF_request), padTuple=((50, 0), (75, 0))) #lambda:Allocate(By.DIF)
         
         self.buttonCC = PATTERN_BUTTON(buttonName="CONTRACHEQUE", master=self.frameForUsageFromInstance, gridRow=1, gridColumn=1, 
                                   function=lambda:Allocate(By.CC, self.buttonCC), padTuple=((35, 0), (75, 0)))
@@ -59,16 +61,20 @@ class MainInterfaceTopFrame:
 
         self.buttonHE = PATTERN_BUTTON(buttonName="SOLICITAÇÃO DE HE", master=self.frameForUsageFromInstance, gridRow=2, gridColumn=1, 
                                   function=lambda:Allocate(By.HE, self.buttonHE), padTuple=((35, 0), (25, 0)))
-
-        # self.buttonAll = PATTERN_BUTTON_WITH_COLUMNSPAN(buttonName="REALIZAR TODOS", master=self.frameForUsageFromInstance, gridRow=3, gridColumn=0, gridColumnspan=2,
-        #                                function=print, padTuple=((50, 0), (50, 0)), sticky='ew')
        
         self.buttonSelectScript = ScriptSelectionArea(master=self.frameForUsageFromInstance)
         self.buttonSelectScript.gridAll()
         
         ShareHereby.buttonsFromTopFrame = [self.buttonDIF.get(), self.buttonCC.get(), self.buttonCP.get(), self.buttonHE.get()]
         # ver oq é esse get e implementar ShareHereby.buttonsFromTopFrame = [self.buttonDIF.get(), self.buttonCC.get(), self.buttonCP.get(), self.buttonHE.get(), self.buttonSelectScript.get()] 
+    
+    
+    def realizeRequests(self):
+        self.DIF_request = Request()
+        self.DIF_request.By = By.DIF
+        self.DIF_request.frameForUsage = self.frameForUsageFromInstance
         
+            
         
     def buildLabel(self):
         self.label = customtkinter.CTkLabel(master=self.frameForUsageFromInstance, text='', font=("Robolo", 20, "bold"), corner_radius=20)

@@ -1,4 +1,5 @@
 import time
+from tkinter import messagebox
 
 from src.GUI.frames.frameAlteration.DIFFrame import FrameDIF
 from src.GUI.alerts.alert import VisualAlert
@@ -7,12 +8,19 @@ from src.data.shareables import ShareHereby
 from src.allocate.designations.DIF import DIF
 
 
+class Request:
+    def __init__(self) -> None:
+        self.By:By
+        self.ButtonObject=...
+        self.frameForUsage=...
+        
 
 class Allocate:
-    def __init__(self, By:By, objectOfButton, *args) -> None:
-        self.By = Allocate.__verifyIntegrity(By)
-        self.objectOfButton = objectOfButton
-        self.args = args
+    def __init__(self, request:Request) -> None:
+        self.request = request
+        self.By = Allocate.__verifyIntegrity(request.By)
+        self.frame = request.frameForUsage
+        # self.objectOfButton = request.ButtonObject
         
         self.ALLOCATION_OF_ARCHIEVES()
         
@@ -24,13 +32,10 @@ class Allocate:
         raise
     
     def ALLOCATION_OF_ARCHIEVES(self):
-        if self.By:
-            match(self.By):
+        if self.request.By:
+            match(self.request.By):
                 case By.DIF:
-                    # DIF(self.args)
-                    print(1)
-                    FrameDIF(self.args)
-                    print(2)
+                    FrameDIF(self.request.frameForUsage)
                     
                 case By.CC:
                     print('CC')
@@ -44,4 +49,4 @@ class Allocate:
                 case _:
                     print("Off")
                     
-    
+
