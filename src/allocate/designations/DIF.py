@@ -35,7 +35,7 @@ class DIF:
         
         ShareHereby.FOLDER_UNION = self.hiring_folders_inside + self.adm_folders_inside + self.op_folders_inside
         
-        self.passthrough()
+        # self.passthrough()
         
         
     

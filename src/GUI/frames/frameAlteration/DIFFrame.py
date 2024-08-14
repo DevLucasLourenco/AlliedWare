@@ -59,7 +59,9 @@ class FrameDIF():
     def buildExecutionButton(self):
         self.execButton = customtkinter.CTkButton(self.top, 
                                                   text="Executar DIF", 
-                                                  command=lambda:DIF(self.validatorToInnerFolder, ))
+                                                  command=lambda:DIF(self.validatorToInnerFolder).passthrough())
     
     def destroyWindow(self):
         self.top.destroy()
+        
+    

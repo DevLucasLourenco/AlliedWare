@@ -1,4 +1,7 @@
 
+from src.allocate.designations import DIF
+
+
 class SortGlobalFiles:
     DESCRIPTION = """Organiza a documentação de todas as pastas internas de:
     
@@ -7,7 +10,8 @@ class SortGlobalFiles:
 2 - OPERAÇÃO"""
     
     def run(self):
-        print('desenvolver script')
+        # DIF
+        ...
         
         
     
