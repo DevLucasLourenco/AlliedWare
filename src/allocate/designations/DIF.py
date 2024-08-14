@@ -69,6 +69,7 @@ class DIF:
             
             folder_name_to_reach = DIF.extractName(file)
             for path in ShareHereby.FOLDER_UNION:
+                self.removeFromList = False
                 if folder_name_to_reach in path.name:
                     targetedFile = True
                     self.moveTo(file=file, pathTo=path, innerFolders=self.args)
@@ -86,7 +87,6 @@ class DIF:
 
 
     def moveTo(self, file:Path, pathTo:Path, innerFolders=True):
-        self.removeFromList = False
         if innerFolders:
             DAD = DIFAutoDesignation(file, pathTo, 'DIF')
             validator = DAD.analyse()
@@ -95,7 +95,9 @@ class DIF:
                 path = DAD.get()
                 
                 try:
-                    shutil.move(file, path / DIF.__renamingOf(file.name))
+                    # shutil.move(file, path / DIF.__renamingOf(file.name))
+                    DIF.__move(path, file)
+                    
                     Archives.RelocatedFromEmployee.append((file, path))
                     KingLog(f'ALOCAÇÃO:\nDE:\n{file}\nPARA: \n{path}\n--------------------', 'INFO')
                     self.removeFromList = True
@@ -111,21 +113,47 @@ class DIF:
                     KingLog(e, "ERROR")
                 
             else:
-                Archives.NotRelocatedFromEmployee.append((file, str(path) + 'Parâmetro de Alocação Inexistente'))
+                try:
+                    Archives.NotRelocatedFromEmployee.append((file, str(path) + 'Parâmetro de Alocação Inexistente'))
+                except UnboundLocalError:
+                    Archives.NotRelocatedFromEmployee.append((file, 'Parâmetro de Alocação Inexistente'))
                 KingLog(f'NÃO MOVIDO POR: <Parâmetro de Alocação Inexistente> - {file}', 'WARNING')
+
             
         elif not innerFolders:
-            shutil.move(file, pathTo / DIF.__renamingOf(file.name))
+            # shutil.move(file, pathTo / DIF.__renamingOf(file.name))
+            DIF.__move(path, file)
         
         LowerFrameForUsage.updateTextCount()
             
-
+            
+    @staticmethod    
+    def __move(pathTo:Path, filename:Path):
+        fileRenamed = DIF.__renamingOf(filename.name)
+        uniqueFilename = DIF._generate_unique_filename(pathTo, fileRenamed)
+        shutil.move(filename, uniqueFilename)
+        
+        
+        
+    # @staticmethod
+    # def _generate_unique_filename(destination: Path, filename: str) -> Path:
+    #     base_name, ext = filename.rsplit('.', 1)
+        
+    #     while (destination / f"{base_name}.{ext}").exists():
+    #         counter = 1
+    #         while (destination / f"{base_name}_{counter}.{ext}").exists():
+    #             counter += 1
+                
+    #     return destination / f"{base_name}_{counter}.{ext}"
     
+    @staticmethod
     def _generate_unique_filename(destination: Path, filename: str) -> Path:
         base_name, ext = filename.rsplit('.', 1)
         counter = 1
         
-        while (destination / f"{base_name}_{counter}.{ext}").exists():
-            counter += 1
+        while (destination / f"{base_name}.{ext}").exists():
+            while (destination / f"{base_name}_{counter}.{ext}").exists():
+                counter += 1
+            return destination / f"{base_name}_{counter}.{ext}"
         
-        return destination / f"{base_name}_{counter}.{ext}"
+        return destination / f"{base_name}.{ext}"

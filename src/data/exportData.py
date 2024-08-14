@@ -141,9 +141,9 @@ class ExportWindow:
                                                   command=self.export)
 
     def export(self):
-        print("XLSX:", self.validatorToXLSX.get())
-        print("JSON:", self.validatorToJSON.get())
-        print("Streamlit:", self.validatorToStreamlit.get())
+        # print("XLSX:", self.validatorToXLSX.get())
+        # print("JSON:", self.validatorToJSON.get())
+        # print("Streamlit:", self.validatorToStreamlit.get())
         
         if self.validatorToXLSX.get():
             Archives.exportToXLSX()
@@ -154,10 +154,11 @@ class ExportWindow:
             
         self.top.destroy()
         
-        if self.validatorToJSON or self.validatorToXLSX:
+        if self.validatorToJSON.get() or self.validatorToXLSX.get():
             os.startfile(Archives.PATH)
             
-        print("Realocado:", Archives.RelocatedFromEmployee, "Não realocado:", Archives.NotRelocatedFromEmployee, sep='\n')
+            
+        # print("Realocado:", Archives.RelocatedFromEmployee, "Não realocado:", Archives.NotRelocatedFromEmployee, sep='\n')
             
             
         

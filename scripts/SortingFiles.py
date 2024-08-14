@@ -8,5 +8,6 @@ class SortGlobalFiles:
     
     def run(self):
         print('desenvolver script')
-    
+        
+        
     

@@ -6,5 +6,6 @@ if __name__ == "__main__":
     app.master.mainloop()
  
 
-# trocar para puxar tudo, não só PDFs
+# trocar para puxar
+# tudo, não só PDFs
 
