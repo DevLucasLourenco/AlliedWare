@@ -25,9 +25,9 @@ class FrameDIF():
         
         
     def PACK_ALL(self):
-        self.buttonCBInnerFolder.pack(padx=(10, 0), pady=(30, 0))
-        self.buttonCBRename.pack(padx=(10, 0), pady=(10, 0))
-        self.buttonCBDuplicatedFilename.pack(padx=(10, 0), pady=(10, 0))
+        # self.buttonCBInnerFolder.pack(padx=(10, 0), pady=(30, 0))
+        # self.buttonCBRename.pack(padx=(10, 0), pady=(10, 0))
+        # self.buttonCBDuplicatedFilename.pack(padx=(10, 0), pady=(10, 0))
         self.execButton.pack(side="bottom", fill="x", padx=0, pady=0)
 
     
@@ -38,7 +38,7 @@ class FrameDIF():
         self.top.title("DIF - Preparações")
         self.top.geometry("+%d+%d" % (self.masterForUsage.winfo_screenwidth() // 2 - 100, self.masterForUsage.winfo_screenheight() // 2 - 50))
         self.top.resizable(False, False)
-        self.top.pack_propagate(False)
+        # self.top.pack_propagate(False)
 
         
     def buildCheckBoxInnerFolder(self):
@@ -61,4 +61,5 @@ class FrameDIF():
                                                   text="Executar DIF", 
                                                   command=lambda:DIF(self.validatorToInnerFolder, ))
     
-    
+    def destroyWindow(self):
+        self.top.destroy()

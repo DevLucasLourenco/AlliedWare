@@ -1,4 +1,5 @@
 import json
+import os
 from tkinter import messagebox
 import pandas as pd
 import customtkinter
@@ -8,6 +9,7 @@ from pathlib import Path
 from datetime import (datetime, 
                       timedelta)
 
+from src.GUI.topLevels.dynamicalWindow import DynamicalWindowApproach
 from src.data.shareables import ShareHereby
 from src.LOG.LOG_manager import KingLog
 
@@ -19,8 +21,9 @@ class Archives:
     NotRelocatedFromEmployee:list[tuple[Path, Path]] = list()
     RelocatedFromEmployee:list[tuple[Path, Path]] = list()
     
+    
     @staticmethod
-    def __validatorToExport():
+    def __emptinessOfLists():
         if (len(Archives.RelocatedFromEmployee)==0) and (len(Archives.NotRelocatedFromEmployee)==0):
             return False
         
@@ -32,26 +35,27 @@ class Archives:
 
     @staticmethod
     def exportToXLSX():
-        if not (len(Archives.RelocatedFromEmployee)==0) and (len(Archives.NotRelocatedFromEmployee)==0):
+        if not Archives.__emptinessOfLists():
             data = {
                 "RelocatedFromEmployee": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.RelocatedFromEmployee],
                 "NotRelocatedFromEmployee": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.NotRelocatedFromEmployee],
-            }
+                # fazer assim pra todos "CC": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.algumacoisaaqui],
+            } # criar um loop desse dict aq de cima como uma função q vai retornar exatamente isto
             
-            filename = Archives.PATH / f'XLSX {Archives.__prepareSuffix()}.xlsx'
+            filename = Archives.PATH / f'XLSX_{Archives.__prepareSuffix()}.xlsx'
             with pd.ExcelWriter(filename) as writer:
                 for sheet_name, rows in data.items():
                     df = pd.DataFrame(rows[1:], columns=rows[0])
-                df.to_excel(writer, sheet_name=sheet_name, index=False)
+                    df.to_excel(writer, sheet_name=sheet_name, index=False)
             KingLog(f'XLSX exportado: {filename}', 'INFO')
         else:
             messagebox.showerror('Erro ao Exportar - XLSX', f'Impossível exportar dados sem realizar uma das as tarefas de\n{", ".join(ShareHereby.KEYS)}')
-            KingLog(f'XLSX - Impossível exportar dados sem realizar uma das as tarefas de\n{", ".join(ShareHereby.KEYS)}', 'WARNING')
+            KingLog(f'XLSX - Impossível exportar dados sem realizar uma das as tarefas de {", ".join(ShareHereby.KEYS)}', 'WARNING')
             
 
     @staticmethod
     def exportToJSON():
-        if not (len(Archives.RelocatedFromEmployee)==0) and (len(Archives.NotRelocatedFromEmployee)==0):
+        if not Archives.__emptinessOfLists():
             data = {
                 "RelocatedFromEmployee": [{"File": str(file), "Destination": str(destination)} for file, destination in Archives.RelocatedFromEmployee],
                 "NotRelocatedFromEmployee": [{"File": str(file), "Destination": str(destination)} for file, destination in Archives.NotRelocatedFromEmployee],
@@ -64,12 +68,9 @@ class Archives:
             KingLog(f'JSON exportado: {filename}', 'INFO')
         else:
             messagebox.showerror('Erro ao Exportar - JSON', f'Impossível exportar dados sem realizar uma das as tarefas de\n{", ".join(ShareHereby.KEYS)}')
-            KingLog(f'JSON - Impossível exportar dados sem realizar uma das as tarefas de\n{", ".join(ShareHereby.KEYS)}', 'WARNING')
+            KingLog(f'JSON - Impossível exportar dados sem realizar uma das as tarefas de {", ".join(ShareHereby.KEYS)}', 'WARNING')
             
             
-
-        
-        
     def InvokeStreamlit(self):
         app = StreamlitServerRun()
         
@@ -79,41 +80,6 @@ class Archives:
 class StreamlitServerRun():
     ...
     
-    
-
-# class ExportWindow(tk.Tk):
-#     def __init__(self):
-#         super().__init__()
-#         self.title("Exportação")
-#         self.geometry("300x180")
-        
-#         self.xlsx_var = tk.BooleanVar()
-#         self.json_var = tk.BooleanVar()
-#         self.streamlit_var = tk.BooleanVar()
-        
-#         xlsx_cB = tk.Checkbutton(self, text="Exportar para XLSX", variable=self.xlsx_var).pack(anchor="w", padx=20, pady=5)
-#         json_cB = tk.Checkbutton(self, text="Exportar para JSON", variable=self.json_var).pack(anchor="w", padx=20, pady=5)
-#         streanlit_cB = tk.Checkbutton(self, text="Invocar Streamlit", variable=self.streamlit_var).pack(anchor="w", padx=20, pady=5)
-        
-#         button_exec = tk.Button(self, text="Exportar", command=self.export).pack(pady=20)
-
-#     def export(self):
-#         # Atualiza as variáveis antes de usar
-#         self.update_idletasks()
-        
-#         print("JSON:", self.json_var.get())
-#         print("XLSX:", self.xlsx_var.get())
-#         print("Streamlit:", self.streamlit_var.get())
-        
-#         if self.json_var.get():
-#             print("Exportando JSON")
-#             # Archives.exportToJSON()
-#         if self.xlsx_var.get():
-#             print("Exportando XLSX")
-#             # Archives.exportToXLSX()
-#         if self.streamlit_var.get():
-#             print("Invocando Streamlit")
-#             # Archives.InvokeStreamlit()
 
 class ExportWindow:
     
@@ -148,7 +114,7 @@ class ExportWindow:
         self.top = customtkinter.CTkToplevel(self.masterForUsage)
         self.top.grab_set()
         
-        self.top.title("DIF - Preparações")
+        self.top.title("Export Window")
         self.top.geometry("+%d+%d" % (self.masterForUsage.winfo_screenwidth() // 2 - 100, self.masterForUsage.winfo_screenheight() // 2 - 50))
         self.top.resizable(False, False)
         self.top.pack_propagate(False)
@@ -175,16 +141,37 @@ class ExportWindow:
                                                   command=self.export)
 
     def export(self):
-        print("JSON:", self.validatorToJSON.get())
         print("XLSX:", self.validatorToXLSX.get())
+        print("JSON:", self.validatorToJSON.get())
         print("Streamlit:", self.validatorToStreamlit.get())
         
-        if self.validatorToJSON.get():
-            Archives.exportToJSON()
         if self.validatorToXLSX.get():
             Archives.exportToXLSX()
+        if self.validatorToJSON.get():
+            Archives.exportToJSON()
         if self.validatorToStreamlit.get():
             Archives.InvokeStreamlit()
+            
+        self.top.destroy()
+        
+        if self.validatorToJSON or self.validatorToXLSX:
+            os.startfile(Archives.PATH)
+            
+        print("Realocado:", Archives.RelocatedFromEmployee, "Não realocado:", Archives.NotRelocatedFromEmployee, sep='\n')
+            
+            
         
         
+# class SelectOptionsToExportWindow():
+#     def __init__(self, masterForUsage) -> None:
+#         self.masterForUsage = masterForUsage
         
+#     def instanceDynamicalWindow(self):
+#         options={
+#             "DIF":,
+#             "CC":print,
+            
+#         }
+        
+#         app = DynamicalWindowApproach(self.masterForUsage)
+#         app.giveOptions()

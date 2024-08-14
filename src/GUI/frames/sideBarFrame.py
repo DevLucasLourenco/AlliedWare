@@ -46,18 +46,32 @@ class ObjectSideBar(AbstractGlobalObject):
         
         
     def buttonExport(self):
-        logButton = customtkinter.CTkButton(master=self.sidebarFrame, text='Exportar',
+        logButton = customtkinter.CTkButton(master=self.sidebarFrame, 
+                                            text='Exportar',
                                             command=lambda: ExportWindow(self.sidebarFrame),
-                                            image=customtkinter.CTkImage(light_image=Image.open(r'src\GUI\images\export_icon.png').resize((50,50)), dark_image=Image.open(r'src\GUI\images\export_icon.png').resize((50,50))),
-                                            font=('Robolo', 14, 'bold'), border_spacing=5, border_width=2)
+                                            border_spacing=5, 
+                                            border_width=2,
+                                            font=('Robolo', 14, 'bold'), 
+                                            image=customtkinter.CTkImage(
+                                                light_image=Image.open(r'src\GUI\images\export_icon.png').resize((50,50)), 
+                                                dark_image=Image.open(r'src\GUI\images\export_icon.png').resize((50,50))
+                                                ),
+                                            )
         logButton.grid(row=1, column=0, pady=(0, 20))
 
 
     def buttonLOG(self):
-        logButton = customtkinter.CTkButton(master=self.sidebarFrame, text='Acessar LOG',
+        logButton = customtkinter.CTkButton(master=self.sidebarFrame, 
+                                            text='Acessar LOG',
                                             command=self.__command_LogOptions,
-                                            image=customtkinter.CTkImage(light_image=Image.open(r'src\GUI\images\log_icon.png').resize((50,50)), dark_image=Image.open(r'src\GUI\images\log_icon.png').resize((50,50))),
-                                            font=('Robolo', 14, 'bold'), border_spacing=5, border_width=2)
+                                            border_spacing=5, 
+                                            border_width=2,
+                                            font=('Robolo', 14, 'bold'), 
+                                            image=customtkinter.CTkImage(
+                                                light_image=Image.open(r'src\GUI\images\log_icon.png').resize((50,50)), 
+                                                dark_image=Image.open(r'src\GUI\images\log_icon.png').resize((50,50))
+                                                ),
+                                            )
         logButton.grid(row=2, column=0, pady=(0, 20))
 
     
@@ -68,7 +82,11 @@ class ObjectSideBar(AbstractGlobalObject):
                                             border_spacing=5, 
                                             border_width=2,
                                             font=('Robolo', 14, 'bold'), 
-                                            image=customtkinter.CTkImage(light_image=Image.open(r'src\GUI\images\indicator_icon.png').resize((50,50)), dark_image=Image.open(r'src\GUI\images\indicator_icon.png').resize((50,50))),)
+                                            image=customtkinter.CTkImage(
+                                                light_image=Image.open(r'src\GUI\images\indicator_icon.png').resize((50,50)), 
+                                                dark_image=Image.open(r'src\GUI\images\indicator_icon.png').resize((50,50))
+                                                ),
+                                            )
         logButton.grid(row=3, column=0, pady=(0, 20))
         
     def buttonTutorial(self):
@@ -78,7 +96,11 @@ class ObjectSideBar(AbstractGlobalObject):
                                             border_spacing=5, 
                                             border_width=2,
                                             font=('Robolo', 14, 'bold'), 
-                                            image=customtkinter.CTkImage(light_image=Image.open(r'src\GUI\images\tutorial_icon.png').resize((50,50)), dark_image=Image.open(r'src\GUI\images\tutorial_icon.png').resize((50,50))),)
+                                            image=customtkinter.CTkImage(
+                                                light_image=Image.open(r'src\GUI\images\tutorial_icon.png').resize((50,50)), 
+                                                dark_image=Image.open(r'src\GUI\images\tutorial_icon.png').resize((50,50))
+                                                ),
+                                            )
         logButton.grid(row=4, column=0, pady=(0, 20))
         
     
@@ -100,7 +122,7 @@ class ObjectSideBar(AbstractGlobalObject):
         
         app = DynamicalWindowApproach(master=self.sidebarFrame)
         app.giveOptions(options_dict=options)
-        ...
+        
         
         
         

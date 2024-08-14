@@ -2,9 +2,11 @@ from pathlib import WindowsPath
 
 
 class ShareHereby:
-    # Instances
+    # Instances & Objects Shared
     #----------
     MAIN_INSTANCE_OF_GUI:object
+    FRAMEDIF = ...
+    LabelToShowTheCountOfFiles=...
     #----------
     
     # Keys
@@ -24,6 +26,8 @@ class ShareHereby:
     
     ARCHIEVES_FILTERED:dict = dict() # em generateDynamicKeys é propagada e criado com as chaves de "KEYS"
     ARCHIEVES_CONCLUTED:dict = dict() # em generateDynamicKeys é propagada e criado com as chaves de "KEYS"
+    
+    FOLDER_UNION:list = list()
     #----------
     
     # Keys Variables
@@ -60,9 +64,11 @@ class ShareHereby:
             ShareHereby.ARCHIEVES_CONCLUTED[key] = list()
     
     
+    def refreshAllData(self):
+        
+        ...
     
-    
-    
-    
-    
-    
+    @staticmethod
+    def reset_counter():
+        for key in ShareHereby.countedSection:
+            ShareHereby.countedSection[key] = 0

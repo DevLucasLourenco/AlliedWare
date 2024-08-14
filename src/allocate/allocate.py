@@ -2,10 +2,9 @@ import time
 from tkinter import messagebox
 
 from src.GUI.frames.frameAlteration.DIFFrame import FrameDIF
-from src.GUI.alerts.alert import VisualAlert
 from src.filter.byOptions import By
 from src.data.shareables import ShareHereby
-from src.allocate.designations.DIF import DIF
+
 
 
 class Request:
@@ -35,7 +34,9 @@ class Allocate:
         if self.request.By:
             match(self.request.By):
                 case By.DIF:
-                    FrameDIF(self.request.frameForUsage)
+                    messagebox.showinfo('Atenção', 'Lembre-se de garantir que não haja nenhuma pasta aberta ou em utilização.')
+                    ShareHereby.FRAMEDIF = FrameDIF(self.request.frameForUsage)
+                    
                     
                 case By.CC:
                     print('CC')

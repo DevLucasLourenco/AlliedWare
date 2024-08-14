@@ -38,9 +38,8 @@ class LowerFrameForUsage(AbstractGlobalObject):
     def __initialInstance(self):        
         self.ALL_ARCHIEVES = list()
         ShareHereby.ALL_ARCHIEVES_VALIDATED = list()
+        ShareHereby.reset_counter()
         
-        for key in ShareHereby.countedSection:
-            ShareHereby.countedSection[key] = 0
         
         
     def run(self):
@@ -71,9 +70,9 @@ class LowerFrameForUsage(AbstractGlobalObject):
     
     def buildLabelToShowCountedInfos(self):
         self.countInfos()
-        self.labelShow = customtkinter.CTkLabel(master=self.frameForUsage, font=('Roboto', 11, 'bold'))
+        ShareHereby.LabelToShowTheCountOfFiles = customtkinter.CTkLabel(master=self.frameForUsage, font=('Roboto', 11, 'bold'))
         self.updateTextCount()
-        self.labelShow.grid(row=2, column=0)
+        ShareHereby.LabelToShowTheCountOfFiles.grid(row=2, column=0)
         
         
     def buildLabelToInstruciate(self):
@@ -90,8 +89,6 @@ class LowerFrameForUsage(AbstractGlobalObject):
             for archieve in self.ALL_ARCHIEVES:
                 for key, value in ShareHereby.KEYS_TO_IDENTIFY.items():
                     if key in archieve.name:
-                        ShareHereby.countedSection[value] += 1
-                        ShareHereby.countedSection['Total'] += 1
                         ShareHereby.ALL_ARCHIEVES_VALIDATED.append(archieve)
 
 
@@ -113,18 +110,24 @@ class LowerFrameForUsage(AbstractGlobalObject):
     def aglomerateUpdates(self, dir):
         self.countInfos(dir) # dps mudar pra quantidade q foi filtrada e adc uma maneira de contar totais (mt simples)
         self.updateTextFromDirectoryArea(dir)
-        self.updateTextCount()
         self.updateButtonsAndLabel()
         
         ShareHereby.generateDynamicKeys(self)
         Filter.filtering(self)
+        self.updateTextCount()
         
         progressBar = ProgressBarDeploy(self.frameForUsage).buildProgressBar()
    
+    @staticmethod
+    def updateTextCount():
+        ShareHereby.reset_counter()
+        for k in ShareHereby.ARCHIEVES_FILTERED:
+            for file in ShareHereby.ARCHIEVES_FILTERED[k]:
+                ShareHereby.countedSection[k] += 1
+                ShareHereby.countedSection['Total'] += 1
         
-    def updateTextCount(self):
-        self.textToShow = " - ".join([LowerFrameForUsage.__personalizedString(item) for item in ShareHereby.countedSection.items()])
-        self.labelShow.configure(text=self.textToShow)
+        textToShow = " - ".join([LowerFrameForUsage.__personalizedString(item) for item in ShareHereby.countedSection.items()])
+        ShareHereby.LabelToShowTheCountOfFiles.configure(text=textToShow)
     
     
     def updateTextFromDirectoryArea(self, text):

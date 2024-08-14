@@ -34,7 +34,7 @@ class DIFAutoDesignation:
                 self.newPathTo = self.pathTo / folder
                 self.newPathTo.mkdir(parents=True, exist_ok=True)
                 return True
-
+        return False
 
     def get(self) -> Path:
         return self.newPathTo
