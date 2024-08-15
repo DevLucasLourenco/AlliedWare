@@ -5,8 +5,9 @@ class ShareHereby:
     # Instances & Objects Shared
     #----------
     MAIN_INSTANCE_OF_GUI:object
-    FRAMEDIF = ...
     LabelToShowTheCountOfFiles=...
+    FRAMEDIF = ...
+    FRAMECC = ...
     #----------
     
     # Keys
@@ -62,12 +63,8 @@ class ShareHereby:
         for key in ShareHereby.KEYS:
             ShareHereby.ARCHIEVES_FILTERED[key] = list()
             ShareHereby.ARCHIEVES_CONCLUTED[key] = list()
-    
-    
-    def refreshAllData(self):
-        
-        ...
-    
+
+
     @staticmethod
     def reset_counter():
         for key in ShareHereby.countedSection:

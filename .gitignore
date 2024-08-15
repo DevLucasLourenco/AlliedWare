@@ -1,6 +1,6 @@
-.VSCodeCounter/
 *.pyc
 *.log
 
 src/data/dir_to_json_appointment.txt
+.VSCodeCounter/
 filesGenerated/

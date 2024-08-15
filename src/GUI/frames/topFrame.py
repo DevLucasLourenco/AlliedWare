@@ -51,10 +51,10 @@ class MainInterfaceTopFrame:
     
     def buildButtons(self):
         self.buttonDIF = PATTERN_BUTTON(buttonName="DOC. INF. FUNCIONÁRIOS", master=self.frameForUsageFromInstance, gridRow=1, gridColumn=0, 
-                                  function=lambda:Allocate(request=self.DIF_request), padTuple=((50, 0), (75, 0))) #lambda:Allocate(By.DIF)
+                                  function=lambda:Allocate(request=self.DIF_request), padTuple=((50, 0), (75, 0)))
         
         self.buttonCC = PATTERN_BUTTON(buttonName="CONTRACHEQUE", master=self.frameForUsageFromInstance, gridRow=1, gridColumn=1, 
-                                  function=lambda:Allocate(By.CC, self.buttonCC), padTuple=((35, 0), (75, 0)))
+                                  function=lambda:Allocate(request=self.CC_request), padTuple=((35, 0), (75, 0)))
         
         self.buttonCP = PATTERN_BUTTON(buttonName="CARTÃO DE PONTO", master=self.frameForUsageFromInstance, gridRow=2, gridColumn=0, 
                                   function=lambda:Allocate(By.CP, self.buttonCP), padTuple=((50, 0), (25, 0)))
@@ -66,13 +66,17 @@ class MainInterfaceTopFrame:
         self.buttonSelectScript.gridAll()
         
         ShareHereby.buttonsFromTopFrame = [self.buttonDIF.get(), self.buttonCC.get(), self.buttonCP.get(), self.buttonHE.get()]
-        # ver oq é esse get e implementar ShareHereby.buttonsFromTopFrame = [self.buttonDIF.get(), self.buttonCC.get(), self.buttonCP.get(), self.buttonHE.get(), self.buttonSelectScript.get()] 
     
     
     def realizeRequests(self):
         self.DIF_request = Request()
         self.DIF_request.By = By.DIF
         self.DIF_request.frameForUsage = self.frameForUsageFromInstance
+        
+        
+        self.CC_request = Request()
+        self.CC_request.By = By.CC
+        self.CC_request.frameForUsage = self.frameForUsageFromInstance
         
             
         

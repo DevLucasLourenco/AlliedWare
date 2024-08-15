@@ -80,6 +80,21 @@
         },
 
     "CC":{
+        "01":"1 - JANEIRO",
+        "02":"2 - FEVEREIRO",
+        "03":"3 - MARÇO",
+        "04":"4 - ABRIL",
+        "05":"5 - MAIO",
+        "06":"6 - JUNHO",
+        "07":"7 - JULHO",
+        "08":"8 - AGOSTO",
+        "09":"9 - SETEMBRO",
+        "10":"10 - OUTUBRO",
+        "11":"11 - NOVEMBRO",
+        "12":"12 - DEZEMBRO"
+    },
+
+    "CP":{
 
     }
 }

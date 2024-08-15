@@ -1,6 +1,7 @@
 import time
 from tkinter import messagebox
 
+from src.GUI.frames.frameAlteration.CCFrame import FrameCC
 from src.GUI.frames.frameAlteration.DIFFrame import FrameDIF
 from src.filter.byOptions import By
 from src.data.shareables import ShareHereby
@@ -39,8 +40,10 @@ class Allocate:
                     
                     
                 case By.CC:
-                    print('CC')
+                    messagebox.showinfo('Atenção', 'Lembre-se de garantir que não haja nenhuma pasta aberta ou em utilização.')
+                    ShareHereby.FRAMECC = FrameCC(self.request.frameForUsage)
                     
+                                        
                 case By.CP:
                     print('CP')
                     

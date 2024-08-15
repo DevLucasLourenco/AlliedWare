@@ -1,15 +1,12 @@
-import json
 import os
-from tkinter import messagebox
+import json
 import pandas as pd
 import customtkinter
 
-
+from tkinter import messagebox
 from pathlib import Path
-from datetime import (datetime, 
-                      timedelta)
+from datetime import datetime
 
-from src.GUI.topLevels.dynamicalWindow import DynamicalWindowApproach
 from src.data.shareables import ShareHereby
 from src.LOG.LOG_manager import KingLog
 
@@ -21,11 +18,24 @@ class Archives:
     NotRelocatedFromEmployee:list[tuple[Path, Path]] = list()
     RelocatedFromEmployee:list[tuple[Path, Path]] = list()
     
+    RelocatedCC:list[tuple[Path, Path]] = list()
+    NotRelocatedCC:list[tuple[Path, Path]] = list()
+    
+    RelocatedCP:list[tuple[Path, Path]] = list()
+    NotRelocatedCP:list[tuple[Path, Path]] = list()
+    
+    RelocatedHE:list[tuple[Path, Path]] = list()
+    NotRelocatedHE:list[tuple[Path, Path]] = list()
+    
+    
+    
+    LISTAGE_OF_ALL_DATA_ABOUT_RELOCATING = [RelocatedFromEmployee, RelocatedFromEmployee, RelocatedCC, NotRelocatedCC, RelocatedCP, NotRelocatedCP, RelocatedHE, NotRelocatedHE]
+    
     
     @staticmethod
     def __emptinessOfLists():
-        if (len(Archives.RelocatedFromEmployee)==0) and (len(Archives.NotRelocatedFromEmployee)==0):
-            return False
+        res = any(len(item) != 0 for majorItem in Archives.LISTAGE_OF_ALL_DATA_ABOUT_RELOCATING for item in majorItem)
+        return res
         
         
     @staticmethod
@@ -34,20 +44,35 @@ class Archives:
 
 
     @staticmethod
-    def exportToXLSX():
-        if not Archives.__emptinessOfLists():
-            data = {
+    def generateDictToExport():
+        data = {
                 "RelocatedFromEmployee": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.RelocatedFromEmployee],
                 "NotRelocatedFromEmployee": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.NotRelocatedFromEmployee],
-                # fazer assim pra todos "CC": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.algumacoisaaqui],
-            } # criar um loop desse dict aq de cima como uma função q vai retornar exatamente isto
+                "RelocatedCC": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.RelocatedCC],
+                "NotRelocatedCC": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.NotRelocatedCC],
+                "RelocatedCP": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.RelocatedCP],
+                "NotRelocatedCP": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.NotRelocatedCP],
+                "RelocatedHE": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.RelocatedHE],
+                "NotRelocatedHE": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.NotRelocatedHE],
+            }
+
+        return data
+        
+
+    @staticmethod
+    def exportToXLSX():
+        
+        if Archives.__emptinessOfLists():
+            data = Archives.generateDictToExport()
             
             filename = Archives.PATH / f'XLSX_{Archives.__prepareSuffix()}.xlsx'
             with pd.ExcelWriter(filename) as writer:
                 for sheet_name, rows in data.items():
                     df = pd.DataFrame(rows[1:], columns=rows[0])
                     df.to_excel(writer, sheet_name=sheet_name, index=False)
+                    
             KingLog(f'XLSX exportado: {filename}', 'INFO')
+            
         else:
             messagebox.showerror('Erro ao Exportar - XLSX', f'Impossível exportar dados sem realizar uma das as tarefas de\n{", ".join(ShareHereby.KEYS)}')
             KingLog(f'XLSX - Impossível exportar dados sem realizar uma das as tarefas de {", ".join(ShareHereby.KEYS)}', 'WARNING')
@@ -55,20 +80,20 @@ class Archives:
 
     @staticmethod
     def exportToJSON():
-        if not Archives.__emptinessOfLists():
-            data = {
-                "RelocatedFromEmployee": [{"File": str(file), "Destination": str(destination)} for file, destination in Archives.RelocatedFromEmployee],
-                "NotRelocatedFromEmployee": [{"File": str(file), "Destination": str(destination)} for file, destination in Archives.NotRelocatedFromEmployee],
-            }
+         
+        if Archives.__emptinessOfLists():
+            data = Archives.generateDictToExport()
             
             filename = Archives.PATH / f'JSON {Archives.__prepareSuffix()}.json'
             with open(filename, 'w', encoding='utf-8') as f:
                 json.dump(data, f, ensure_ascii=False, indent=4)
             
             KingLog(f'JSON exportado: {filename}', 'INFO')
+            
         else:
             messagebox.showerror('Erro ao Exportar - JSON', f'Impossível exportar dados sem realizar uma das as tarefas de\n{", ".join(ShareHereby.KEYS)}')
             KingLog(f'JSON - Impossível exportar dados sem realizar uma das as tarefas de {", ".join(ShareHereby.KEYS)}', 'WARNING')
+            
             
             
     def InvokeStreamlit(self):
@@ -141,38 +166,19 @@ class ExportWindow:
                                                   command=self.export)
 
     def export(self):
-        # print("XLSX:", self.validatorToXLSX.get())
-        # print("JSON:", self.validatorToJSON.get())
-        # print("Streamlit:", self.validatorToStreamlit.get())
-        
+        validator = False
         if self.validatorToXLSX.get():
             Archives.exportToXLSX()
+            validator = True
         if self.validatorToJSON.get():
             Archives.exportToJSON()
+            validator = True
         if self.validatorToStreamlit.get():
             Archives.InvokeStreamlit()
             
         self.top.destroy()
         
-        if self.validatorToJSON.get() or self.validatorToXLSX.get():
-            os.startfile(Archives.PATH)
+        if validator:
+            if self.validatorToJSON.get() or self.validatorToXLSX.get():
+                os.startfile(Archives.PATH)
             
-            
-        # print("Realocado:", Archives.RelocatedFromEmployee, "Não realocado:", Archives.NotRelocatedFromEmployee, sep='\n')
-            
-            
-        
-        
-# class SelectOptionsToExportWindow():
-#     def __init__(self, masterForUsage) -> None:
-#         self.masterForUsage = masterForUsage
-        
-#     def instanceDynamicalWindow(self):
-#         options={
-#             "DIF":,
-#             "CC":print,
-            
-#         }
-        
-#         app = DynamicalWindowApproach(self.masterForUsage)
-#         app.giveOptions()

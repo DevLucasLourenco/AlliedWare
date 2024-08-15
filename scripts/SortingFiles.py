@@ -1,4 +1,5 @@
 
+from src.data.shareables import ShareHereby
 from src.allocate.designations import DIF
 
 
@@ -11,6 +12,11 @@ class SortGlobalFiles:
     
     def run(self):
         # DIF
+        ...
+        
+    # def permutate(self):
+    #     for folder in ShareHereby.FOLDER_UNION:
+    #         folder
         ...
         
         

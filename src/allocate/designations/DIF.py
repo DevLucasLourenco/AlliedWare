@@ -99,7 +99,7 @@ class DIF:
                     DIF.__move(path, file)
                     
                     Archives.RelocatedFromEmployee.append((file, path))
-                    KingLog(f'ALOCAÇÃO:\nDE:\n{file}\nPARA: \n{path}\n--------------------', 'INFO')
+                    KingLog(f'ALOCAÇÃO DIF:\nDE:\n{file}\nPARA: \n{path}\n--------------------', 'INFO')
                     self.removeFromList = True
                     
                 except PermissionError:
@@ -108,9 +108,9 @@ class DIF:
                     Archives.NotRelocatedFromEmployee.append((file, str(path) + "Pasta influenciada"))
                     
                 except Exception as e:
-                    messagebox.showerror("Error", e)
-                    messagebox.showinfo("Recarregar", "Tente selecionar a pasta novamente.")
                     KingLog(e, "ERROR")
+                    messagebox.showerror("Error", e)
+                    messagebox.showinfo("Recarregar", "Recarregar - Tente selecionar a pasta novamente.")
                 
             else:
                 try:
@@ -134,17 +134,6 @@ class DIF:
         shutil.move(filename, uniqueFilename)
         
         
-        
-    # @staticmethod
-    # def _generate_unique_filename(destination: Path, filename: str) -> Path:
-    #     base_name, ext = filename.rsplit('.', 1)
-        
-    #     while (destination / f"{base_name}.{ext}").exists():
-    #         counter = 1
-    #         while (destination / f"{base_name}_{counter}.{ext}").exists():
-    #             counter += 1
-                
-    #     return destination / f"{base_name}_{counter}.{ext}"
     
     @staticmethod
     def _generate_unique_filename(destination: Path, filename: str) -> Path:
