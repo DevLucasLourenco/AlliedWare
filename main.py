@@ -9,3 +9,4 @@ if __name__ == "__main__":
 # trocar para puxar
 # tudo, não só PDFs
 
+# atualizar contagem de DIT e CC não funciona
