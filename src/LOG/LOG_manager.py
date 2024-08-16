@@ -20,20 +20,16 @@ class KingLog:
         log_dir = log_file_path.parent
         log_dir.mkdir(exist_ok=True, parents=True)
 
-        # Configurar o handler para log.log com modo 'a'
         logHandler_A = logging.FileHandler(log_file_path, mode='a', encoding='utf-8')
         logHandler_A.setLevel(logging.INFO)
 
-        # Configurar o handler para logInstance.log com modo 'w'
         logInstanceHandler_W = logging.FileHandler(log_instance_file_path, mode='w', encoding='utf-8')
         logInstanceHandler_W.setLevel(logging.INFO)
 
-        # Definir o formato do log
         formatter = logging.Formatter('%(levelname)s | %(asctime)s | %(message)s')
         logHandler_A.setFormatter(formatter)
         logInstanceHandler_W.setFormatter(formatter)
 
-        # Obter o logger e adicionar ambos os handlers
         self.logger = logging.getLogger()
         self.logger.setLevel(logging.INFO)
         self.logger.addHandler(logHandler_A)
