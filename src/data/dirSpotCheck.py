@@ -4,7 +4,7 @@ import subprocess
 from tkinter import filedialog
 from pathlib import Path
 
-from src.LOG.LOG_manager import KingLog
+from src.LOG.LOG_manager import LOGGER
 from src.errors.DirNotFound import DirNotFound
 
 
@@ -34,7 +34,7 @@ class SpotCheck:
             with open(r"src\data\dir_to_json_appointment.txt", 'w') as f:
                 f.write(dir)
                 
-            KingLog(f'Nova Especificação de Indicador: {dir}', 'INFO')
+            LOGGER(f'Nova Especificação de Indicador: {dir}', 'INFO')
                 
         return dir
                 

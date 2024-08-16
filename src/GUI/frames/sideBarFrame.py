@@ -117,7 +117,7 @@ class ObjectSideBar(AbstractGlobalObject):
     def __command_LogOptions(self):
         options = {
             'Log Geral':lambda:os.startfile(r'src\LOG\file\log.log'),
-            'Log da Instância':print,            
+            'Log da Instância':lambda:os.startfile(r'src\LOG\file\logInstance.log'),
         }
         
         app = DynamicalWindowApproach(master=self.sidebarFrame)

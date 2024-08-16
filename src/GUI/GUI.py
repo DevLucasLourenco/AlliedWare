@@ -1,6 +1,6 @@
 import customtkinter
 
-from src.LOG.LOG_manager import KingLog
+from src.LOG.LOG_manager import LOGGER
 from src.data.dirSpotCheck import SpotCheck
 from src.GUI.frames.lowerFrame import LowerFrameForUsage
 from src.GUI.frames.sideBarFrame import ObjectSideBar
@@ -71,7 +71,7 @@ class GUIMain:
 
 
     def InicialExecutions(self):
-        KingLog(f'=============== {PROJECTNAME} ===============', 'INFO')
-        KingLog(f'{PROJECTNAME} Inicializado', 'INFO')
+        LOGGER(f'=============== {PROJECTNAME} ===============', 'INFO')
+        LOGGER(f'{PROJECTNAME} Inicializado', 'INFO')
         SpotCheck.CreateFileIfNotExists()
         

@@ -1,6 +1,7 @@
 from pathlib import WindowsPath
 
 
+
 class ShareHereby:
     # Instances & Objects Shared
     #----------
@@ -9,7 +10,7 @@ class ShareHereby:
     FRAMEDIF = ...
     FRAMECC = ...
     #----------
-    
+        
     # Keys
     #----------
     KEYS = ['DIF', 'HE', 'CC', 'CP'] ## falta acrescentar o DIFD

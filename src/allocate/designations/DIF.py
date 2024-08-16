@@ -4,12 +4,12 @@ import shutil
 from pathlib import Path
 from tkinter import messagebox
 
-from src.GUI.frames.lowerFrame import LowerFrameForUsage
-from src.LOG.LOG_manager import KingLog
-from src.errors.NoInternetConnection import NoInternetConnection
+from src.LOG.LOG_manager import LOGGER
 from src.data.exportData import Archives
-from src.allocate.designations.innerFolders.AutoDesignate import DIFAutoDesignation
 from src.data.shareables import ShareHereby
+from src.GUI.frames.lowerFrame import LowerFrameForUsage
+from src.errors.NoInternetConnection import NoInternetConnection
+from src.allocate.designations.innerFolders.AutoDesignate import DIFAutoDesignation
 
 # Quando criar DIFD, colocar uma verificação de só manter a 
 # pasta (quando houver duplicidade) que 
@@ -75,7 +75,7 @@ class DIF:
                     self.moveTo(file=file, pathTo=path, innerFolders=self.args)
             
             if not targetedFile:
-                KingLog(f'NÃO MOVIDO POR: <Pasta Inexistente> - {file}', 'WARNING')
+                LOGGER(f'NÃO MOVIDO POR: <Pasta Inexistente> - {file}', 'WARNING')
                 Archives.NotRelocatedFromEmployee.append((file, f"Pasta Inexistente - {folder_name_to_reach}"))
             
             if self.removeFromList:
@@ -99,16 +99,16 @@ class DIF:
                     DIF.__move(path, file)
                     
                     Archives.RelocatedFromEmployee.append((file, path))
-                    KingLog(f'ALOCAÇÃO DIF:\nDE:\n{file}\nPARA: \n{path}\n--------------------', 'INFO')
+                    LOGGER(f'ALOCAÇÃO DIF:\nDE:\n{file}\nPARA: \n{path}\n--------------------', 'INFO')
                     self.removeFromList = True
                     
                 except PermissionError:
                     messagebox.showerror('Pasta Influenciada', f'Impossível manusear visto que existe uma pasta que está sendo influenciada.\n{pathTo}')
-                    KingLog(f'NÃO MOVIDO POR: <Pasta influenciada> - {file}', 'WARNING')
+                    LOGGER(f'NÃO MOVIDO POR: <Pasta influenciada> - {file}', 'WARNING')
                     Archives.NotRelocatedFromEmployee.append((file, str(path) + "Pasta influenciada"))
                     
                 except Exception as e:
-                    KingLog(e, "ERROR")
+                    LOGGER(e, "ERROR")
                     messagebox.showerror("Error", e)
                     messagebox.showinfo("Recarregar", "Recarregar - Tente selecionar a pasta novamente.")
                 
@@ -117,7 +117,7 @@ class DIF:
                     Archives.NotRelocatedFromEmployee.append((file, str(path) + 'Parâmetro de Alocação Inexistente'))
                 except UnboundLocalError:
                     Archives.NotRelocatedFromEmployee.append((file, 'Parâmetro de Alocação Inexistente'))
-                KingLog(f'NÃO MOVIDO POR: <Parâmetro de Alocação Inexistente> - {file}', 'WARNING')
+                LOGGER(f'NÃO MOVIDO POR: <Parâmetro de Alocação Inexistente> - {file}', 'WARNING')
 
             
         elif not innerFolders:

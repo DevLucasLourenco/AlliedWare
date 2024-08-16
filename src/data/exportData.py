@@ -8,7 +8,7 @@ from pathlib import Path
 from datetime import datetime
 
 from src.data.shareables import ShareHereby
-from src.LOG.LOG_manager import KingLog
+from src.LOG.LOG_manager import LOGGER
 
 
 class Archives:
@@ -28,12 +28,11 @@ class Archives:
     NotRelocatedHE:list[tuple[Path, Path]] = list()
     
     
-    
     LISTAGE_OF_ALL_DATA_ABOUT_RELOCATING = [RelocatedFromEmployee, RelocatedFromEmployee, RelocatedCC, NotRelocatedCC, RelocatedCP, NotRelocatedCP, RelocatedHE, NotRelocatedHE]
     
     
     @staticmethod
-    def __emptinessOfLists():
+    def _emptinessOfLists():
         res = any(len(item) != 0 for majorItem in Archives.LISTAGE_OF_ALL_DATA_ABOUT_RELOCATING for item in majorItem)
         return res
         
@@ -55,14 +54,13 @@ class Archives:
                 "RelocatedHE": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.RelocatedHE],
                 "NotRelocatedHE": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.NotRelocatedHE],
             }
-
         return data
         
 
     @staticmethod
     def exportToXLSX():
         
-        if Archives.__emptinessOfLists():
+        if Archives._emptinessOfLists():
             data = Archives.generateDictToExport()
             
             filename = Archives.PATH / f'XLSX_{Archives.__prepareSuffix()}.xlsx'
@@ -71,35 +69,34 @@ class Archives:
                     df = pd.DataFrame(rows[1:], columns=rows[0])
                     df.to_excel(writer, sheet_name=sheet_name, index=False)
                     
-            KingLog(f'XLSX exportado: {filename}', 'INFO')
+            LOGGER(f'XLSX exportado: {filename}', 'INFO')
             
         else:
             messagebox.showerror('Erro ao Exportar - XLSX', f'Impossível exportar dados sem realizar uma das as tarefas de\n{", ".join(ShareHereby.KEYS)}')
-            KingLog(f'XLSX - Impossível exportar dados sem realizar uma das as tarefas de {", ".join(ShareHereby.KEYS)}', 'WARNING')
+            LOGGER(f'XLSX - Impossível exportar dados sem realizar uma das as tarefas de {", ".join(ShareHereby.KEYS)}', 'WARNING')
             
 
     @staticmethod
     def exportToJSON():
          
-        if Archives.__emptinessOfLists():
+        if Archives._emptinessOfLists():
             data = Archives.generateDictToExport()
             
             filename = Archives.PATH / f'JSON {Archives.__prepareSuffix()}.json'
             with open(filename, 'w', encoding='utf-8') as f:
                 json.dump(data, f, ensure_ascii=False, indent=4)
             
-            KingLog(f'JSON exportado: {filename}', 'INFO')
+            LOGGER(f'JSON exportado: {filename}', 'INFO')
             
         else:
             messagebox.showerror('Erro ao Exportar - JSON', f'Impossível exportar dados sem realizar uma das as tarefas de\n{", ".join(ShareHereby.KEYS)}')
-            KingLog(f'JSON - Impossível exportar dados sem realizar uma das as tarefas de {", ".join(ShareHereby.KEYS)}', 'WARNING')
-            
+            LOGGER(f'JSON - Impossível exportar dados sem realizar uma das as tarefas de {", ".join(ShareHereby.KEYS)}', 'WARNING')
             
             
     def InvokeStreamlit(self):
         app = StreamlitServerRun()
         
-        KingLog('Streamlit Server construído.')
+        LOGGER('Streamlit Server construído.')
         
         
 class StreamlitServerRun():
@@ -166,19 +163,16 @@ class ExportWindow:
                                                   command=self.export)
 
     def export(self):
-        validator = False
         if self.validatorToXLSX.get():
             Archives.exportToXLSX()
-            validator = True
         if self.validatorToJSON.get():
             Archives.exportToJSON()
-            validator = True
         if self.validatorToStreamlit.get():
             Archives.InvokeStreamlit()
             
         self.top.destroy()
-        
-        if validator:
+    
+        if Archives._emptinessOfLists():
             if self.validatorToJSON.get() or self.validatorToXLSX.get():
                 os.startfile(Archives.PATH)
-            
+                

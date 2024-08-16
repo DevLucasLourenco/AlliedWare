@@ -1,5 +1,5 @@
 from tkinter import messagebox
-from src.LOG.LOG_manager import KingLog
+from src.LOG.LOG_manager import LOGGER
 
 
 class DirNotFound(Exception):
@@ -19,6 +19,6 @@ class DirNotFound(Exception):
     
     
     def log_approach(self):
-        KingLog(f'Diretório de Especificaçção de Indicador Inalcançável. Dir: {self.dir}', 'ERROR')
+        LOGGER(f'Diretório de Especificaçção de Indicador Inalcançável. Dir: {self.dir}', 'ERROR')
         
         

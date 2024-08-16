@@ -5,7 +5,7 @@ import shutil
 from tkinter import messagebox
 
 from src.data.exportData import Archives
-from src.LOG.LOG_manager import KingLog
+from src.LOG.LOG_manager import LOGGER
 from src.data.dirSpotCheck import SpotCheck
 from src.data.shareables import ShareHereby
 
@@ -50,7 +50,7 @@ class CC:
                 orderedMonth = RULES[month]
             except KeyError as e:
                 Archives.NotRelocatedCC.append(((file, str(e) + ' Parâmetro de Alocação Inexistente')))
-                KingLog(f"NÃO MOVIDO POR: <Parâmetro de Alocação Inexistente> = {e} - {file}", "ERROR")                
+                LOGGER(f"NÃO MOVIDO POR: <Parâmetro de Alocação Inexistente> = {e} - {file}", "ERROR")                
                 continue
             
             try:
@@ -58,11 +58,11 @@ class CC:
                 Path(pathToGo).mkdir(exist_ok=True, parents=True)
                 path, uniqueFilename = CC.__move(pathToGo, file)
                 Archives.RelocatedCC.append((uniqueFilename,path))
-                KingLog(f'ALOCAÇÃO CC:\nDE:\n{file}\nPARA: \n{path}\n--------------------', 'INFO')
+                LOGGER(f'ALOCAÇÃO CC:\nDE:\n{file}\nPARA: \n{path}\n--------------------', 'INFO')
             
             except PermissionError:
                 messagebox.showerror('Pasta Influenciada', f'Impossível manusear visto que existe uma pasta que está sendo influenciada.\n{pathToGo}')
-                KingLog(f'NÃO MOVIDO POR: <Pasta influenciada> - {file}', 'WARNING')
+                LOGGER(f'NÃO MOVIDO POR: <Pasta influenciada> - {file}', 'WARNING')
                 Archives.NotRelocatedCC.append(((file, str(e) + ' - Pasta Influenciada')))
             
     
