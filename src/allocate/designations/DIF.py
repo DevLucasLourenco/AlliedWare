@@ -62,8 +62,15 @@ class DIF:
     
     
     
-    def passthrough(self):
-        listage = ShareHereby.ARCHIEVES_FILTERED['DIF'].copy()
+    def passthrough(self, *newList):
+        print('list:', newList)
+        print('args:', self.args[0])
+        
+        if newList:
+            listage = newList[0]
+        else:   
+            listage = ShareHereby.ARCHIEVES_FILTERED['DIF'].copy()
+            
         for file in listage:
             targetedFile = False # Arquivo direcionado
             
@@ -72,7 +79,7 @@ class DIF:
                 self.removeFromList = False
                 if folder_name_to_reach in path.name:
                     targetedFile = True
-                    self.moveTo(file=file, pathTo=path, innerFolders=self.args)
+                    self.moveTo(file=file, pathTo=path, innerFolders=self.args[0])
             
             if not targetedFile:
                 LOGGER(f'NÃO MOVIDO POR: <Pasta Inexistente> - {file}', 'WARNING')
@@ -125,6 +132,7 @@ class DIF:
             DIF.__move(path, file)
         
         LowerFrameForUsage.updateTextCount()
+        
             
             
     @staticmethod    

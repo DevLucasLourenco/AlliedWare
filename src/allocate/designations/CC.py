@@ -4,6 +4,7 @@ import re
 import shutil
 from tkinter import messagebox
 
+from src.GUI.frames.lowerFrame import LowerFrameForUsage
 from src.data.exportData import Archives
 from src.LOG.LOG_manager import LOGGER
 from src.data.dirSpotCheck import SpotCheck
@@ -65,7 +66,10 @@ class CC:
                 LOGGER(f'NÃO MOVIDO POR: <Pasta influenciada> - {file}', 'WARNING')
                 Archives.NotRelocatedCC.append(((file, str(e) + ' - Pasta Influenciada')))
             
-    
+        LowerFrameForUsage.updateTextCount()
+        
+        
+        
     @staticmethod
     def __move(pathTo:Path, filename:Path):
         fileRenamed = CC.__renamingOf(filename.name)
