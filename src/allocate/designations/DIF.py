@@ -64,7 +64,7 @@ class DIF:
     
     def passthrough(self, *newList):
         print('list:', newList)
-        print('args:', self.args[0])
+        print('args:', self.args[0].get())
         
         if newList:
             listage = newList[0]
@@ -79,14 +79,16 @@ class DIF:
                 self.removeFromList = False
                 if folder_name_to_reach in path.name:
                     targetedFile = True
-                    self.moveTo(file=file, pathTo=path, innerFolders=self.args[0])
+                    self.moveTo(file=file, pathTo=path, innerFolders=self.args[0].get())
+                    self.removeFromList = True
             
             if not targetedFile:
                 LOGGER(f'NÃO MOVIDO POR: <Pasta Inexistente> - {file}', 'WARNING')
                 Archives.NotRelocatedFromEmployee.append((file, f"Pasta Inexistente - {folder_name_to_reach}"))
             
-            if self.removeFromList:
-                ShareHereby.ARCHIEVES_FILTERED['DIF'].remove(file)
+            if newList:
+                if self.removeFromList:
+                    ShareHereby.ARCHIEVES_FILTERED['DIF'].remove(file)
         
         messagebox.showinfo("Concluído", "Alocações realizadas")
         ShareHereby.FRAMEDIF.destroyWindow()
