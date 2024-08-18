@@ -7,6 +7,7 @@ from tkinter import messagebox
 from pathlib import Path
 from datetime import datetime
 
+from src.data.StreamlitPack import StreamlitServer
 from src.data.shareables import ShareHereby
 from src.LOG.LOG_manager import LOGGER
 
@@ -93,15 +94,19 @@ class Archives:
             LOGGER(f'JSON - Impossível exportar dados sem realizar uma das as tarefas de {", ".join(ShareHereby.KEYS)}', 'WARNING')
             
             
-    def InvokeStreamlit(self):
-        app = StreamlitServerRun()
+    def InvokeStreamlit():
+        if Archives._emptinessOfLists():
+            app = StreamlitServer(data=Archives.generateDictToExport())
+            app.server()
+            
+            LOGGER('Streamlit Server construído.')
+            
+        else:
+            messagebox.showerror('Erro ao Invocar - Streamlit', f'Impossível exportar dados sem realizar uma das as tarefas de\n{", ".join(ShareHereby.KEYS)}')
+            LOGGER(f'Streamlit - Impossível exportar dados sem realizar uma das as tarefas de {", ".join(ShareHereby.KEYS)}', 'WARNING')
+            
         
-        LOGGER('Streamlit Server construído.')
         
-        
-class StreamlitServerRun():
-    ...
-    
 
 class ExportWindow:
     
