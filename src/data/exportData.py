@@ -100,10 +100,8 @@ class Archives:
         if Archives._emptinessOfLists():
             app = StreamlitServer(data=Archives.generateDictToExport())
             app.server()
-            
-            
-            time.sleep(3)
-            webbrowser.open(r'http://localhost:8501')
+            app.run_server()
+
             
             LOGGER('Streamlit Server construído.', "INFO")
             

@@ -95,58 +95,54 @@ class DIF:
 
 
     def moveTo(self, file:Path, pathTo:Path, innerFolders=True):
-        if innerFolders:
-            DIF_AD = DIFAutoDesignation(file, pathTo, 'DIF')
-            validator = DIF_AD.analyse()
+        DIF_AD = DIFAutoDesignation(file, pathTo, 'DIF')
+        validator = DIF_AD.analyse()
+        
+        if validator:
+            path = DIF_AD.get()
             
-            if validator:
-                path = DIF_AD.get()
-                
-                try:
-                    # shutil.move(file, path / DIF.__renamingOf(file.name))
+            try:
+                if innerFolders:
                     DIF.__move(path, file)
                     
                     Archives.RelocatedFromEmployee.append((file, path))
                     LOGGER(f'ALOCAÇÃO DIF:\nDE:\n{file}\nPARA: \n{path}\n--------------------', 'INFO')
                     self.removeFromList = True
                     
-                except PermissionError:
-                    messagebox.showerror('Pasta Influenciada', f'Impossível manusear visto que existe uma pasta que está sendo influenciada.\n{pathTo}')
-                    LOGGER(f'NÃO MOVIDO POR: <Pasta influenciada> - {file}', 'WARNING')
-                    Archives.NotRelocatedFromEmployee.append((file, str(path) + "Pasta influenciada"))
+                elif not innerFolders:
+                    shutil.move(file, pathTo) ## fazer um outro __moveNotInnerFolder para esse caso aqui porque para esse caso não permite retirar o código
                     
-                except Exception as e:
-                    LOGGER(e, "ERROR")
-                    messagebox.showerror("Error", e)
-                    messagebox.showinfo("Recarregar", "Recarregar - Tente selecionar a pasta novamente.")
+                    Archives.RelocatedFromEmployee.append((file, pathTo))
+                    LOGGER(f'ALOCAÇÃO DIF:\nDE:\n{file}\nPARA: \n{pathTo}\n--------------------', 'INFO')
+                    self.removeFromList = True
                 
-            else:
-                try:
-                    Archives.NotRelocatedFromEmployee.append((file, str(path) + 'Parâmetro de Alocação Inexistente'))
-                except UnboundLocalError:
-                    Archives.NotRelocatedFromEmployee.append((file, 'Parâmetro de Alocação Inexistente'))
-                LOGGER(f'NÃO MOVIDO POR: <Parâmetro de Alocação Inexistente> - {file}', 'WARNING')
+            except PermissionError:
+                messagebox.showerror('Pasta Influenciada', f'Impossível manusear visto que existe uma pasta que está sendo influenciada.\n{pathTo}')
+                LOGGER(f'NÃO MOVIDO POR: <Pasta influenciada> - {file}', 'WARNING')
+                Archives.NotRelocatedFromEmployee.append((file, str(path) + "Pasta influenciada"))
+                
+            except Exception as e:
+                LOGGER(e, "ERROR")
+                messagebox.showerror("Error", e)
+                messagebox.showinfo("Recarregar", "Recarregar - Tente selecionar a pasta novamente.")
+            
+        else:
+            try:
+                Archives.NotRelocatedFromEmployee.append((file, str(path) + 'Parâmetro de Alocação Inexistente'))
+            except UnboundLocalError:
+                Archives.NotRelocatedFromEmployee.append((file, 'Parâmetro de Alocação Inexistente'))
+            LOGGER(f'NÃO MOVIDO POR: <Parâmetro de Alocação Inexistente> - {file}', 'WARNING')
 
-            
-        elif not innerFolders:
-            # shutil.move(file, pathTo / DIF.__renamingOf(file.name))
-            DIF_AD = DIFAutoDesignation(file, pathTo, 'DIF')
-            validator = DIF_AD.analyse()
-            
-            if validator:
-                path = DIF_AD.get()
-                DIF.__move(path, file)
-        
+
         LowerFrameForUsage.updateTextCount()
+    
         
-            
             
     @staticmethod    
     def __move(pathTo:Path, filename:Path):
         fileRenamed = DIF.__renamingOf(filename.name)
         uniqueFilename = DIF._generate_unique_filename(pathTo, fileRenamed)
         shutil.move(filename, uniqueFilename)
-        
         
     
     @staticmethod

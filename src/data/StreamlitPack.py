@@ -1,18 +1,36 @@
-import pandas as pd
+import subprocess
+import webbrowser
 import streamlit as st
+import pandas as pd
 import matplotlib.pyplot as plt
+import os
+import sys
 
 class StreamlitServer:
     
     def __init__(self, data) -> None:
         self.DF = self.convert_to_dataframe(data)
-    
+        self.url = "http://localhost:8501"  # URL padrão do Streamlit
+
     @staticmethod
     def convert_to_dataframe(data):
         dfs = {}
         for key, value in data.items():
             dfs[key] = pd.DataFrame(value[1:], columns=value[0])
         return dfs
+
+    def run_server(self):
+        # Obter o caminho absoluto do script principal
+        script_path = os.path.abspath(sys.argv[0])
+
+        # Comando para rodar o Streamlit
+        command = f"streamlit run {script_path}"
+
+        # Executa o comando em um subprocesso
+        subprocess.Popen(command, shell=True)
+
+        # Abre o navegador na URL do Streamlit
+        webbrowser.open_new(self.url)
 
     def server(self):
         st.title('AlliedWare - Streamlit Server')
@@ -56,3 +74,4 @@ class StreamlitServer:
             st.pyplot(fig)
         else:
             st.write('Nenhum dado disponível para o gráfico de rosquinha.')
+
