@@ -63,11 +63,10 @@ class GUIMain:
         
     def on_close(self):
         res = messagebox.askyesno("Exportar", "Antes de fechar, deseja exportar os dados alocados?")
-        print(res)
         if res:
             ExportWindow(self.master)
-            
-        # self.master.destroy()
+        else:
+            self.master.destroy()
         
     def executeGUI(self) -> None:
         self.InicialExecutions()
