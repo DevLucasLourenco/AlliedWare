@@ -1,5 +1,6 @@
 import customtkinter
 
+from src.GUI.topLevels.dynamicalWindow import DynamicalWindowApproach
 from src.data.shareables import ShareHereby
 
 from src.GUI.frames.patternAbstractClass import AbstractGlobalObject
@@ -48,10 +49,17 @@ class MainInterfaceTopFrame:
         self.buildLabel()
         self.buildButtons()
     
-    
     def buildButtons(self):
+        
         self.buttonDIF = PATTERN_BUTTON(buttonName="DOC. INF. FUNCIONÁRIOS", master=self.frameForUsageFromInstance, gridRow=1, gridColumn=0, 
-                                  function=lambda:Allocate(request=self.DIF_request), padTuple=((50, 0), (75, 0)))
+                                  function=lambda:DynamicalWindowApproach(
+                                            self.frameForUsageFromInstance
+                                                ).giveOptions(
+                                                    {"DIF":lambda:Allocate(request=self.DIF_request), 
+                                                    "DIFD":lambda:print('ok'), 
+                                                    }
+                                                ), 
+                                  padTuple=((50, 0), (75, 0)))
         
         self.buttonCC = PATTERN_BUTTON(buttonName="CONTRACHEQUE", master=self.frameForUsageFromInstance, gridRow=1, gridColumn=1, 
                                   function=lambda:Allocate(request=self.CC_request), padTuple=((35, 0), (75, 0)))

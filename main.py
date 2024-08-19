@@ -15,3 +15,9 @@ if __name__ == "__main__":
 
 # testar streamlit
 
+#--
+# fazer com que, após terminar
+# de rodar, bloqueie os botões
+# para não deixar rodar dnv
+#--
+

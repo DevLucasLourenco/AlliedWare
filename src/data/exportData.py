@@ -1,5 +1,7 @@
 import os
 import json
+import time
+import webbrowser
 import pandas as pd
 import customtkinter
 
@@ -98,6 +100,10 @@ class Archives:
         if Archives._emptinessOfLists():
             app = StreamlitServer(data=Archives.generateDictToExport())
             app.server()
+            
+            
+            time.sleep(3)
+            webbrowser.open(r'http://localhost:8501')
             
             LOGGER('Streamlit Server construído.', "INFO")
             
