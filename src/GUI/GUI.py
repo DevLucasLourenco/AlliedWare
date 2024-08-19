@@ -1,5 +1,7 @@
+from tkinter import messagebox
 import customtkinter
 
+from src.data.exportData import ExportWindow
 from src.LOG.LOG_manager import LOGGER
 from src.data.dirSpotCheck import SpotCheck
 from src.GUI.frames.lowerFrame import LowerFrameForUsage
@@ -57,6 +59,15 @@ class GUIMain:
         self.master.geometry(f'{self.windowSize}+{self.windowPosition}')
         self.master.resizable(False, False)
         
+        self.master.protocol("WM_DELETE_WINDOW", self.on_close)
+        
+    def on_close(self):
+        res = messagebox.askyesno("Exportar", "Antes de fechar, deseja exportar os dados alocados?")
+        print(res)
+        if res:
+            ExportWindow(self.master)
+            
+        # self.master.destroy()
         
     def executeGUI(self) -> None:
         self.InicialExecutions()

@@ -7,6 +7,7 @@ from src.data.exportData import ExportWindow
 from src.data.dirSpotCheck import SpotCheck
 from src.GUI.frames.patternAbstractClass import AbstractGlobalObject
 from src.GUI.topLevels.dynamicalWindow import DynamicalWindowApproach
+from tutorial.tutorial import tutorial_exec
 
 
 class ObjectSideBar(AbstractGlobalObject):
@@ -91,7 +92,7 @@ class ObjectSideBar(AbstractGlobalObject):
         
     def buttonTutorial(self):
         logButton = customtkinter.CTkButton(master=self.sidebarFrame, 
-                                            command=print, 
+                                            command=tutorial_exec, 
                                             text='Tutorial',
                                             border_spacing=5, 
                                             border_width=2,

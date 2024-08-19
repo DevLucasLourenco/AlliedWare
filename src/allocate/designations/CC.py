@@ -45,6 +45,7 @@ class CC:
         
         listage = ShareHereby.ARCHIEVES_FILTERED["CC"].copy()
         for file in listage:
+            removeFromList = False
             month, year = CC.takeMonthAndYear(file.name)
             
             try:
@@ -59,6 +60,7 @@ class CC:
                 Path(pathToGo).mkdir(exist_ok=True, parents=True)
                 path, uniqueFilename = CC.__move(pathToGo, file)
                 Archives.RelocatedCC.append((uniqueFilename,path))
+                removeFromList = True
                 LOGGER(f'ALOCAÇÃO CC:\nDE:\n{file}\nPARA: \n{path}\n--------------------', 'INFO')
             
             except PermissionError:
@@ -66,6 +68,8 @@ class CC:
                 LOGGER(f'NÃO MOVIDO POR: <Pasta influenciada> - {file}', 'WARNING')
                 Archives.NotRelocatedCC.append(((file, str(e) + ' - Pasta Influenciada')))
             
+            if removeFromList:
+                ShareHereby.ARCHIEVES_FILTERED['CC'].remove(file)
         LowerFrameForUsage.updateTextCount()
         
         

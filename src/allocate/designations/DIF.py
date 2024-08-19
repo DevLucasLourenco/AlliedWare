@@ -12,7 +12,7 @@ from src.errors.NoInternetConnection import NoInternetConnection
 from src.allocate.designations.innerFolders.AutoDesignate import DIFAutoDesignation
 
 # Quando criar DIFD, colocar uma verificação de só manter a 
-# pasta (quando houver duplicidade) que 
+# pasta (quando houver duplicidIF_ade) que 
 # tiver a data de modificação mais recente
 
 class DIF:
@@ -36,7 +36,6 @@ class DIF:
         ShareHereby.FOLDER_UNION = self.hiring_folders_inside + self.adm_folders_inside + self.op_folders_inside
         
         # self.passthrough()
-        
         
     
     @staticmethod
@@ -63,7 +62,7 @@ class DIF:
     
     
     def passthrough(self, *newList):
-        print('list:', newList)
+        print('NEW list:', newList)
         print('args:', self.args[0].get())
         
         if newList:
@@ -73,10 +72,10 @@ class DIF:
             
         for file in listage:
             targetedFile = False # Arquivo direcionado
+            self.removeFromList = False
             
             folder_name_to_reach = DIF.extractName(file)
             for path in ShareHereby.FOLDER_UNION:
-                self.removeFromList = False
                 if folder_name_to_reach in path.name:
                     targetedFile = True
                     self.moveTo(file=file, pathTo=path, innerFolders=self.args[0].get())
@@ -86,9 +85,9 @@ class DIF:
                 LOGGER(f'NÃO MOVIDO POR: <Pasta Inexistente> - {file}', 'WARNING')
                 Archives.NotRelocatedFromEmployee.append((file, f"Pasta Inexistente - {folder_name_to_reach}"))
             
-            if newList:
-                if self.removeFromList:
-                    ShareHereby.ARCHIEVES_FILTERED['DIF'].remove(file)
+            # if not newList:
+            if self.removeFromList:
+                ShareHereby.ARCHIEVES_FILTERED['DIF'].remove(file)
         
         messagebox.showinfo("Concluído", "Alocações realizadas")
         ShareHereby.FRAMEDIF.destroyWindow()
@@ -97,11 +96,11 @@ class DIF:
 
     def moveTo(self, file:Path, pathTo:Path, innerFolders=True):
         if innerFolders:
-            DAD = DIFAutoDesignation(file, pathTo, 'DIF')
-            validator = DAD.analyse()
+            DIF_AD = DIFAutoDesignation(file, pathTo, 'DIF')
+            validator = DIF_AD.analyse()
             
             if validator:
-                path = DAD.get()
+                path = DIF_AD.get()
                 
                 try:
                     # shutil.move(file, path / DIF.__renamingOf(file.name))
@@ -131,7 +130,12 @@ class DIF:
             
         elif not innerFolders:
             # shutil.move(file, pathTo / DIF.__renamingOf(file.name))
-            DIF.__move(path, file)
+            DIF_AD = DIFAutoDesignation(file, pathTo, 'DIF')
+            validator = DIF_AD.analyse()
+            
+            if validator:
+                path = DIF_AD.get()
+                DIF.__move(path, file)
         
         LowerFrameForUsage.updateTextCount()
         

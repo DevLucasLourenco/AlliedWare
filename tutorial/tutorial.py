@@ -1,10 +1,10 @@
-# colocar este tutorial acima do local de ver logs.
-#pensar em uma maneira boa de apresentar, talvez fazer em word e salvar em pdf
-# pra ser mostrado quando clicar no botão
-# - pdf mais escuro, com fundo preto puxando pro cinza 
-# (se pa da pra fzr pelo notion e ) expoertar em pdf pra usar esse 
-# (fzr por la pra ficar bonito)
+import os
+from pathlib import Path
+
+from src.LOG.LOG_manager import LOGGER
 
 
 
-# melhor, fzr um html explicando tudo
+def tutorial_exec():
+    os.startfile(Path(r'tutorial\data\AlliedWare f5151b230af14072ba167f094c270c89.html'))
+    LOGGER("Tutorial aberto", "INFO")

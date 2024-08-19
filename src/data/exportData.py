@@ -99,7 +99,7 @@ class Archives:
             app = StreamlitServer(data=Archives.generateDictToExport())
             app.server()
             
-            LOGGER('Streamlit Server construído.')
+            LOGGER('Streamlit Server construído.', "INFO")
             
         else:
             messagebox.showerror('Erro ao Invocar - Streamlit', f'Impossível exportar dados sem realizar uma das as tarefas de\n{", ".join(ShareHereby.KEYS)}')
