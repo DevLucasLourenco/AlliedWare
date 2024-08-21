@@ -1,10 +1,9 @@
+from pathlib import Path
 import subprocess
 import webbrowser
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import os
-import sys
 
 class StreamlitServer:
     
@@ -21,7 +20,8 @@ class StreamlitServer:
 
     def run_server(self):
         # Obter o caminho absoluto do script principal
-        script_path = os.path.abspath(sys.argv[0])
+        script_path = Path(r'src\data\StreamlitPack.py').absolute()
+        print('print:', script_path)
 
         # Comando para rodar o Streamlit
         command = f"streamlit run {script_path}"
@@ -31,6 +31,8 @@ class StreamlitServer:
 
         # Abre o navegador na URL do Streamlit
         webbrowser.open_new(self.url)
+        
+        
 
     def server(self):
         st.title('AlliedWare - Streamlit Server')
@@ -64,6 +66,7 @@ class StreamlitServer:
 
             # Acumulando contagens para o gráfico de rosquinha
             total_counts[key] = len(df)
+
 
         # Gráfico de rosquinha
         st.subheader('Percentual de Dados Relacionados')

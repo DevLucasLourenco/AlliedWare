@@ -74,23 +74,38 @@
         "PROMOCAO":"CONTRATO, ADITIVOS E DOCUMENTOS",
         "MUDANÇA DE FUNÇÃO":"CONTRATO, ADITIVOS E DOCUMENTOS",
         "MOVIMENTAÇÃO DE PESSOAL":"CONTRATO, ADITIVOS E DOCUMENTOS",
-
-
+        
+        
 
         "PLANO DE SAUDE":"PLANO DE SAÚDE - SEG VIDA",
         "PLANO DE SAÚDE":"PLANO DE SAÚDE - SEG VIDA",
         
+        
+
+        "NADA CONSTA":"RESCISÃO",
+        "TÉRMINO DE CONTRATO":"RESCISÃO",
+        "ENTREVISTA DE DESLIGAMENTO":"RESCISÃO",
+        "EXTRATO FGTS":"RESCISÃO",
+        "MÉDIA DE RESCISÃO":"RESCISÃO",
+        "RESCISÃO":"RESCISÃO",
+        "PEDIDO DE DEMISSÃO":"RESCISÃO",
+        "TRCT":"RESCISÃO",
 
 
+        
         "CV":"CURSO - QUALIFICAÇÃO",
         "CURRICULO":"CURSO - QUALIFICAÇÃO",
         "CURRÍCULO":"CURSO - QUALIFICAÇÃO",
         "CURSO":"CURSO - QUALIFICAÇÃO",
+        "DIPLOMA":"CURSO - QUALIFICAÇÃO",
         "ESCOLARIDADE":"CURSO - QUALIFICAÇÃO",
+        "ENSINO MEDIO":"CURSO - QUALIFICAÇÃO",
+        "ENSINO MÉDIO":"CURSO - QUALIFICAÇÃO",
+        "ENSINO SUPERIOR":"CURSO - QUALIFICAÇÃO",
         "CERTIFICADO":"CURSO - QUALIFICAÇÃO",
         "TREINAMENTO":"CURSO - QUALIFICAÇÃO"
-
-        },
+        
+    },
 
     "CC":{
         "01":"1 - JANEIRO",

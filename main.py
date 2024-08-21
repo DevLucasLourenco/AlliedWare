@@ -21,3 +21,7 @@ if __name__ == "__main__":
 # para não deixar rodar dnv
 #--
 
+# ANTES DE RODAR, VER COM MAYANA AS 
+# ALOCAÇÕES se estão de acordo
+
+
