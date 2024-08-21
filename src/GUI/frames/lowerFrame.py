@@ -126,7 +126,6 @@ class LowerFrameForUsage(AbstractGlobalObject):
                 ShareHereby.countedSection[k] += 1
                 ShareHereby.countedSection['Total'] += 1
         
-        print(ShareHereby.countedSection)
         textToShow = " - ".join([LowerFrameForUsage.__personalizedString(item) for item in ShareHereby.countedSection.items()])
         ShareHereby.LabelToShowTheCountOfFiles.configure(text=textToShow)
     

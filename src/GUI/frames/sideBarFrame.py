@@ -79,7 +79,7 @@ class ObjectSideBar(AbstractGlobalObject):
     def buttonAlocationConfiguration(self):
         logButton = customtkinter.CTkButton(master=self.sidebarFrame, 
                                             text='Alocadores', 
-                                            command=self.__comamnd_alocation, 
+                                            command=self.__command_alocation, 
                                             border_spacing=5, 
                                             border_width=2,
                                             font=('Robolo', 14, 'bold'), 
@@ -92,7 +92,7 @@ class ObjectSideBar(AbstractGlobalObject):
         
     def buttonTutorial(self):
         logButton = customtkinter.CTkButton(master=self.sidebarFrame, 
-                                            command=tutorial_exec, 
+                                            command=self.__command_Tutorial, 
                                             text='Tutorial',
                                             border_spacing=5, 
                                             border_width=2,
@@ -105,7 +105,7 @@ class ObjectSideBar(AbstractGlobalObject):
         logButton.grid(row=4, column=0, pady=(0, 20))
         
     
-    def __comamnd_alocation(self):
+    def __command_alocation(self):
         options = {
             "Designar Indicador":SpotCheck.dir_appointment,
             "Visualizar Apontamentos":SpotCheck.show_appointment,
@@ -125,6 +125,13 @@ class ObjectSideBar(AbstractGlobalObject):
         app.giveOptions(options_dict=options)
         
         
+    def __command_Tutorial(self):
+        options = {
+            'Tutorial - Allied': tutorial_exec,
+            'Tutorial - Renomeio': lambda:os.startfile(r'tutorial\data\Allied - Padrão de Renomeio.pdf'),
+        }
+        app = DynamicalWindowApproach(master=self.sidebarFrame)
+        app.giveOptions(options_dict=options)
         
         
     

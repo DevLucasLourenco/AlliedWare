@@ -70,7 +70,10 @@ class CC:
             
             if removeFromList:
                 ShareHereby.ARCHIEVES_FILTERED['CC'].remove(file)
+                
         LowerFrameForUsage.updateTextCount()
+        ShareHereby.FRAMECC.destroyWindow()
+        ShareHereby.buttonsFromTopFrame[1].configure(state='disabled')
         
         
         

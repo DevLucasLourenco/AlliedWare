@@ -65,7 +65,7 @@ class MainInterfaceTopFrame:
                                   function=lambda:Allocate(request=self.CC_request), padTuple=((35, 0), (75, 0)))
         
         self.buttonCP = PATTERN_BUTTON(buttonName="CARTÃO DE PONTO", master=self.frameForUsageFromInstance, gridRow=2, gridColumn=0, 
-                                  function=lambda:Allocate(By.CP, self.buttonCP), padTuple=((50, 0), (25, 0)))
+                                  function=lambda:Allocate(request=self.CP_request), padTuple=((50, 0), (25, 0)))
 
         self.buttonHE = PATTERN_BUTTON(buttonName="SOLICITAÇÃO DE HE", master=self.frameForUsageFromInstance, gridRow=2, gridColumn=1, 
                                   function=lambda:Allocate(By.HE, self.buttonHE), padTuple=((35, 0), (25, 0)))
@@ -84,6 +84,11 @@ class MainInterfaceTopFrame:
         
         self.CC_request = Request()
         self.CC_request.By = By.CC
+        self.CC_request.frameForUsage = self.frameForUsageFromInstance
+        
+        
+        self.CP_request = Request()
+        self.CP_request.By = By.CP
         self.CC_request.frameForUsage = self.frameForUsageFromInstance
         
             

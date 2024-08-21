@@ -35,3 +35,6 @@ class FrameCC:
         self.execButton = customtkinter.CTkButton(self.top, 
                                                   text="Executar CC", 
                                                   command=CC.passthroughCC)
+        
+    def destroyWindow(self):
+        self.top.destroy()

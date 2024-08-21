@@ -91,6 +91,7 @@ class DIF:
         
         messagebox.showinfo("Concluído", "Alocações realizadas")
         ShareHereby.FRAMEDIF.destroyWindow()
+        ShareHereby.buttonsFromTopFrame[0].configure(state='disabled')
                     
 
 

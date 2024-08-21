@@ -9,17 +9,10 @@ if __name__ == "__main__":
 # trocar para puxar
 # tudo, não só PDFs
 
-# atualizar contagem de DIT e CC não funciona
-
 # falta fzr DIFD
 
 # testar streamlit
 
-#--
-# fazer com que, após terminar
-# de rodar, bloqueie os botões
-# para não deixar rodar dnv
-#--
 
 # ANTES DE RODAR, VER COM MAYANA AS 
 # ALOCAÇÕES se estão de acordo
