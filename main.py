@@ -20,3 +20,5 @@ if __name__ == "__main__":
 # fazer botão de reset para resetar todas as pastas acumuladas
 # com dados que geram outros
 
+# acrescentar RPA
+
