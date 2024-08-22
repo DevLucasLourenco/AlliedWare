@@ -17,4 +17,6 @@ if __name__ == "__main__":
 # ANTES DE RODAR, VER COM MAYANA AS 
 # ALOCAÇÕES se estão de acordo
 
+# fazer botão de reset para resetar todas as pastas acumuladas
+# com dados que geram outros
 

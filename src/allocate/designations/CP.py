@@ -19,9 +19,7 @@ from src.data.dirSpotCheck import SpotCheck
 class CP:
     FATHERPATH:Path = Path(r'G:\Recursos Humanos\01 - PESSOAL\14 - CARTÃO PONTO')
     
-    
-    
-        
+
     @staticmethod
     def readJSON(config_path):
         with open(config_path, 'r', encoding='utf-8') as file:
@@ -132,6 +130,6 @@ class CP:
     def readJSON_aboutDays(config_path):
         with open(config_path, 'r', encoding='utf-8') as file:
             config_data = json.load(file)
-        return config_data["CP - Possibility"]['1DDPP'], config_data["CP - Possibility"]['2DDSP']
+        return config_data["CP - Possibility"]['1DDPP'], config_data["CP - Possibility"]['1DDSP']
         
         
