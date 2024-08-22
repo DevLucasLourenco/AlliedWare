@@ -1,9 +1,8 @@
 import customtkinter
 
-from src.allocate.designations.CC import CC
+from src.allocate.designations.CP import CP
 
-
-class FrameCC:
+class FrameCP:
     
     def __init__(self, master):
         self.masterForUsage = master
@@ -26,17 +25,15 @@ class FrameCC:
         self.top = customtkinter.CTkToplevel(self.masterForUsage)
         self.top.grab_set()
         
-        self.top.title("CC - Preparações")
+        self.top.title("CP - Preparações")
         self.top.geometry("+%d+%d" % (self.masterForUsage.winfo_screenwidth() // 2 - 100, self.masterForUsage.winfo_screenheight() // 2 - 50))
         self.top.resizable(False, False)
     
     
     def buildExecutionButton(self):
         self.execButton = customtkinter.CTkButton(self.top, 
-                                                  text="Executar CC", 
-                                                  command=CC.passthroughCC)
+                                                  text="Executar CP", 
+                                                  command=CP.passthroughCP)
         
     def destroyWindow(self):
         self.top.destroy()
-        
-        

@@ -89,7 +89,7 @@ class MainInterfaceTopFrame:
         
         self.CP_request = Request()
         self.CP_request.By = By.CP
-        self.CC_request.frameForUsage = self.frameForUsageFromInstance
+        self.CP_request.frameForUsage = self.frameForUsageFromInstance
         
             
         

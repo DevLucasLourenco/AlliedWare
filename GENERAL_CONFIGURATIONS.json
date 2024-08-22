@@ -104,7 +104,7 @@
         "ENSINO SUPERIOR":"CURSO - QUALIFICAÇÃO",
         "CERTIFICADO":"CURSO - QUALIFICAÇÃO",
         "TREINAMENTO":"CURSO - QUALIFICAÇÃO"
-        
+
     },
 
     "CC":{
@@ -120,9 +120,29 @@
         "10":"10 - OUTUBRO",
         "11":"11 - NOVEMBRO",
         "12":"12 - DEZEMBRO"
+
+    },
+    
+    "CP":{
+        "01":"01 - JANEIRO",
+        "02":"02 - FEVEREIRO",
+        "03":"03 - MARÇO",
+        "04":"04 - ABRIL",
+        "05":"05 - MAIO",
+        "06":"06 - JUNHO",
+        "07":"07 - JULHO",
+        "08":"08 - AGOSTO",
+        "09":"09 - SETEMBRO",
+        "10":"10 - OUTUBRO",
+        "11":"11 - NOVEMBRO",
+        "12":"12 - DEZEMBRO"
+
     },
 
-    "CP":{
-
+    "CP - Possibility": {
+        "1DDPP": 24,
+        "2DDSP": 23
+     
     }
+
 }

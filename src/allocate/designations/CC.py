@@ -39,6 +39,7 @@ class CC:
         
         return (month, year)
         
+        
     @staticmethod
     def passthroughCC():
         RULES:dict = CC.readJSON(SpotCheck.ReacheableJSON()[1])
@@ -52,7 +53,7 @@ class CC:
                 orderedMonth = RULES[month]
             except KeyError as e:
                 Archives.NotRelocatedCC.append(((file, str(e) + ' Parâmetro de Alocação Inexistente')))
-                LOGGER(f"NÃO MOVIDO POR: <Parâmetro de Alocação Inexistente> = {e} - {file}", "ERROR")                
+                LOGGER(f"NÃO MOVIDO POR: <Parâmetro de Alocação Inexistente> = {e} - {file}", "ERROR")
                 continue
             
             try:
