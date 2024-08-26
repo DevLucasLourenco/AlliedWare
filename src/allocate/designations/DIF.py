@@ -26,8 +26,8 @@ class DIF:
     OP_DIR:Path = FATHERDIR / OP_FOLDER_NAME
     
     
-    def __init__(self, *args):
-        self.args = args
+    def __init__(self, validations):
+        ShareHereby.VALIDATIONS = validations
         
         self.hiring_folders_inside:list[Path] = DIF.getFolders(DIF.HIRING_DIR)
         self.adm_folders_inside:list[Path] = DIF.getFolders(DIF.ADM_DIR)
@@ -62,8 +62,11 @@ class DIF:
     
     
     def passthrough(self, *newList):
-        print('NEW list:', newList)
-        print('args:', self.args[0].get())
+        # print('NEW list:', newList)
+        
+        # print('innerFolder:', ShareHereby.VALIDATIONS["InnerFolder"].get())
+        # print('PREFIX:', ShareHereby.VALIDATIONS["RemovePreffix"].get())
+        # print('DUPLICATE:', ShareHereby.VALIDATIONS["DuplicatedFile"].get())
         
         if newList:
             listage = newList[0]
@@ -78,14 +81,14 @@ class DIF:
             for path in ShareHereby.FOLDER_UNION:
                 if folder_name_to_reach in path.name:
                     targetedFile = True
-                    self.moveTo(file=file, pathTo=path, innerFolders=self.args[0].get())
+                    self.moveTo(file=file, pathTo=path)
                     self.removeFromList = True
             
             if not targetedFile:
                 LOGGER(f'NÃO MOVIDO POR: <Pasta Inexistente> - {file}', 'WARNING')
                 Archives.NotRelocatedFromEmployee.append((file, f"Pasta Inexistente - {folder_name_to_reach}"))
             
-            # if not newList:
+            
             if self.removeFromList:
                 ShareHereby.ARCHIEVES_FILTERED['DIF'].remove(file)
         
@@ -95,7 +98,7 @@ class DIF:
                     
 
 
-    def moveTo(self, file:Path, pathTo:Path, innerFolders=True):
+    def moveTo(self, file:Path, pathTo:Path):
         DIF_AD = DIFAutoDesignation(file, pathTo, 'DIF')
         validator = DIF_AD.analyse()
         
@@ -103,24 +106,27 @@ class DIF:
             path = DIF_AD.get()
             
             try:
-                if innerFolders:
+                if ShareHereby.VALIDATIONS["InnerFolder"].get():
                     DIF.__move(path, file)
                     
                     Archives.RelocatedFromEmployee.append((file, path))
                     LOGGER(f'ALOCAÇÃO DIF:\nDE:\n{file}\nPARA: \n{path}\n--------------------', 'INFO')
                     self.removeFromList = True
                     
-                elif not innerFolders:
-                    shutil.move(file, pathTo) ## fazer um outro __moveNotInnerFolder para esse caso aqui porque para esse caso não permite retirar o código
+                elif not ShareHereby.VALIDATIONS["InnerFolder"].get():
+                    DIF.__move(pathTo, file)
+                    # shutil.move(file, pathTo) ## fazer um outro __moveNotInnerFolder para esse caso aqui porque para esse caso não permite retirar o código
                     
                     Archives.RelocatedFromEmployee.append((file, pathTo))
                     LOGGER(f'ALOCAÇÃO DIF:\nDE:\n{file}\nPARA: \n{pathTo}\n--------------------', 'INFO')
                     self.removeFromList = True
                 
+                
             except PermissionError:
                 messagebox.showerror('Pasta Influenciada', f'Impossível manusear visto que existe uma pasta que está sendo influenciada.\n{pathTo}')
                 LOGGER(f'NÃO MOVIDO POR: <Pasta influenciada> - {file}', 'WARNING')
                 Archives.NotRelocatedFromEmployee.append((file, str(path) + "Pasta influenciada"))
+                
                 
             except Exception as e:
                 LOGGER(e, "ERROR")
@@ -141,11 +147,22 @@ class DIF:
             
     @staticmethod    
     def __move(pathTo:Path, filename:Path):
-        fileRenamed = DIF.__renamingOf(filename.name)
-        uniqueFilename = DIF._generate_unique_filename(pathTo, fileRenamed)
-        shutil.move(filename, uniqueFilename)
+        PATH:Path = pathTo
+        FILENAME:Path = filename
+        # print('inicio', FILENAME, PATH, '----------',sep="\n")
         
-    
+        if ShareHereby.VALIDATIONS['RemovePreffix'].get():
+            print(FILENAME)
+            FILENAME = DIF.__renamingOf(filename.name)
+            print(FILENAME)
+            
+        if ShareHereby.VALIDATIONS['DuplicatedFile'].get():
+            PATH = DIF._generate_unique_filename(PATH, FILENAME.name)
+        
+        print('fim', FILENAME, PATH,  '----------',sep="\n")
+        # shutil.move(filename, pathTo)
+
+
     @staticmethod
     def _generate_unique_filename(destination: Path, filename: str) -> Path:
         base_name, ext = filename.rsplit('.', 1)

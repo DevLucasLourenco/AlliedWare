@@ -1,3 +1,4 @@
+from src.data.shareables import ShareHereby
 from src.allocate.designations.DIF import DIF
 
 import customtkinter
@@ -10,6 +11,7 @@ class FrameDIF():
         self.validatorToInnerFolder = customtkinter.BooleanVar(value=True)
         self.validatorToRemovePreffixDIF = customtkinter.BooleanVar(value=True)
         self.validatorDuplicatedFilename = customtkinter.BooleanVar(value=True)
+        
         
         self.run()
 
@@ -25,9 +27,15 @@ class FrameDIF():
         
         
     def PACK_ALL(self):
-        self.buttonCBInnerFolder.pack(padx=(10, 0), pady=(30, 0))
-        # self.buttonCBRename.pack(padx=(10, 0), pady=(10, 0))
-        # self.buttonCBDuplicatedFilename.pack(padx=(10, 0), pady=(10, 0))
+        self.buttonCBInnerFolder.pack(padx=(0, 0), 
+                                      pady=(10, 10))
+        
+        self.buttonCBRename.pack(padx=(0, 0), 
+                                 pady=(10, 0))
+        
+        self.buttonCBDuplicatedFilename.pack(padx=(0, 0), 
+                                             pady=(10, 15))
+        
         self.execButton.pack(side="bottom", fill="x", padx=0, pady=0)
 
     
@@ -53,15 +61,22 @@ class FrameDIF():
         
     def buildCheckBoxDuplicatedFilename(self):
         self.buttonCBDuplicatedFilename = customtkinter.CTkCheckBox(self.top, 
-                                                        text='Renomear Duplicidade\nTERMIANARLOGICA', 
+                                                        text='Renomear Duplicidade', 
                                                         variable=self.validatorDuplicatedFilename)
         
     def buildExecutionButton(self):
+        self.validations = {
+            "InnerFolder":self.validatorToInnerFolder,
+            "RemovePreffix":self.validatorToRemovePreffixDIF,
+            "DuplicatedFile":self.validatorDuplicatedFilename
+        }
+        
         self.execButton = customtkinter.CTkButton(self.top, 
                                                   text="Executar DIF", 
-                                                  command=lambda:DIF(self.validatorToInnerFolder).passthrough())
+                                                  command=lambda:DIF(self.validations).passthrough())
     
     def destroyWindow(self):
         self.top.destroy()
         
-    
+
+        

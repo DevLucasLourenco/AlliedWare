@@ -61,6 +61,12 @@ class ShareHereby:
     ToolTipDescription:str = ""
     #----------
     
+    # Validations of DIF
+    #----------
+    VALIDATIONS = dict()
+    #----------
+    
+    
     
     def generateDynamicKeys(self):
         for key in ShareHereby.KEYS:
