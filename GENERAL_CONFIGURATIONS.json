@@ -193,5 +193,50 @@
             "1DDPP": 24,
             "1DDSP": 23
         }
+    },
+
+    "HE":{
+        "APOIO": "APOIO - Eletrica, Gasista, Mecânica, Andaime, Transporte",
+        "ELÉTRICA":"APOIO - Eletrica, Gasista, Mecânica, Andaime, Transporte",
+        "GASISTA":"APOIO - Eletrica, Gasista, Mecânica, Andaime, Transporte",
+        "MECÂNICA":"APOIO - Eletrica, Gasista, Mecânica, Andaime, Transporte",
+        "MECANICA":"APOIO - Eletrica, Gasista, Mecânica, Andaime, Transporte",
+        "ANDAIME":"APOIO - Eletrica, Gasista, Mecânica, Andaime, Transporte",
+        "TRANSPORTE":"APOIO - Eletrica, Gasista, Mecânica, Andaime, Transporte",
+
+        
+        "PRODUÇÃO": "PRODUÇÃO - Estrutura, Pintura, Tubulação, Produção",
+        "ESTRUTURA":"PRODUÇÃO - Estrutura, Pintura, Tubulação, Produção",
+        "PINTURA":"PRODUÇÃO - Estrutura, Pintura, Tubulação, Produção",
+        "TUBULAÇÃO":"PRODUÇÃO - Estrutura, Pintura, Tubulação, Produção",
+
+
+        "COMERCIAL": "COMERCIAL",
+
+
+        "FINANCEIRO": "FINANCEIRO",
+
+
+        "SUPRIMENTOS": "SUPRIMENTOS",
+        "SUPRIMENTO": "SUPRIMENTOS",
+
+
+        "ALMOXARIFADO": "ALMOXARIFADO",
+        "ALMOXARIFE": "ALMOXARIFADO",
+
+
+        "ADM": "ADM",
+        "ADMINISTRATIVO": "ADM",
+
+        
+        "ENFERMARIA":"QSMS",
+        "QSMS": "QSMS",
+
+
+        "PCP": "PCP",
+        "PLANEJAMENTO": "PCP",
+
+
+        "TST": "TST"
     }
 }
