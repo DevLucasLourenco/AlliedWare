@@ -1,12 +1,11 @@
-import os
 import re
 import json
 import shutil
+
 from pathlib import Path
 from tkinter import messagebox
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
-
 
 from src.GUI.frames.lowerFrame import LowerFrameForUsage
 from src.LOG.LOG_manager import LOGGER
@@ -57,7 +56,7 @@ class CP:
             try:
                 month, year = CP.identifyPeriod(file.name)
             except Exception as e:
-                Archives.NotRelocatedCP.append(((file, str(e) + ' Datas Informadas Incoerentes')))
+                Archives.NotRelocatedCP.append(((file, str(e) + '- Data Informada Incoerente')))
                 LOGGER(f"NÃO MOVIDO POR: <Datas Informadas Incoerentes> {e} - {file}", "ERROR")  
                 continue
             
@@ -71,18 +70,25 @@ class CP:
             try:
                 subfolder = CP.reachingPath(periodToFind, year)
                 pathToReachIn = CP.FATHERPATH / year / subfolder
+                
                 Path(pathToReachIn).mkdir(exist_ok=True, parents=True)
                 shutil.move(file, pathToReachIn / CP.renamingOf(file.name))
                 
                 Archives.RelocatedCP.append((file, pathToReachIn))
                 LOGGER(f'ALOCAÇÃO CP:\nDE:\n{file}\nPARA: \n{pathToReachIn}\n--------------------', 'INFO')
+                removeFromList = True
+                
+            except PermissionError as e:
+                messagebox.showerror('Pasta Influenciada', f'Impossível manusear visto que existe uma pasta que está sendo influenciada.\n{pathToReachIn}')
+                LOGGER(f'NÃO MOVIDO POR: <Pasta influenciada> - {file}', 'WARNING')
+                Archives.NotRelocatedCC.append(((file, str(e) + ' - Pasta Influenciada')))
 
             except Exception as e:
                 Archives.NotRelocatedCP.append(((file, str(e))))
                 LOGGER(f"NÃO MOVIDO POR: {e} - {file}", "ERROR")  
                 
             if removeFromList:
-                ShareHereby.ARCHIEVES_FILTERED['CP'].remove(file)              
+                ShareHereby.ARCHIEVES_FILTERED['CP'].remove(file)
         
         
         LowerFrameForUsage.updateTextCount()
@@ -103,7 +109,7 @@ class CP:
             
         month = period.split(' - ')[0]
         
-        day_first_period, day_second_period = CP.readJSON_aboutDays(SpotCheck.ReacheableJSON()[1])
+        day_first_period, day_second_period = CP.readJSON_aboutDays(SpotCheck.ReacheableJSON()[1], month)
         
         first_period = datetime(year=int(year), month=int(month), day=int(day_first_period))
         second_period = datetime(year=int(year), month=int(month), day=int(day_second_period))
@@ -127,9 +133,9 @@ class CP:
         
         
     @staticmethod
-    def readJSON_aboutDays(config_path):
+    def readJSON_aboutDays(config_path, period):
         with open(config_path, 'r', encoding='utf-8') as file:
             config_data = json.load(file)
-        return config_data["CP - Possibility"]['1DDPP'], config_data["CP - Possibility"]['1DDSP']
+        return config_data["CP - Possibility"][period]['1DDPP'], config_data["CP - Possibility"][period]['1DDSP']
         
         

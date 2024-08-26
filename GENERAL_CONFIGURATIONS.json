@@ -144,10 +144,7 @@
 
     },
 
-    "CP - Possibility": {
-        "1DDPP": 24,
-        "1DDSP": 23,
-        
+    "CP - Possibility": {        
         "01":{
             "1DDPP": 24,
             "1DDSP": 23
@@ -196,6 +193,5 @@
             "1DDPP": 24,
             "1DDSP": 23
         }
-        
     }
 }
