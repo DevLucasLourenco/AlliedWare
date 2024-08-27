@@ -115,7 +115,7 @@ class DIF:
                     
                 elif not ShareHereby.VALIDATIONS["InnerFolder"].get():
                     DIF.__move(pathTo, file)
-                    # shutil.move(file, pathTo) ## fazer um outro __moveNotInnerFolder para esse caso aqui porque para esse caso não permite retirar o código
+                    
                     
                     Archives.RelocatedFromEmployee.append((file, pathTo))
                     LOGGER(f'ALOCAÇÃO DIF:\nDE:\n{file}\nPARA: \n{pathTo}\n--------------------', 'INFO')
@@ -149,18 +149,14 @@ class DIF:
     def __move(pathTo:Path, filename:Path):
         PATH:Path = pathTo
         FILENAME:Path = filename
-        # print('inicio', FILENAME, PATH, '----------',sep="\n")
         
         if ShareHereby.VALIDATIONS['RemovePreffix'].get():
-            print(FILENAME)
             FILENAME = DIF.__renamingOf(filename.name)
-            print(FILENAME)
             
         if ShareHereby.VALIDATIONS['DuplicatedFile'].get():
             PATH = DIF._generate_unique_filename(PATH, FILENAME.name)
         
-        print('fim', FILENAME, PATH,  '----------',sep="\n")
-        # shutil.move(filename, pathTo)
+        shutil.move(FILENAME, PATH)
 
 
     @staticmethod

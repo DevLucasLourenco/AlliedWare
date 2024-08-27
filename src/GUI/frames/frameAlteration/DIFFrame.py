@@ -28,12 +28,12 @@ class FrameDIF():
         
     def PACK_ALL(self):
         self.buttonCBInnerFolder.pack(padx=(0, 0), 
-                                      pady=(10, 10))
+                                      pady=(10, 0))
         
-        self.buttonCBRename.pack(padx=(0, 0), 
+        self.buttonCBRename.pack(padx=(10, 0), 
                                  pady=(10, 0))
         
-        self.buttonCBDuplicatedFilename.pack(padx=(0, 0), 
+        self.buttonCBDuplicatedFilename.pack(padx=(43, 10), 
                                              pady=(10, 15))
         
         self.execButton.pack(side="bottom", fill="x", padx=0, pady=0)
