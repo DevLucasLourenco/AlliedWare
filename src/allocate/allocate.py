@@ -1,6 +1,6 @@
-import time
 from tkinter import messagebox
 
+from src.GUI.frames.frameAlteration.HEFrame import FrameHE
 from src.GUI.frames.frameAlteration.CPFrame import FrameCP
 from src.GUI.frames.frameAlteration.CCFrame import FrameCC
 from src.GUI.frames.frameAlteration.DIFFrame import FrameDIF
@@ -22,8 +22,8 @@ class Allocate:
         self.By = Allocate.__verifyIntegrity(request.By)
         self.frame = request.frameForUsage
         # self.objectOfButton = request.ButtonObject
-        
         self.ALLOCATION_OF_ARCHIEVES()
+        
         
         
     @staticmethod
@@ -39,20 +39,18 @@ class Allocate:
                     messagebox.showinfo('Atenção', 'Lembre-se de garantir que não haja nenhuma pasta aberta ou em utilização.')
                     ShareHereby.FRAMEDIF = FrameDIF(self.request.frameForUsage)
                     
-                    
                 case By.CC:
                     messagebox.showinfo('Atenção', 'Lembre-se de garantir que não haja nenhuma pasta aberta ou em utilização.')
                     ShareHereby.FRAMECC = FrameCC(self.request.frameForUsage)
-                    
                                         
                 case By.CP:
                     messagebox.showinfo('Atenção', 'Lembre-se de garantir que não haja nenhuma pasta aberta ou em utilização.')
                     ShareHereby.FRAMECP = FrameCP(self.request.frameForUsage)
                                         
                 case By.HE:
-                    print('HE')
+                    messagebox.showinfo('Atenção', 'Lembre-se de garantir que não haja nenhuma pasta aberta ou em utilização.')
+                    ShareHereby.FRAMEHE = FrameHE(self.request.frameForUsage)
                     
                 case _:
                     print("Off")
-                    
 

@@ -68,7 +68,7 @@ class MainInterfaceTopFrame:
                                   function=lambda:Allocate(request=self.CP_request), padTuple=((50, 0), (25, 0)))
 
         self.buttonHE = PATTERN_BUTTON(buttonName="SOLICITAÇÃO DE HE", master=self.frameForUsageFromInstance, gridRow=2, gridColumn=1, 
-                                  function=lambda:Allocate(By.HE, self.buttonHE), padTuple=((35, 0), (25, 0)))
+                                  function=lambda:Allocate(request=self.HE_request), padTuple=((35, 0), (25, 0)))
        
         self.buttonSelectScript = ScriptSelectionArea(master=self.frameForUsageFromInstance)
         self.buttonSelectScript.gridAll()
@@ -90,6 +90,11 @@ class MainInterfaceTopFrame:
         self.CP_request = Request()
         self.CP_request.By = By.CP
         self.CP_request.frameForUsage = self.frameForUsageFromInstance
+        
+        
+        self.HE_request = Request()
+        self.HE_request.By = By.HE
+        self.HE_request.frameForUsage = self.frameForUsageFromInstance
         
             
         
