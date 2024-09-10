@@ -18,8 +18,11 @@ class Archives:
     PATH = Path(r'filesGenerated')
     PATH.mkdir(exist_ok=True, parents=True)
     
-    NotRelocatedFromEmployee:list[tuple[Path, Path]] = list()
     RelocatedFromEmployee:list[tuple[Path, Path]] = list()
+    NotRelocatedFromEmployee:list[tuple[Path, Path]] = list()
+    
+    RelocatedFromEmployeeFired:list[tuple[Path, Path]] = list()
+    NotRelocatedFromEmployeeFired:list[tuple[Path, Path]] = list()
     
     RelocatedCC:list[tuple[Path, Path]] = list()
     NotRelocatedCC:list[tuple[Path, Path]] = list()
@@ -31,7 +34,12 @@ class Archives:
     NotRelocatedHE:list[tuple[Path, Path]] = list()
     
     
-    LISTAGE_OF_ALL_DATA_ABOUT_RELOCATING = [RelocatedFromEmployee, RelocatedFromEmployee, RelocatedCC, NotRelocatedCC, RelocatedCP, NotRelocatedCP, RelocatedHE, NotRelocatedHE]
+    LISTAGE_OF_ALL_DATA_ABOUT_RELOCATING = [RelocatedFromEmployee, NotRelocatedFromEmployee, 
+                                            RelocatedFromEmployeeFired, NotRelocatedFromEmployeeFired, 
+                                            RelocatedCC, NotRelocatedCC, 
+                                            RelocatedCP, NotRelocatedCP, 
+                                            RelocatedHE, NotRelocatedHE,
+                                            ]
     
     
     @staticmethod
@@ -50,13 +58,20 @@ class Archives:
         data = {
                 "RelocatedFromEmployee": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.RelocatedFromEmployee],
                 "NotRelocatedFromEmployee": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.NotRelocatedFromEmployee],
+                
+                "RelocatedFromEmployeeFired":[("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.RelocatedFromEmployeeFired],
+                "NotRelocatedFromEmployeeFired":[("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.NotRelocatedFromEmployeeFired],
+                
                 "RelocatedCC": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.RelocatedCC],
                 "NotRelocatedCC": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.NotRelocatedCC],
+                
                 "RelocatedCP": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.RelocatedCP],
                 "NotRelocatedCP": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.NotRelocatedCP],
+                
                 "RelocatedHE": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.RelocatedHE],
                 "NotRelocatedHE": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.NotRelocatedHE],
             }
+        
         return data
         
 

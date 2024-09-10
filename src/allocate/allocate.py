@@ -1,5 +1,6 @@
 from tkinter import messagebox
 
+from src.GUI.frames.frameAlteration.DIFDFrame import FrameDIFD
 from src.GUI.frames.frameAlteration.HEFrame import FrameHE
 from src.GUI.frames.frameAlteration.CPFrame import FrameCP
 from src.GUI.frames.frameAlteration.CCFrame import FrameCC
@@ -38,6 +39,10 @@ class Allocate:
                 case By.DIF:
                     messagebox.showinfo('Atenção', 'Lembre-se de garantir que não haja nenhuma pasta aberta ou em utilização.')
                     ShareHereby.FRAMEDIF = FrameDIF(self.request.frameForUsage)
+                
+                case By.DIFD:
+                    messagebox.showinfo('Atenção', 'Lembre-se de garantir que não haja nenhuma pasta aberta ou em utilização.')
+                    ShareHereby.FRAMEDIFD = FrameDIFD(self.request.frameForUsage)
                     
                 case By.CC:
                     messagebox.showinfo('Atenção', 'Lembre-se de garantir que não haja nenhuma pasta aberta ou em utilização.')

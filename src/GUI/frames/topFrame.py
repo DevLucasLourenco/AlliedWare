@@ -55,8 +55,9 @@ class MainInterfaceTopFrame:
                                   function=lambda:DynamicalWindowApproach(
                                             self.frameForUsageFromInstance
                                                 ).giveOptions(
-                                                    {"DIF":lambda:Allocate(request=self.DIF_request), 
-                                                    "DIFD":lambda:print('ok'), 
+                                                    {
+                                                    "DIF":lambda:Allocate(request=self.DIF_request), 
+                                                    "DIFD":lambda:Allocate(request=self.DIFD_request), 
                                                     }
                                                 ), 
                                   padTuple=((50, 0), (75, 0)))
@@ -81,6 +82,10 @@ class MainInterfaceTopFrame:
         self.DIF_request.By = By.DIF
         self.DIF_request.frameForUsage = self.frameForUsageFromInstance
         
+        
+        self.DIFD_request = Request()
+        self.DIFD_request.By = By.DIFD
+        self.DIFD_request.frameForUsage = self.frameForUsageFromInstance
         
         self.CC_request = Request()
         self.CC_request.By = By.CC

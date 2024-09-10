@@ -22,13 +22,20 @@ class DIFAutoDesignation:
 
     def analyse(self):
         for key, folder in self.RULES.items():
-            if key in self.file.name:
+            if key in DIFAutoDesignation.getMainFilename(self.file.name):
                 self.newPathTo = self.pathTo / folder
                 self.newPathTo.mkdir(parents=True, exist_ok=True)
                 return True
         return False
 
+
     def get(self) -> Path:
         return self.newPathTo
     
+    
+    @staticmethod
+    def getMainFilename(file):
+        listFile = file.split('-')
+        res = listFile[1].strip()
+        return res
 

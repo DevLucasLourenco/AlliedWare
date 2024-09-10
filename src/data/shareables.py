@@ -1,13 +1,13 @@
 from pathlib import WindowsPath
 
 
-
 class ShareHereby:
     # Instances & Objects Shared
     #----------
     MAIN_INSTANCE_OF_GUI:object
     LabelToShowTheCountOfFiles=...
     FRAMEDIF = ...
+    FRAMEDIFD = ...
     FRAMECC = ...
     FRAMECP = ...
     FRAMEHE = ...
@@ -15,7 +15,7 @@ class ShareHereby:
         
     # Keys
     #----------
-    KEYS = ['DIF', 'HE', 'CC', 'CP'] ## falta acrescentar o DIFD
+    KEYS = ['DIF', 'DIFD', 'HE', 'CC', 'CP']
     #----------
     
     # Objects from Frames
@@ -29,7 +29,6 @@ class ShareHereby:
     ALL_ARCHIEVES_VALIDATED:list[WindowsPath] = list()
     
     ARCHIEVES_FILTERED:dict = dict() # em generateDynamicKeys é propagada e criado com as chaves de "KEYS"
-    ARCHIEVES_CONCLUTED:dict = dict() # em generateDynamicKeys é propagada e criado com as chaves de "KEYS"
     
     FOLDER_UNION:list = list()
     #----------
@@ -42,6 +41,9 @@ class ShareHereby:
     KEYS_TO_IDENTIFY:dict = {
             'DIF -':'DIF',
             'DIF-':'DIF',
+            #----------
+            'DIFD -':'DIFD',
+            'DIFD-':'DIFD',
             #----------
             'CC -':'CC',
             'CC-':'CC',
@@ -67,11 +69,9 @@ class ShareHereby:
     #----------
     
     
-    
     def generateDynamicKeys(self):
         for key in ShareHereby.KEYS:
             ShareHereby.ARCHIEVES_FILTERED[key] = list()
-            ShareHereby.ARCHIEVES_CONCLUTED[key] = list()
 
 
     @staticmethod

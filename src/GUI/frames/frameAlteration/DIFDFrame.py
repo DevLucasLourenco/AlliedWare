@@ -1,10 +1,10 @@
 import customtkinter
 
 from src.data.shareables import ShareHereby
-from src.allocate.designations.DIF import DIF
+from src.allocate.designations.DIFD import DIFD
 
 
-class FrameDIF():
+class FrameDIFD():
 
     def __init__(self, master):
         self.masterForUsage = master
@@ -31,7 +31,7 @@ class FrameDIF():
         self.buttonCBInnerFolder.pack(padx=(0, 0), 
                                       pady=(10, 0))
         
-        self.buttonCBRename.pack(padx=(10, 0), 
+        self.buttonCBRename.pack(padx=(18, 0), 
                                  pady=(10, 0))
         
         self.buttonCBDuplicatedFilename.pack(padx=(43, 10), 
@@ -44,7 +44,7 @@ class FrameDIF():
         self.top = customtkinter.CTkToplevel(self.masterForUsage)
         self.top.grab_set()
         
-        self.top.title("DIF - Preparações")
+        self.top.title("DIFD - Preparações")
         self.top.geometry("+%d+%d" % (self.masterForUsage.winfo_screenwidth() // 2 - 100, self.masterForUsage.winfo_screenheight() // 2 - 50))
         self.top.resizable(False, False)
         # self.top.pack_propagate(False)
@@ -57,7 +57,7 @@ class FrameDIF():
         
     def buildCheckBoxRename(self):
         self.buttonCBRename = customtkinter.CTkCheckBox(self.top, 
-                                                        text='Retirar Código DIF', 
+                                                        text='Retirar Código DIFD', 
                                                         variable=self.validatorToRemovePreffixDIF)
         
     def buildCheckBoxDuplicatedFilename(self):
@@ -73,11 +73,14 @@ class FrameDIF():
         }
         
         self.execButton = customtkinter.CTkButton(self.top, 
-                                                  text="Executar DIF", 
-                                                  command=lambda:DIF(self.validations).passthrough())
+                                                  text="Executar DIFD", 
+                                                  command=lambda:DIFD(self.validations).passthroughDIFD())
     
     def destroyWindow(self):
         self.top.destroy()
         
 
+    def execution(self):
+        app = DIFD(self.validations)
+        app.passthroughDIFD()
         

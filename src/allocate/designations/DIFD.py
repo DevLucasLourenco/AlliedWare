@@ -3,40 +3,21 @@ import shutil
 from pathlib import Path
 from tkinter import messagebox
 
+from src.GUI.frames.lowerFrame import LowerFrameForUsage
+from src.allocate.designations.innerFolders.AutoDesignate import DIFAutoDesignation
 from src.LOG.LOG_manager import LOGGER
 from src.data.exportData import Archives
 from src.data.shareables import ShareHereby
-from src.GUI.frames.lowerFrame import LowerFrameForUsage
-from src.errors.NoInternetConnection import NoInternetConnection
-from src.allocate.designations.innerFolders.AutoDesignate import DIFAutoDesignation
+from src.errors import NoInternetConnection
 
 
-# fazer verificação seRGio
+class DIFD:
+    FIRED_FOLDER_NAME = r'G:\Recursos Humanos\01 - PESSOAL\01 - FUNCIONÁRIOS\5 - EX FUNCIONÁRIOS'
 
-class DIF:
-    FATHERDIR:Path = Path(r'G:\Recursos Humanos\01 - PESSOAL\01 - FUNCIONÁRIOS')
-    
-    HIRING_FOLDER_NAME:str = r'0 - PROCESSO DE CONTRATAÇÃO'
-    ADM_FOLDER_NAME:str = r'1 - ADMINISTRATIVO'
-    OP_FOLDER_NAME:str = r'2 - OPERAÇÃO'
-    
-    
-    HIRING_DIR:Path = FATHERDIR / HIRING_FOLDER_NAME
-    ADM_DIR:Path = FATHERDIR / ADM_FOLDER_NAME
-    OP_DIR:Path = FATHERDIR / OP_FOLDER_NAME
-    
-    
-    def __init__(self, validations):
-        ShareHereby.VALIDATIONS = validations
-        
-        self.hiring_folders_inside:list[Path] = DIF.getFolders(DIF.HIRING_DIR)
-        self.adm_folders_inside:list[Path] = DIF.getFolders(DIF.ADM_DIR)
-        self.op_folders_inside:list[Path] = DIF.getFolders(DIF.OP_DIR)
-        
-        ShareHereby.FOLDER_UNION = self.hiring_folders_inside + self.adm_folders_inside + self.op_folders_inside
+    def __init__(self) -> None:
+        self.fired_folders_inside:list[Path] = DIFD.getFolders(DIFD.FIRED_FOLDER_NAME)
         
         
-    
     @staticmethod
     def getFolders(directory):
         try:
@@ -45,39 +26,28 @@ class DIF:
             raise NoInternetConnection()
     
     
-    
     @staticmethod
     def extractName(file:Path):
         return (file.name).split('-')[-1].strip().split('.')[0]
-    
     
     
     @staticmethod  
     def __renamingOf(file):
         for key in ShareHereby.KEYS_TO_IDENTIFY.keys():
             file = file.replace(key,'')
+        print(file)
         return file.strip()
     
-        
     
-    def passthrough(self, *newList):
-        # print('NEW list:', newList)
-        
-        # print('innerFolder:', ShareHereby.VALIDATIONS["InnerFolder"].get())
-        # print('PREFIX:', ShareHereby.VALIDATIONS["RemovePreffix"].get())
-        # print('DUPLICATE:', ShareHereby.VALIDATIONS["DuplicatedFile"].get())
-        
-        if newList:
-            listage = newList[0]
-        else:   
-            listage = ShareHereby.ARCHIEVES_FILTERED['DIF'].copy()
+    def passthroughDIFD(self):
+        listage = ShareHereby.ARCHIEVES_FILTERED['DIFD'].copy()
             
         for file in listage:
             targetedFile = False # Arquivo direcionado
             self.removeFromList = False
             
-            folder_name_to_reach = DIF.extractName(file)
-            for path in ShareHereby.FOLDER_UNION:
+            folder_name_to_reach = DIFD.extractName(file)
+            for path in self.fired_folders_inside:
                 if folder_name_to_reach in path.name:
                     targetedFile = True
                     self.moveTo(file=file, pathTo=path)
@@ -85,17 +55,17 @@ class DIF:
             
             if not targetedFile:
                 LOGGER(f'NÃO MOVIDO POR: <Pasta Inexistente> - {file}', 'WARNING')
-                Archives.NotRelocatedFromEmployee.append((file, f"Pasta Inexistente - {folder_name_to_reach}"))
+                Archives.NotRelocatedFromEmployeeFired.append((file, f"Pasta Inexistente - {folder_name_to_reach}"))
             
             
             if self.removeFromList:
-                ShareHereby.ARCHIEVES_FILTERED['DIF'].remove(file)
+                ShareHereby.ARCHIEVES_FILTERED['DIFD'].remove(file)
         
         messagebox.showinfo("Concluído", "Alocações realizadas")
         ShareHereby.FRAMEDIF.destroyWindow()
         ShareHereby.buttonsFromTopFrame[0].configure(state='disabled')
-                    
-
+        
+        
     def moveTo(self, file:Path, pathTo:Path):
         DIF_AD = DIFAutoDesignation(file, pathTo, 'DIF')
         validator = DIF_AD.analyse()
@@ -107,22 +77,22 @@ class DIF:
                 if ShareHereby.VALIDATIONS["InnerFolder"].get():
                     self.__move(path, file)
                     
-                    Archives.RelocatedFromEmployee.append((file, path))
-                    LOGGER(f'ALOCAÇÃO DIF:\nDE:\n{file}\nPARA: \n{path}\n--------------------', 'INFO')
+                    Archives.RelocatedFromEmployeeFired.append((file, path))
+                    LOGGER(f'ALOCAÇÃO DIFD:\nDE:\n{file}\nPARA: \n{path}\n--------------------', 'INFO')
                     self.removeFromList = True
                     
                 elif not ShareHereby.VALIDATIONS["InnerFolder"].get():
                     self.__move(pathTo, file)
                     
-                    Archives.RelocatedFromEmployee.append((file, pathTo))
-                    LOGGER(f'ALOCAÇÃO DIF:\nDE:\n{file}\nPARA: \n{pathTo}\n--------------------', 'INFO')
+                    Archives.RelocatedFromEmployeeFired.append((file, pathTo))
+                    LOGGER(f'ALOCAÇÃO DIFD:\nDE:\n{file}\nPARA: \n{pathTo}\n--------------------', 'INFO')
                     self.removeFromList = True
                 
                 
             except PermissionError:
                 # messagebox.showerror('Pasta Influenciada', f'Impossível manusear visto que existe uma pasta que está sendo influenciada.\n{pathTo}')
                 LOGGER(f'NÃO MOVIDO POR: <Pasta influenciada> - {file}', 'WARNING')
-                Archives.NotRelocatedFromEmployee.append((file, str(path) + "Pasta influenciada"))
+                Archives.NotRelocatedFromEmployeeFired.append((file, str(path) + "Pasta influenciada"))
                 
                 
             except Exception as e:
@@ -132,26 +102,23 @@ class DIF:
             
         else:
             try:
-                Archives.NotRelocatedFromEmployee.append((file, str(path) + 'Parâmetro de Alocação Inexistente'))
+                Archives.NotRelocatedFromEmployeeFired.append((file, str(path) + 'Parâmetro de Alocação Inexistente'))
             except UnboundLocalError:
-                Archives.NotRelocatedFromEmployee.append((file, 'Parâmetro de Alocação Inexistente'))
+                Archives.NotRelocatedFromEmployeeFired.append((file, 'Parâmetro de Alocação Inexistente'))
                 
             LOGGER(f'NÃO MOVIDO POR: <Parâmetro de Alocação Inexistente> - {file}', 'WARNING')
-
-
         LowerFrameForUsage.updateTextCount()
     
-
     
     def __move(self, pathTo:Path, file:Path):
         if ShareHereby.VALIDATIONS['RemovePreffix'].get():
-            filename_renamed = DIF.__renamingOf(file.name)
+            filename_renamed = DIFD.__renamingOf(file.name)
 
         if ShareHereby.VALIDATIONS['DuplicatedFile'].get():
             if ShareHereby.VALIDATIONS['RemovePreffix'].get():
-                pathTo = DIF._generate_unique_filename(pathTo, filename_renamed)
+                pathTo = DIFD._generate_unique_filename(pathTo, filename_renamed)
             else:
-                pathTo = DIF._generate_unique_filename(pathTo, file.name)
+                pathTo = DIFD._generate_unique_filename(pathTo, file.name)
             
         shutil.move(file, pathTo)
 
@@ -168,3 +135,4 @@ class DIF:
             return destination / f"{base_name}_{counter}.{ext}"
         
         return destination / f"{base_name}.{ext}"
+    
