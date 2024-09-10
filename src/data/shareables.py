@@ -49,10 +49,10 @@ class ShareHereby:
             'CP -':'CP',
             'CP-':'CP',
             #----------
-            'SOLICITAÇÃO DE HE -':'HE',
-            'SOLICITAÇÃO DE HE-':'HE',
-            'SOLICITACAO DE HE -':'HE',
-            'SOLICITACAO DE HE-':'HE',
+            'SOLICITAÇÃO DE HE':'HE',
+            'SOLICITAÇÃO DE HE':'HE',
+            'SOLICITACAO DE HE':'HE',
+            'SOLICITACAO DE HE':'HE',
         }
     #----------
     

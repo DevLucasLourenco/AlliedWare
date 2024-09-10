@@ -1,13 +1,14 @@
 import re
 import json
+import shutil
 
 from pathlib import Path
 from tkinter import filedialog, messagebox
 
 from src.GUI.frames.lowerFrame import LowerFrameForUsage
-from src.data.dirSpotCheck import SpotCheck
 from src.LOG.LOG_manager import LOGGER
 from src.data.exportData import Archives
+from src.data.dirSpotCheck import SpotCheck
 from src.data.shareables import ShareHereby
 
 
@@ -25,28 +26,41 @@ class HE:
     @staticmethod
     def passthroughHE():
         dir = HE._ASK_DIR_TO_GO()
-        
-        RULES_TO_ALOCATION_SUBFOLDER = HE.readJSON(config_path=SpotCheck.ReacheableJSON()[1])
-        
-        listage = ShareHereby.ARCHIEVES_FILTERED["HE"].copy()
-        
-        for file in listage:
-            removeFromList = False
+        if dir != "":
+            RULES_TO_ALOCATE_SUBFOLDER = HE.readJSON(config_path=SpotCheck.ReacheableJSON()[1])
             
-            #...
-        
-        
-        
-        
+            listage = ShareHereby.ARCHIEVES_FILTERED["HE"].copy()
             
-            if removeFromList:
-                ShareHereby.ARCHIEVES_FILTERED['HE'].remove(file) 
+            for file in listage:
+                removeFromList = False
                 
-        LowerFrameForUsage.updateTextCount()
-        ShareHereby.FRAMEHE.destroyWindow()
-        ShareHereby.buttonsFromTopFrame[3].configure(state='disabled')
+                for key, dirToGo in RULES_TO_ALOCATE_SUBFOLDER.items():
+                    # print(file, key, sep=' | ')
+                    try:
+                        if key in file.name:
+                            newPath = Path(dir) / dirToGo
+                            shutil.move(file, newPath)
+                            print(file, newPath, sep=' | ')
+                            Archives.RelocatedHE.append((file, newPath))
+                            LOGGER(f'ALOCAÇÃO HE:\nDE:\n{file}\nPARA: \n{newPath}\n--------------------', 'INFO')
+                            removeFromList = True
 
-            
+                        else:
+                            Archives.NotRelocatedHE.append((file, 'Parâmetro de Alocação Inexistente'))
+                            LOGGER(f'NÃO MOVIDO POR: <Parâmetro de Alocação Inexistente> - {file}',"WARNING")
+                    
+                    except Exception as e:
+                            Archives.NotRelocatedHE.append((file, f'Erro | {e}'))
+                            LOGGER(f'NÃO MOVIDO POR: <{e}> - {file}',"WARNING")
+                            
+                if removeFromList:
+                    ShareHereby.ARCHIEVES_FILTERED['HE'].remove(file) 
+                    
+            LowerFrameForUsage.updateTextCount()
+            ShareHereby.FRAMEHE.destroyWindow()
+            ShareHereby.buttonsFromTopFrame[3].configure(state='disabled')
+
+                
          
     @staticmethod
     def _ASK_DIR_TO_GO():

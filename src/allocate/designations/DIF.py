@@ -122,7 +122,7 @@ class DIF:
                 
                 
             except PermissionError:
-                messagebox.showerror('Pasta Influenciada', f'Impossível manusear visto que existe uma pasta que está sendo influenciada.\n{pathTo}')
+                # messagebox.showerror('Pasta Influenciada', f'Impossível manusear visto que existe uma pasta que está sendo influenciada.\n{pathTo}')
                 LOGGER(f'NÃO MOVIDO POR: <Pasta influenciada> - {file}', 'WARNING')
                 Archives.NotRelocatedFromEmployee.append((file, str(path) + "Pasta influenciada"))
                 
