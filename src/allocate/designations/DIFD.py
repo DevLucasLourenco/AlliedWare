@@ -36,7 +36,6 @@ class DIFD:
     def __renamingOf(file):
         for key in ShareHereby.KEYS_TO_IDENTIFY.keys():
             file = file.replace(key,'')
-        print(file)
         return file.strip()
     
     
