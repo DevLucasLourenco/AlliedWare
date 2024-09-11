@@ -11,8 +11,6 @@ from src.errors.NoInternetConnection import NoInternetConnection
 from src.allocate.designations.innerFolders.AutoDesignate import DIFAutoDesignation
 
 
-# fazer verificação seRGio
-
 class DIF:
     FATHERDIR:Path = Path(r'G:\Recursos Humanos\01 - PESSOAL\01 - FUNCIONÁRIOS')
     
@@ -25,6 +23,7 @@ class DIF:
     ADM_DIR:Path = FATHERDIR / ADM_FOLDER_NAME
     OP_DIR:Path = FATHERDIR / OP_FOLDER_NAME
     
+    RPA_DIR:Path = Path(r'G:\Recursos Humanos\05 - RPA\01 - DOCUMENTOS COLABORADORES')
     
     def __init__(self, validations):
         ShareHereby.VALIDATIONS = validations
@@ -32,9 +31,9 @@ class DIF:
         self.hiring_folders_inside:list[Path] = DIF.getFolders(DIF.HIRING_DIR)
         self.adm_folders_inside:list[Path] = DIF.getFolders(DIF.ADM_DIR)
         self.op_folders_inside:list[Path] = DIF.getFolders(DIF.OP_DIR)
+        self.rpa_folders_inside:list[Path] = DIF.getFolders(DIF.RPA_DIR)
         
-        ShareHereby.FOLDER_UNION = self.hiring_folders_inside + self.adm_folders_inside + self.op_folders_inside
-        
+        ShareHereby.FOLDER_UNION = self.hiring_folders_inside + self.adm_folders_inside + self.op_folders_inside + self.rpa_folders_inside
         
     
     @staticmethod
@@ -70,7 +69,7 @@ class DIF:
         if newList:
             listage = newList[0]
         else:   
-            listage = ShareHereby.ARCHIEVES_FILTERED['DIF'].copy()
+            listage = ShareHereby.ARCHIVES_FILTERED['DIF'].copy()
             
         for file in listage:
             targetedFile = False # Arquivo direcionado
@@ -82,6 +81,8 @@ class DIF:
                     targetedFile = True
                     self.moveTo(file=file, pathTo=path)
                     self.removeFromList = True
+                    
+                    continue
             
             if not targetedFile:
                 LOGGER(f'NÃO MOVIDO POR: <Pasta Inexistente> - {file}', 'WARNING')
@@ -89,7 +90,7 @@ class DIF:
             
             
             if self.removeFromList:
-                ShareHereby.ARCHIEVES_FILTERED['DIF'].remove(file)
+                ShareHereby.ARCHIVES_FILTERED['DIF'].remove(file)
         
         messagebox.showinfo("Concluído", "Alocações realizadas")
         ShareHereby.FRAMEDIF.destroyWindow()
@@ -123,12 +124,14 @@ class DIF:
                 # messagebox.showerror('Pasta Influenciada', f'Impossível manusear visto que existe uma pasta que está sendo influenciada.\n{pathTo}')
                 LOGGER(f'NÃO MOVIDO POR: <Pasta influenciada> - {file}', 'WARNING')
                 Archives.NotRelocatedFromEmployee.append((file, str(path) + "Pasta influenciada"))
+                self.removeFromList = False
                 
                 
             except Exception as e:
                 LOGGER(e, "ERROR")
-                messagebox.showerror("Error", e)
+                messagebox.showerror("Error", str(e) + '\n' + file.name)
                 messagebox.showinfo("Recarregar", "Recarregar - Tente selecionar a pasta novamente.")
+                self.removeFromList = False
             
         else:
             try:
@@ -137,7 +140,7 @@ class DIF:
                 Archives.NotRelocatedFromEmployee.append((file, 'Parâmetro de Alocação Inexistente'))
                 
             LOGGER(f'NÃO MOVIDO POR: <Parâmetro de Alocação Inexistente> - {file}', 'WARNING')
-
+            self.removeFromList = False
 
         LowerFrameForUsage.updateTextCount()
     

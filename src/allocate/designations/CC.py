@@ -44,7 +44,7 @@ class CC:
     def passthroughCC():
         RULES:dict = CC.readJSON(SpotCheck.ReacheableJSON()[1])
         
-        listage = ShareHereby.ARCHIEVES_FILTERED["CC"].copy()
+        listage = ShareHereby.ARCHIVES_FILTERED["CC"].copy()
         for file in listage:
             removeFromList = False
             month, year = CC.takeMonthAndYear(file.name)
@@ -70,7 +70,7 @@ class CC:
                 Archives.NotRelocatedCC.append(((file, str(e) + ' - Pasta Influenciada')))
             
             if removeFromList:
-                ShareHereby.ARCHIEVES_FILTERED['CC'].remove(file)
+                ShareHereby.ARCHIVES_FILTERED['CC'].remove(file)
                 
         LowerFrameForUsage.updateTextCount()
         ShareHereby.FRAMECC.destroyWindow()

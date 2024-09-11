@@ -36,8 +36,8 @@ class LowerFrameForUsage(AbstractGlobalObject):
     
     
     def __initialInstance(self):        
-        self.ALL_ARCHIEVES = list()
-        ShareHereby.ALL_ARCHIEVES_VALIDATED = list()
+        self.ALL_ARCHIVES = list()
+        ShareHereby.ALL_ARCHIVES_VALIDATED = list()
         ShareHereby.reset_counter()
         
         
@@ -84,12 +84,12 @@ class LowerFrameForUsage(AbstractGlobalObject):
     def countInfos(self, *dir):
         if dir:
             self.__initialInstance()
-            self.ALL_ARCHIEVES = list(Path(dir[0]).glob('*.pdf'))
+            self.ALL_ARCHIVES = list(Path(dir[0]).glob('*'))
             
-            for archieve in self.ALL_ARCHIEVES:
+            for archieve in self.ALL_ARCHIVES:
                 for key, value in ShareHereby.KEYS_TO_IDENTIFY.items():
                     if key in archieve.name:
-                        ShareHereby.ALL_ARCHIEVES_VALIDATED.append(archieve)
+                        ShareHereby.ALL_ARCHIVES_VALIDATED.append(archieve)
 
 
     def __searchDir(self):
@@ -121,8 +121,8 @@ class LowerFrameForUsage(AbstractGlobalObject):
     @staticmethod
     def updateTextCount():
         ShareHereby.reset_counter()
-        for k in ShareHereby.ARCHIEVES_FILTERED:
-            for file in ShareHereby.ARCHIEVES_FILTERED[k]:
+        for k in ShareHereby.ARCHIVES_FILTERED:
+            for file in ShareHereby.ARCHIVES_FILTERED[k]:
                 ShareHereby.countedSection[k] += 1
                 ShareHereby.countedSection['Total'] += 1
         

@@ -13,7 +13,6 @@ class FrameDIFD():
         self.validatorToRemovePreffixDIF = customtkinter.BooleanVar(value=True)
         self.validatorDuplicatedFilename = customtkinter.BooleanVar(value=True)
         
-        
         self.run()
 
     
@@ -74,7 +73,7 @@ class FrameDIFD():
         
         self.execButton = customtkinter.CTkButton(self.top, 
                                                   text="Executar DIFD", 
-                                                  command=lambda:DIFD(self.validations).passthroughDIFD())
+                                                  command=self.execution)
     
     def destroyWindow(self):
         self.top.destroy()

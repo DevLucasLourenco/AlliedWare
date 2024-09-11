@@ -23,7 +23,7 @@ class Allocate:
         self.By = Allocate.__verifyIntegrity(request.By)
         self.frame = request.frameForUsage
         # self.objectOfButton = request.ButtonObject
-        self.ALLOCATION_OF_ARCHIEVES()
+        self.ALLOCATION_OF_ARCHIVES()
         
         
         
@@ -33,7 +33,7 @@ class Allocate:
             return by
         raise
     
-    def ALLOCATION_OF_ARCHIEVES(self):
+    def ALLOCATION_OF_ARCHIVES(self):
         if self.request.By:
             match(self.request.By):
                 case By.DIF:

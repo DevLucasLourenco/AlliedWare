@@ -1,4 +1,6 @@
 import os
+import sys
+import subprocess
 import customtkinter
 
 from PIL import Image
@@ -19,6 +21,7 @@ class ObjectSideBar(AbstractGlobalObject):
     def run(self):
         self.buildFrame()
         self.labelProjectName()
+        self.buttonReload()
         self.buttonExport()
         self.buttonLOG()
         self.buttonAlocationConfiguration()
@@ -46,6 +49,22 @@ class ObjectSideBar(AbstractGlobalObject):
         label.grid(row=10, column=0, sticky='s', pady=(0, 10))
         
         
+    def buttonReload(self):
+        reloadButton = customtkinter.CTkButton(master=self.sidebarFrame,
+                                                text="Reload",
+                                                command=self.__comand_Reload,
+                                                border_spacing=5,
+                                                border_width=2,
+                                                font=('Robolo', 14, 'bold'), 
+                                                image=customtkinter.CTkImage(
+                                                    light_image=Image.open(r'src\GUI\images\reload.png').resize((50, 50)),
+                                                    dark_image=Image.open(r'src\GUI\images\reload.png').resize((50, 50)),
+                                                    ),
+                                               )
+        
+        reloadButton.grid(row=1, column=0, pady=(0, 20))
+    
+        
     def buttonExport(self):
         logButton = customtkinter.CTkButton(master=self.sidebarFrame, 
                                             text='Exportar',
@@ -58,7 +77,7 @@ class ObjectSideBar(AbstractGlobalObject):
                                                 dark_image=Image.open(r'src\GUI\images\export_icon.png').resize((50,50))
                                                 ),
                                             )
-        logButton.grid(row=1, column=0, pady=(0, 20))
+        logButton.grid(row=2, column=0, pady=(0, 20))
 
 
     def buttonLOG(self):
@@ -73,7 +92,7 @@ class ObjectSideBar(AbstractGlobalObject):
                                                 dark_image=Image.open(r'src\GUI\images\log_icon.png').resize((50,50))
                                                 ),
                                             )
-        logButton.grid(row=2, column=0, pady=(0, 20))
+        logButton.grid(row=3, column=0, pady=(0, 20))
 
     
     def buttonAlocationConfiguration(self):
@@ -88,7 +107,8 @@ class ObjectSideBar(AbstractGlobalObject):
                                                 dark_image=Image.open(r'src\GUI\images\indicator_icon.png').resize((50,50))
                                                 ),
                                             )
-        logButton.grid(row=3, column=0, pady=(0, 20))
+        logButton.grid(row=4, column=0, pady=(0, 20))
+        
         
     def buttonTutorial(self):
         logButton = customtkinter.CTkButton(master=self.sidebarFrame, 
@@ -102,7 +122,7 @@ class ObjectSideBar(AbstractGlobalObject):
                                                 dark_image=Image.open(r'src\GUI\images\tutorial_icon.png').resize((50,50))
                                                 ),
                                             )
-        logButton.grid(row=4, column=0, pady=(0, 20))
+        logButton.grid(row=5, column=0, pady=(0, 20))
         
     
     def __command_alocation(self):
@@ -130,8 +150,15 @@ class ObjectSideBar(AbstractGlobalObject):
             'Tutorial - Allied': tutorial_exec,
             'Tutorial - Renomeio': lambda:os.startfile(r'tutorial\data\Allied - Padrão de Renomeio.pdf'),
         }
+        
         app = DynamicalWindowApproach(master=self.sidebarFrame)
         app.giveOptions(options_dict=options)
         
+    
+    def __comand_Reload(self):
+        self.master.destroy()
+        
+        subprocess.Popen([sys.executable] + sys.argv)
+        sys.exit()
         
     

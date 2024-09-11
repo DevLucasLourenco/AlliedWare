@@ -48,7 +48,7 @@ class CP:
     def passthroughCP():
         RULES:dict = CP.readJSON(config_path=SpotCheck.ReacheableJSON()[1])
         
-        listage = ShareHereby.ARCHIEVES_FILTERED["CP"].copy()
+        listage = ShareHereby.ARCHIVES_FILTERED["CP"].copy()
         
         for file in listage:
             removeFromList = False
@@ -88,7 +88,7 @@ class CP:
                 LOGGER(f"NÃO MOVIDO POR: {e} - {file}", "ERROR")  
                 
             if removeFromList:
-                ShareHereby.ARCHIEVES_FILTERED['CP'].remove(file)
+                ShareHereby.ARCHIVES_FILTERED['CP'].remove(file)
         
         
         LowerFrameForUsage.updateTextCount()

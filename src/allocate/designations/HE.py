@@ -29,7 +29,7 @@ class HE:
         if dir != "":
             RULES_TO_ALOCATE_SUBFOLDER = HE.readJSON(config_path=SpotCheck.ReacheableJSON()[1])
             
-            listage = ShareHereby.ARCHIEVES_FILTERED["HE"].copy()
+            listage = ShareHereby.ARCHIVES_FILTERED["HE"].copy()
             
             for file in listage:
                 removeFromList = False
@@ -54,7 +54,7 @@ class HE:
                             LOGGER(f'NÃO MOVIDO POR: <{e}> - {file}',"WARNING")
                             
                 if removeFromList:
-                    ShareHereby.ARCHIEVES_FILTERED['HE'].remove(file) 
+                    ShareHereby.ARCHIVES_FILTERED['HE'].remove(file) 
                     
             LowerFrameForUsage.updateTextCount()
             ShareHereby.FRAMEHE.destroyWindow()

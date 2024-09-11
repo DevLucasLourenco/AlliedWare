@@ -3,19 +3,20 @@ import shutil
 from pathlib import Path
 from tkinter import messagebox
 
-from src.GUI.frames.lowerFrame import LowerFrameForUsage
-from src.allocate.designations.innerFolders.AutoDesignate import DIFAutoDesignation
 from src.LOG.LOG_manager import LOGGER
 from src.data.exportData import Archives
 from src.data.shareables import ShareHereby
-from src.errors import NoInternetConnection
+from src.GUI.frames.lowerFrame import LowerFrameForUsage
+from src.errors.NoInternetConnection import NoInternetConnection
+from src.allocate.designations.innerFolders.AutoDesignate import DIFAutoDesignation
 
 
 class DIFD:
-    FIRED_FOLDER_NAME = r'G:\Recursos Humanos\01 - PESSOAL\01 - FUNCIONÁRIOS\5 - EX FUNCIONÁRIOS'
+    FIRED_FOLDER_DIR = Path(r'G:\Recursos Humanos\01 - PESSOAL\01 - FUNCIONÁRIOS\5 - EX FUNCIONÁRIOS')
 
-    def __init__(self) -> None:
-        self.fired_folders_inside:list[Path] = DIFD.getFolders(DIFD.FIRED_FOLDER_NAME)
+    def __init__(self, validations) -> None:
+        ShareHereby.VALIDATIONS = validations
+        self.fired_folders_inside:list[Path] = DIFD.getFolders(DIFD.FIRED_FOLDER_DIR)
         
         
     @staticmethod
@@ -40,8 +41,8 @@ class DIFD:
     
     
     def passthroughDIFD(self):
-        listage = ShareHereby.ARCHIEVES_FILTERED['DIFD'].copy()
-            
+        listage = ShareHereby.ARCHIVES_FILTERED['DIFD'].copy()
+        
         for file in listage:
             targetedFile = False # Arquivo direcionado
             self.removeFromList = False
@@ -57,12 +58,12 @@ class DIFD:
                 LOGGER(f'NÃO MOVIDO POR: <Pasta Inexistente> - {file}', 'WARNING')
                 Archives.NotRelocatedFromEmployeeFired.append((file, f"Pasta Inexistente - {folder_name_to_reach}"))
             
-            
             if self.removeFromList:
-                ShareHereby.ARCHIEVES_FILTERED['DIFD'].remove(file)
-        
+                ShareHereby.ARCHIVES_FILTERED['DIFD'].remove(file)
+
+            
         messagebox.showinfo("Concluído", "Alocações realizadas")
-        ShareHereby.FRAMEDIF.destroyWindow()
+        # ShareHereby.FRAMEDIF.destroyWindow()
         ShareHereby.buttonsFromTopFrame[0].configure(state='disabled')
         
         
@@ -96,7 +97,7 @@ class DIFD:
                 
                 
             except Exception as e:
-                LOGGER(e, "ERROR")
+                LOGGER(e.with_traceback(), "ERROR")
                 messagebox.showerror("Error", e)
                 messagebox.showinfo("Recarregar", "Recarregar - Tente selecionar a pasta novamente.")
             

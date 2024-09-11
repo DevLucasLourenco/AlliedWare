@@ -141,6 +141,8 @@ class ExportWindow:
         
     def run(self):
         self.buildTopLevel()
+        
+        self.buildButtonOpenDir()
         self.buildCheckBoxXLSX()
         self.buildCheckBoxJSON()
         self.buildCheckBoxStreamlit()
@@ -150,10 +152,11 @@ class ExportWindow:
         
         
     def PACK_ALL(self):
-        self.buttonCBXLSX.pack(padx=(5, 0), pady=(30, 0))
-        self.buttonCBJSON.pack(padx=(5, 0), pady=(10, 0))
-        self.buttonCBDStreamlit.pack(padx=(5, 0), pady=(10, 0))
-        self.execButton.pack(side="bottom", fill="x", padx=0, pady=0)
+        self.buttonToDir.pack(padx=(5, 0), pady=(10, 0))
+        self.buttonCBXLSX.pack(padx=(5, 0), pady=(20, 0))
+        self.buttonCBJSON.pack(padx=(7, 0), pady=(10, 0))
+        self.buttonCBDStreamlit.pack(padx=(26, 0), pady=(10, 0))
+        self.execButton.pack(side="bottom", fill="x", padx=0, pady=(5, 0))
 
     
     def buildTopLevel(self):
@@ -186,6 +189,16 @@ class ExportWindow:
                                                   text="Exportar", 
                                                   command=self.export)
 
+    def buildButtonOpenDir(self):
+        self.buttonToDir = customtkinter.CTkButton(self.top,
+                                                   text='Abrir Diretório',
+                                                   command=self._openDir)
+    
+    
+    def _openDir(self):
+        os.startfile(r'filesGenerated')
+        
+    
     def export(self):
         if self.validatorToXLSX.get():
             Archives.exportToXLSX()

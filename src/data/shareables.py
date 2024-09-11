@@ -26,9 +26,9 @@ class ShareHereby:
     
     # Lists
     #----------
-    ALL_ARCHIEVES_VALIDATED:list[WindowsPath] = list()
+    ALL_ARCHIVES_VALIDATED:list[WindowsPath] = list()
     
-    ARCHIEVES_FILTERED:dict = dict() # em generateDynamicKeys é propagada e criado com as chaves de "KEYS"
+    ARCHIVES_FILTERED:dict = dict() # em generateDynamicKeys é propagada e criado com as chaves de "KEYS"
     
     FOLDER_UNION:list = list()
     #----------
@@ -71,7 +71,7 @@ class ShareHereby:
     
     def generateDynamicKeys(self):
         for key in ShareHereby.KEYS:
-            ShareHereby.ARCHIEVES_FILTERED[key] = list()
+            ShareHereby.ARCHIVES_FILTERED[key] = list()
 
 
     @staticmethod
