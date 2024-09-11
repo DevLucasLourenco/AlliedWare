@@ -5,9 +5,10 @@ import webbrowser
 import pandas as pd
 import customtkinter
 
-from tkinter import messagebox
 from pathlib import Path
+from threading import Timer
 from datetime import datetime
+from tkinter import messagebox
 
 from src.data.StreamlitPack import StreamlitServer
 from src.data.shareables import ShareHereby
@@ -96,6 +97,7 @@ class Archives:
 
     @staticmethod
     def exportToJSON():
+        
          
         if Archives._emptinessOfLists():
             data = Archives.generateDictToExport()
@@ -113,9 +115,20 @@ class Archives:
             
     def InvokeStreamlit():
         if Archives._emptinessOfLists():
-            app = StreamlitServer(data=Archives.generateDictToExport())
+            # app = StreamlitServer(data=Archives.generateDictToExport())
+            # app.server()
+            # app.run_server()
+            def open_browser():
+                webbrowser.open_new("http://localhost:8501")
+
+            
+            data = Archives.generateDictToExport()
+
+            # Iniciar servidor Streamlit
+            Timer(1, open_browser).start()  # Abrir o navegador após 1 segundo
+            app = StreamlitServer(data)
             app.server()
-            app.run_server()
+                    
 
             
             LOGGER('Streamlit Server construído.', "INFO")

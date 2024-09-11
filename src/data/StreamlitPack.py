@@ -1,38 +1,21 @@
-from pathlib import Path
-import subprocess
 import webbrowser
-import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
+import streamlit as st
+
+from matplotlib import pyplot as plt
+
 
 class StreamlitServer:
     
     def __init__(self, data) -> None:
         self.DF = self.convert_to_dataframe(data)
-        self.url = "http://localhost:8501"  # URL padrão do Streamlit
-
+    
     @staticmethod
     def convert_to_dataframe(data):
         dfs = {}
         for key, value in data.items():
             dfs[key] = pd.DataFrame(value[1:], columns=value[0])
         return dfs
-
-    def run_server(self):
-        # Obter o caminho absoluto do script principal
-        script_path = Path(r'src\data\StreamlitPack.py').absolute()
-        print('print:', script_path)
-
-        # Comando para rodar o Streamlit
-        command = f"streamlit run {script_path}"
-
-        # Executa o comando em um subprocesso
-        subprocess.Popen(command, shell=True)
-
-        # Abre o navegador na URL do Streamlit
-        webbrowser.open_new(self.url)
-        
-        
 
     def server(self):
         st.title('AlliedWare - Streamlit Server')
@@ -67,7 +50,6 @@ class StreamlitServer:
             # Acumulando contagens para o gráfico de rosquinha
             total_counts[key] = len(df)
 
-
         # Gráfico de rosquinha
         st.subheader('Percentual de Dados Relacionados')
         if total_counts:
@@ -78,3 +60,4 @@ class StreamlitServer:
         else:
             st.write('Nenhum dado disponível para o gráfico de rosquinha.')
 
+# Função para abrir automaticamente o navegador
