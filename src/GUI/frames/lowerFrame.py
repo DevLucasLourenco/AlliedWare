@@ -18,8 +18,13 @@ class ProgressBarDeploy:
     
     
     def buildProgressBar(self):
-        progressBar = customtkinter.CTkProgressBar(master=self.frame, width=500)
-        progressBar.grid(row=3, column=0, pady=(20, 0))
+        self.progressBar = customtkinter.CTkProgressBar(master=self.frame, width=500, mode='determinate')
+        self.progressBar.grid(row=3, column=0, pady=(20, 0))
+        self.progressBar.set(1)
+        
+        ShareHereby.PROGRESS_BAR = self
+
+    # def
     
     
 
@@ -109,7 +114,7 @@ class LowerFrameForUsage(AbstractGlobalObject):
                 
 
     def aglomerateUpdates(self, dir):
-        self.countInfos(dir) # dps mudar pra quantidade q foi filtrada e adc uma maneira de contar totais (mt simples)
+        self.countInfos(dir)
         self.updateTextFromDirectoryArea(dir)
         self.updateButtonsAndLabel()
         
@@ -119,6 +124,8 @@ class LowerFrameForUsage(AbstractGlobalObject):
         
         progressBar = ProgressBarDeploy(self.frameForUsage).buildProgressBar()
    
+   
+    # @updateProgressBar
     @staticmethod
     def updateTextCount():
         ShareHereby.reset_counter()

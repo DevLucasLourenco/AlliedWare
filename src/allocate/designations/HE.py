@@ -42,7 +42,7 @@ class HE:
                             Archives.RelocatedHE.append((file, newPath))
                             LOGGER(f'ALOCAÇÃO HE:\nDE:\n{file}\nPARA: \n{newPath}\n--------------------', 'INFO')
                             removeFromList = True
-                            break
+                            
                             
                         # else:
                         #     Archives.NotRelocatedHE.append((file, 'Parâmetro de Alocação Inexistente'))
