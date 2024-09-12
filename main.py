@@ -7,3 +7,7 @@ if __name__ == "__main__":
 
 # ANTES DE RODAR, VER COM MAYANA AS 
 # ALOCAÇÕES se estão de acordo
+
+
+
+

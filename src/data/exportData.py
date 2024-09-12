@@ -10,7 +10,6 @@ from threading import Timer
 from datetime import datetime
 from tkinter import messagebox
 
-from data.StreamlitServer.StreamlitPack import StreamlitServer
 from src.data.shareables import ShareHereby
 from src.LOG.LOG_manager import LOGGER
 
@@ -47,7 +46,7 @@ class Archives:
     def _emptinessOfLists():
         res = any(len(item) != 0 for majorItem in Archives.LISTAGE_OF_ALL_DATA_ABOUT_RELOCATING for item in majorItem)
         return res
-        
+
         
     @staticmethod
     def __prepareSuffix():
@@ -112,31 +111,6 @@ class Archives:
             messagebox.showerror('Erro ao Exportar - JSON', f'Impossível exportar dados sem realizar uma das as tarefas de\n{", ".join(ShareHereby.KEYS)}')
             LOGGER(f'JSON - Impossível exportar dados sem realizar uma das as tarefas de {", ".join(ShareHereby.KEYS)}', 'WARNING')
             
-            
-    def InvokeStreamlit():
-        if Archives._emptinessOfLists():
-            # app = StreamlitServer(data=Archives.generateDictToExport())
-            # app.server()
-            # app.run_server()
-            def open_browser():
-                webbrowser.open_new("http://localhost:8501")
-
-            
-            data = Archives.generateDictToExport()
-
-            # Iniciar servidor Streamlit
-            Timer(1, open_browser).start()  # Abrir o navegador após 1 segundo
-            app = StreamlitServer(data)
-            app.server()
-                    
-
-            
-            LOGGER('Streamlit Server construído.', "INFO")
-            
-        else:
-            messagebox.showerror('Erro ao Invocar - Streamlit', f'Impossível exportar dados sem realizar uma das as tarefas de\n{", ".join(ShareHereby.KEYS)}')
-            LOGGER(f'Streamlit - Impossível exportar dados sem realizar uma das as tarefas de {", ".join(ShareHereby.KEYS)}', 'WARNING')
-            
         
         
 
@@ -147,7 +121,6 @@ class ExportWindow:
         
         self.validatorToXLSX = customtkinter.BooleanVar(value=False)
         self.validatorToJSON = customtkinter.BooleanVar(value=False)
-        self.validatorToStreamlit = customtkinter.BooleanVar(value=False)
         
         self.run()
         
@@ -158,7 +131,6 @@ class ExportWindow:
         self.buildButtonOpenDir()
         self.buildCheckBoxXLSX()
         self.buildCheckBoxJSON()
-        self.buildCheckBoxStreamlit()
         self.buildExecutionButton()
         
         self.PACK_ALL()
@@ -168,7 +140,6 @@ class ExportWindow:
         self.buttonToDir.pack(padx=(5, 0), pady=(10, 0))
         self.buttonCBXLSX.pack(padx=(5, 0), pady=(20, 0))
         self.buttonCBJSON.pack(padx=(7, 0), pady=(10, 0))
-        self.buttonCBDStreamlit.pack(padx=(26, 0), pady=(10, 0))
         self.execButton.pack(side="bottom", fill="x", padx=0, pady=(5, 0))
 
     
@@ -192,11 +163,6 @@ class ExportWindow:
                                                         text='Exportar para JSON', 
                                                         variable=self.validatorToJSON)
         
-    def buildCheckBoxStreamlit(self):
-        self.buttonCBDStreamlit = customtkinter.CTkCheckBox(self.top, 
-                                                        text='Exportar para StreamLit', 
-                                                        variable=self.validatorToStreamlit)
-        
     def buildExecutionButton(self):
         self.execButton = customtkinter.CTkButton(self.top, 
                                                   text="Exportar", 
@@ -217,8 +183,6 @@ class ExportWindow:
             Archives.exportToXLSX()
         if self.validatorToJSON.get():
             Archives.exportToJSON()
-        if self.validatorToStreamlit.get():
-            Archives.InvokeStreamlit()
             
         self.top.destroy()
     

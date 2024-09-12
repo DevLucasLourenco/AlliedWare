@@ -22,9 +22,6 @@ class ProgressBarDeploy:
         self.progressBar.grid(row=3, column=0, pady=(20, 0))
         self.progressBar.set(1)
         
-        ShareHereby.PROGRESS_BAR = self
-
-    # def
     
     
 

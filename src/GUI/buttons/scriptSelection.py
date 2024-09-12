@@ -2,6 +2,7 @@ import customtkinter
 
 from tkinter import messagebox
 
+from src.LOG.LOG_manager import LOGGER
 from src.data.dirSpotCheck import SpotCheck
 from src.GUI.topLevels.tooltip.ToolTipForComboBox import ToolTip
 from scripts.SortingFiles import SortGlobalFiles
@@ -65,7 +66,6 @@ class ScriptSelectionArea:
             res = messagebox.askquestion("Confirmação", "Tem certeza que deseja executar {}?".format(self.SBox.get()))
             if res=='yes':
                 
-                ## aqui, conferir se o diretório de alocador ja é alcançável
                 validator, path = SpotCheck.ReacheableJSON()
                 if not validator:
                     messagebox.showwarning('Atenção - Diretório JSON inalcançável.', f'Dir: {path}\n\nIndique o diretório do JSON para apontamento de alocação.' )
@@ -74,7 +74,7 @@ class ScriptSelectionArea:
                 if validator:
                     ScriptSelectionArea.lookupTable[self.SBox.get()].run(self)
                     messagebox.showinfo('Finalizado', f'{self.SBox.get()} foi finalizado.')
-                    print('log aq')
+                    LOGGER(f'{self.SBox.get()} executado')
             else:
                 messagebox.showinfo('Recusado', f'{self.SBox.get()} não foi executado.')
 

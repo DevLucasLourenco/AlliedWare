@@ -74,10 +74,6 @@ class ShareHereby:
     DIR_ORIENTATION:str
     #----------
     
-    # Progress Bar
-    #----------
-    PROGRESS_BAR = None
-    #----------
     
     
     def generateDynamicKeys(self):
