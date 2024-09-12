@@ -38,7 +38,7 @@ class HE:
                     try:
                         if key in file.name:
                             newPath = Path(dir) / dirToGo
-                            shutil.move(file, newPath)
+                            HE.__move(newPath, file)
                             Archives.RelocatedHE.append((file, newPath))
                             LOGGER(f'ALOCAÇÃO HE:\nDE:\n{file}\nPARA: \n{newPath}\n--------------------', 'INFO')
                             removeFromList = True
@@ -66,14 +66,26 @@ class HE:
     @staticmethod
     def _ASK_DIR_TO_GO():
         dir = filedialog.askdirectory(title='Selecione o diretório de distribuição.', initialdir=HE.FATHERPATH)
-        # messagebox.showinfo("Diretório de Distribuição", f"{dir}\n\nEste será o diretório de distribuição de todas as Solicitações de HE encontradas.")
-        
         YesOrNo = messagebox.askyesno("Diretório de Distribuição", f"{dir}\n\nEste será o diretório de distribuição de todas as Solicitações de HE encontradas.\n\nDeseja Continuar?")
         if YesOrNo:
             return dir
         return False
                 
                 
-            
+    @staticmethod
+    def __move(pathTo:Path, file:Path):
+        pathTo = HE._generate_unique_filename(pathTo, file.name)
+        shutil.move(file, pathTo)
         
     
+    @staticmethod
+    def _generate_unique_filename(destination: Path, filename: str) -> Path:
+        base_name, ext = filename.rsplit('.', 1)
+        counter = 1
+        
+        while (destination / f"{base_name}.{ext}").exists():
+            while (destination / f"{base_name}_{counter}.{ext}").exists():
+                counter += 1
+            return destination / f"{base_name}_{counter}.{ext}"
+        
+        return destination / f"{base_name}.{ext}"
