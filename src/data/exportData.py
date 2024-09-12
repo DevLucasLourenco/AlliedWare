@@ -144,7 +144,7 @@ class ExportWindow:
         self.top = customtkinter.CTkToplevel(self.masterForUsage)
         self.top.grab_set()
         
-        self.top.title("Export Window")
+        self.top.title("Exportar")
         self.top.geometry("+%d+%d" % (self.masterForUsage.winfo_screenwidth() // 2 - 100, self.masterForUsage.winfo_screenheight() // 2 - 50))
         self.top.resizable(False, False)
         self.top.pack_propagate(False)

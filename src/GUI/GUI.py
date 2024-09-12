@@ -1,14 +1,15 @@
 import customtkinter
 
-from tkinter import (messagebox, PhotoImage)
+from tkinter import messagebox
 
 from src.data.exportData import ExportWindow
 from src.LOG.LOG_manager import LOGGER
 from src.data.dirSpotCheck import SpotCheck
+from src.data.shareables import ShareHereby
 from src.GUI.frames.lowerFrame import LowerFrameForUsage
 from src.GUI.frames.sideBarFrame import ObjectSideBar
-from src.GUI.frames.topFrame import MainInterfaceTopFrame, TopFrameForUsage
-from src.data.shareables import ShareHereby
+from src.GUI.frames.topFrame import (MainInterfaceTopFrame, 
+                                     TopFrameForUsage)
 
 from .config.windowConfig import (WINDOWSIZE, 
                                  PROJECT_TITLE,
@@ -56,7 +57,7 @@ class GUIMain:
         customtkinter.set_appearance_mode(APPEARANCE_MODE)
         customtkinter.set_default_color_theme(COLOR_THEME)
         
-        self.master.iconbitmap(r'src\GUI\images\allied.ico')
+        # self.master.iconbitmap(r'src\GUI\images\allied.ico')
         
         self.master.geometry(f'{self.windowSize}+{self.windowPosition}')
         self.master.resizable(False, False)

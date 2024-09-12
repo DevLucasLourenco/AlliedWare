@@ -8,7 +8,9 @@ class SortGlobalFiles:
     
 0 - PROCESSO DE CONTRATAÇÃO
 1 - ADMINISTRATIVO
-2 - OPERAÇÃO"""
+2 - OPERAÇÃO
+
+*Ainda não funcional*"""
     
     def run(self):
         # DIF
