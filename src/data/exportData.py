@@ -10,7 +10,7 @@ from threading import Timer
 from datetime import datetime
 from tkinter import messagebox
 
-from src.data.StreamlitPack import StreamlitServer
+from data.StreamlitServer.StreamlitPack import StreamlitServer
 from src.data.shareables import ShareHereby
 from src.LOG.LOG_manager import LOGGER
 

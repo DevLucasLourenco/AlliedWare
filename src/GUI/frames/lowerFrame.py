@@ -46,7 +46,6 @@ class LowerFrameForUsage(AbstractGlobalObject):
         ShareHereby.reset_counter()
         
         
-        
     def run(self):
         self.buildFrame()
         self.buildLabelToInstruciate()
