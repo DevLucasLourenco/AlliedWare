@@ -58,7 +58,8 @@ class DIFD:
                 Archives.NotRelocatedFromEmployeeFired.append((file, f"Pasta Inexistente - {folder_name_to_reach}"))
             
             if self.removeFromList:
-                ShareHereby.ARCHIVES_FILTERED['DIFD'].remove(file)
+                if file not in Path(ShareHereby.DIR_ORIENTATION).iterdir():
+                    ShareHereby.ARCHIVES_FILTERED['DIFD'].remove(file)
 
             
         messagebox.showinfo("Concluído", "Alocações realizadas")

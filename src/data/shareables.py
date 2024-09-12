@@ -68,6 +68,12 @@ class ShareHereby:
     VALIDATIONS = dict()
     #----------
     
+    # DIR - Orientation 
+    #----------
+    DIR_ORIENTATION:str
+    #----------
+    
+    
     
     def generateDynamicKeys(self):
         for key in ShareHereby.KEYS:

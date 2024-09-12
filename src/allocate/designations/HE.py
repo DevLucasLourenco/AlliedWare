@@ -26,7 +26,7 @@ class HE:
     @staticmethod
     def passthroughHE():
         dir = HE._ASK_DIR_TO_GO()
-        if dir != "":
+        if (dir != "") and (dir):
             RULES_TO_ALOCATE_SUBFOLDER = HE.readJSON(config_path=SpotCheck.ReacheableJSON()[1])
             
             listage = ShareHereby.ARCHIVES_FILTERED["HE"].copy()
@@ -35,26 +35,27 @@ class HE:
                 removeFromList = False
                 
                 for key, dirToGo in RULES_TO_ALOCATE_SUBFOLDER.items():
-                    # print(file, key, sep=' | ')
                     try:
                         if key in file.name:
                             newPath = Path(dir) / dirToGo
                             shutil.move(file, newPath)
-                            print(file, newPath, sep=' | ')
                             Archives.RelocatedHE.append((file, newPath))
                             LOGGER(f'ALOCAÇÃO HE:\nDE:\n{file}\nPARA: \n{newPath}\n--------------------', 'INFO')
                             removeFromList = True
-
-                        else:
-                            Archives.NotRelocatedHE.append((file, 'Parâmetro de Alocação Inexistente'))
-                            LOGGER(f'NÃO MOVIDO POR: <Parâmetro de Alocação Inexistente> - {file}',"WARNING")
+                            break
+                            
+                        # else:
+                        #     Archives.NotRelocatedHE.append((file, 'Parâmetro de Alocação Inexistente'))
+                        #     LOGGER(f'NÃO MOVIDO POR: <Parâmetro de Alocação Inexistente> - {file}',"WARNING")
                     
                     except Exception as e:
                             Archives.NotRelocatedHE.append((file, f'Erro | {e}'))
                             LOGGER(f'NÃO MOVIDO POR: <{e}> - {file}',"WARNING")
                             
+                            
                 if removeFromList:
-                    ShareHereby.ARCHIVES_FILTERED['HE'].remove(file) 
+                    if file not in Path(ShareHereby.DIR_ORIENTATION).iterdir():
+                        ShareHereby.ARCHIVES_FILTERED['HE'].remove(file)
                     
             LowerFrameForUsage.updateTextCount()
             ShareHereby.FRAMEHE.destroyWindow()
@@ -65,9 +66,12 @@ class HE:
     @staticmethod
     def _ASK_DIR_TO_GO():
         dir = filedialog.askdirectory(title='Selecione o diretório de distribuição.', initialdir=HE.FATHERPATH)
-        print("diretório de distribuição:",dir)
-        messagebox.showinfo("Diretório de Distribuição", f"{dir}\n\nEste será o diretório de distribuição de todas as Solicitações de HE encontradas.")
-        return dir
+        # messagebox.showinfo("Diretório de Distribuição", f"{dir}\n\nEste será o diretório de distribuição de todas as Solicitações de HE encontradas.")
+        
+        YesOrNo = messagebox.askyesno("Diretório de Distribuição", f"{dir}\n\nEste será o diretório de distribuição de todas as Solicitações de HE encontradas.\n\nDeseja Continuar?")
+        if YesOrNo:
+            return dir
+        return False
                 
                 
             

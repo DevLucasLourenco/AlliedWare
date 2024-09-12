@@ -88,7 +88,8 @@ class CP:
                 LOGGER(f"NÃO MOVIDO POR: {e} - {file}", "ERROR")  
                 
             if removeFromList:
-                ShareHereby.ARCHIVES_FILTERED['CP'].remove(file)
+                if file not in Path(ShareHereby.DIR_ORIENTATION).iterdir():
+                    ShareHereby.ARCHIVES_FILTERED['CP'].remove(file)
         
         
         LowerFrameForUsage.updateTextCount()

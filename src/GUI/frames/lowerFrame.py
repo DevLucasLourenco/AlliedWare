@@ -101,9 +101,10 @@ class LowerFrameForUsage(AbstractGlobalObject):
             
             if self.state_returned != "":   
                 messagebox.showinfo('Diretório de Arquivos', f'Forneça o diretório que será procurado os arquivos de\n{" - ".join(ShareHereby.KEYS)}')
-                dir = filedialog.askdirectory()
-                if dir:
-                    self.aglomerateUpdates(dir)
+                ShareHereby.DIR_ORIENTATION = filedialog.askdirectory()
+                
+                if ShareHereby.DIR_ORIENTATION:
+                    self.aglomerateUpdates(ShareHereby.DIR_ORIENTATION)
                                 
                 
 

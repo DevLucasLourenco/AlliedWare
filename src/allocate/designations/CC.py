@@ -70,7 +70,8 @@ class CC:
                 Archives.NotRelocatedCC.append(((file, str(e) + ' - Pasta Influenciada')))
             
             if removeFromList:
-                ShareHereby.ARCHIVES_FILTERED['CC'].remove(file)
+                if file not in Path(ShareHereby.DIR_ORIENTATION).iterdir():
+                    ShareHereby.ARCHIVES_FILTERED['CC'].remove(file)
                 
         LowerFrameForUsage.updateTextCount()
         ShareHereby.FRAMECC.destroyWindow()

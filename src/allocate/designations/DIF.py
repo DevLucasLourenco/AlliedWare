@@ -90,7 +90,8 @@ class DIF:
             
             
             if self.removeFromList:
-                ShareHereby.ARCHIVES_FILTERED['DIF'].remove(file)
+                if file not in Path(ShareHereby.DIR_ORIENTATION).iterdir():
+                    ShareHereby.ARCHIVES_FILTERED['DIF'].remove(file)
         
         messagebox.showinfo("Concluído", "Alocações realizadas")
         ShareHereby.FRAMEDIF.destroyWindow()

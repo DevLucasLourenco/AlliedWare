@@ -18,7 +18,7 @@ class SpotCheck:
                 file.write('---')
                 
     
-    def ReacheableJSON():
+    def ReacheableJSON() -> list[bool|str]:
         with open(r'src\data\dir_to_json_appointment.txt', 'r') as f:
             txt = f.read()
         return [Path(txt).exists(), txt]

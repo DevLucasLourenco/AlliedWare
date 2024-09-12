@@ -6,6 +6,8 @@ if __name__ == "__main__":
 
 # testar streamlit
 
+# atualizar progressbar
+
 
 # ANTES DE RODAR, VER COM MAYANA AS 
 # ALOCAÇÕES se estão de acordo
