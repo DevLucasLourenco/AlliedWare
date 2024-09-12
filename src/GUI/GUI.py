@@ -1,5 +1,6 @@
-from tkinter import messagebox
 import customtkinter
+
+from tkinter import (messagebox, PhotoImage)
 
 from src.data.exportData import ExportWindow
 from src.LOG.LOG_manager import LOGGER
@@ -54,7 +55,8 @@ class GUIMain:
         
         customtkinter.set_appearance_mode(APPEARANCE_MODE)
         customtkinter.set_default_color_theme(COLOR_THEME)
-        # customtkinter.set_default_color_theme('GUI/config/red-pattern.json')
+        
+        self.master.iconbitmap(r'src\GUI\images\allied.ico')
         
         self.master.geometry(f'{self.windowSize}+{self.windowPosition}')
         self.master.resizable(False, False)
