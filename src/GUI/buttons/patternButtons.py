@@ -1,4 +1,3 @@
-import time
 import customtkinter
 
 class PATTERN_BUTTON():

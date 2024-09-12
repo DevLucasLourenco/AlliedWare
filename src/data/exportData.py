@@ -1,12 +1,9 @@
 import os
 import json
-import time
-import webbrowser
 import pandas as pd
 import customtkinter
 
 from pathlib import Path
-from threading import Timer
 from datetime import datetime
 from tkinter import messagebox
 
