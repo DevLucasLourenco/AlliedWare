@@ -18,8 +18,6 @@ class KingLog:
         
     
     def configureLogLevel(self):
-        # SpotCheck.defaultPathTo()
-        # log_file_path = Path('src/LOG/file/log.log')
         log_file_path = Path(os.environ['USERPROFILE']) / "AlliedWareDataHouse" / 'log.log'
         log_instance_file_path = Path(os.environ['USERPROFILE']) / "AlliedWareDataHouse" / 'logInstance.log'
 

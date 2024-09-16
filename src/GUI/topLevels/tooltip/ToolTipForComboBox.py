@@ -21,7 +21,7 @@ class ToolTip:
         frame = customtkinter.CTkFrame(tw, corner_radius=8, fg_color="#333333")
         frame.pack(padx=1, pady=1)
 
-        label = customtkinter.CTkLabel(frame, text=self.text, justify='left', font=("Rebolo", 12))
+        label = customtkinter.CTkLabel(frame, text=self.text, justify='left', font=("Helvetica", 12))
         label.pack(padx=10, pady=5)
 
 

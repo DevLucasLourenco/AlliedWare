@@ -20,7 +20,6 @@ class SpotCheck:
     
     def CreateFileIfNotExists():
         try:
-            # path = Path(r'src\data\dir_to_json_appointment.txt')
             SpotCheck.defaultPathTo().mkdir(exist_ok=True)
             path = SpotCheck.defaultPathTo() / 'dir_to_json_appointment.txt'
         
@@ -34,7 +33,6 @@ class SpotCheck:
     
     def ReacheableJSON() -> list[bool|str]:
         try:
-            # with open(r'src\data\dir_to_json_appointment.txt', 'r') as f:
             with open(SpotCheck.defaultPathTo() / 'dir_to_json_appointment.txt', 'r') as f:
                 txt = f.read()
             return [Path(txt).exists(), txt]
