@@ -1,7 +1,7 @@
 import os
 import subprocess           
 
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 from pathlib import Path
 
 from src.LOG.LOG_manager import LOGGER
@@ -10,18 +10,36 @@ from src.errors.DirNotFound import DirNotFound
 
 class SpotCheck:
     
-    def CreateFileIfNotExists():
-        path = Path(r'src\data\dir_to_json_appointment.txt')
+    @staticmethod
+    def getDefaultPath():
+        return Path(os.environ['USERPROFILE'])
+    
+    def defaultPathTo():
+        return Path(SpotCheck.getDefaultPath() / "AlliedWareDataHouse")
         
-        if not path.is_file():
-            with path.open('w') as file:
-                file.write('---')
-                
+    
+    def CreateFileIfNotExists():
+        try:
+            # path = Path(r'src\data\dir_to_json_appointment.txt')
+            SpotCheck.defaultPathTo().mkdir(exist_ok=True)
+            path = SpotCheck.defaultPathTo() / 'dir_to_json_appointment.txt'
+        
+            if not path.is_file():
+                with path.open('w') as file:
+                    file.write('---')
+                    
+        except FileNotFoundError as e:
+            messagebox.showerror("Error", e)
+                  
     
     def ReacheableJSON() -> list[bool|str]:
-        with open(r'src\data\dir_to_json_appointment.txt', 'r') as f:
-            txt = f.read()
-        return [Path(txt).exists(), txt]
+        try:
+            # with open(r'src\data\dir_to_json_appointment.txt', 'r') as f:
+            with open(SpotCheck.defaultPathTo() / 'dir_to_json_appointment.txt', 'r') as f:
+                txt = f.read()
+            return [Path(txt).exists(), txt]
+        except FileNotFoundError as e:
+            messagebox.showerror("Error", e)
         
     
     def dir_appointment():
@@ -31,11 +49,9 @@ class SpotCheck:
         )
         
         if dir:
-            with open(r"src\data\dir_to_json_appointment.txt", 'w') as f:
+            with open(SpotCheck.defaultPathTo() / 'dir_to_json_appointment.txt', 'w') as f:
                 f.write(dir)
-                
             LOGGER(f'Nova Especificação de Indicador: {dir}', 'INFO')
-                
         return dir
                 
                 

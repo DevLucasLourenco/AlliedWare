@@ -1,6 +1,10 @@
 import logging
+import os
 from pathlib import Path
 from typing import Literal
+
+
+# from src.data.dirSpotCheck import SpotCheck
 
 
 
@@ -14,8 +18,10 @@ class KingLog:
         
     
     def configureLogLevel(self):
-        log_file_path = Path('src/LOG/file/log.log')
-        log_instance_file_path = Path('src/LOG/file/logInstance.log')
+        # SpotCheck.defaultPathTo()
+        # log_file_path = Path('src/LOG/file/log.log')
+        log_file_path = Path(os.environ['USERPROFILE']) / "AlliedWareDataHouse" / 'log.log'
+        log_instance_file_path = Path(os.environ['USERPROFILE']) / "AlliedWareDataHouse" / 'logInstance.log'
 
         log_dir = log_file_path.parent
         log_dir.mkdir(exist_ok=True, parents=True)

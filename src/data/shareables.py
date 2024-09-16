@@ -1,5 +1,7 @@
 from pathlib import WindowsPath
 
+from src.data.dirSpotCheck import SpotCheck
+
 
 
 class ShareHereby:
@@ -72,7 +74,9 @@ class ShareHereby:
     # DIR - Orientation 
     #----------
     DIR_ORIENTATION:str
+    DEFAULT_PATH_TO = SpotCheck.defaultPathTo()
     #----------
+    
     
     
     

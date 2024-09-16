@@ -74,7 +74,7 @@ class ScriptSelectionArea:
                 if validator:
                     ScriptSelectionArea.lookupTable[self.SBox.get()].run(self)
                     messagebox.showinfo('Finalizado', f'{self.SBox.get()} foi finalizado.')
-                    LOGGER(f'{self.SBox.get()} executado')
+                    LOGGER(f'{self.SBox.get()} executado', "INFO")
             else:
                 messagebox.showinfo('Recusado', f'{self.SBox.get()} não foi executado.')
 
