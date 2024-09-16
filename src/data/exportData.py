@@ -7,12 +7,13 @@ from pathlib import Path
 from datetime import datetime
 from tkinter import messagebox
 
+from src.data.dirSpotCheck import SpotCheck
 from src.data.shareables import ShareHereby
 from src.LOG.LOG_manager import LOGGER
 
 
 class Archives:
-    PATH = Path(r'filesGenerated')
+    PATH = SpotCheck.defaultPathTo() / 'filesGenerated'
     PATH.mkdir(exist_ok=True, parents=True)
     
     RelocatedFromEmployee:list[tuple[Path, Path]] = list()
