@@ -4,9 +4,6 @@ from pathlib import Path
 from typing import Literal
 
 
-# from src.data.dirSpotCheck import SpotCheck
-
-
 
 class KingLog:
     def __init__(self) -> None:
