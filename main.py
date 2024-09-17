@@ -5,3 +5,4 @@ if __name__ == "__main__":
     app.master.mainloop()
 
 # pyinstaller --onefile  --windowed main.py
+
