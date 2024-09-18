@@ -33,14 +33,12 @@ class SortGlobalFiles:
     @staticmethod
     def permutate():
         SortGlobalFiles.prepareConfigurations()
-        print(ShareHereby.FOLDER_UNION)
         filesConcluded:list = list()
         filesNotConcluded:list = list()
         
-        
         contagem = 0
         for folder in ShareHereby.FOLDER_UNION:
-            if contagem == 18:
+            if contagem == 31:
                 break
 
             filesAtCurrentFolder:list = SortGlobalFiles.findAllFilesAtFile(folder)
@@ -115,7 +113,7 @@ class SortGlobalFiles:
         
     @staticmethod
     def __prepareSuffix():
-        return datetime.now().strftime('%d%m%Y-%H%M%S')
+        return datetime.now().strftime('%d%m%Y_%H%M%S')
 
     
 class GetBoolean():

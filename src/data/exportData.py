@@ -48,7 +48,7 @@ class Archives:
         
     @staticmethod
     def __prepareSuffix():
-        return datetime.now().strftime('%d%m%Y-%H%M%S')
+        return datetime.now().strftime('%d%m%Y_%H%M%S')
 
 
     @staticmethod
@@ -99,7 +99,7 @@ class Archives:
         if Archives._emptinessOfLists():
             data = Archives.generateDictToExport()
             
-            filename = Archives.PATH / f'JSON {Archives.__prepareSuffix()}.json'
+            filename = Archives.PATH / f'JSON_{Archives.__prepareSuffix()}.json'
             with open(filename, 'w', encoding='utf-8') as f:
                 json.dump(data, f, ensure_ascii=False, indent=4)
             
