@@ -36,6 +36,9 @@ class DIFAutoDesignation:
     @staticmethod
     def getMainFilename(file):
         listFile = file.split('-')
-        res = listFile[1]
-        return res
+        try:
+            res = listFile[-2]
+            return res
+        except IndexError:
+            return file
 

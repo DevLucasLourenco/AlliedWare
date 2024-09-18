@@ -72,8 +72,8 @@ class ScriptSelectionArea:
                     self.state_returned = SpotCheck.dir_appointment()
                     
                 if validator:
-                    ScriptSelectionArea.lookupTable[self.SBox.get()].run(self)
-                    messagebox.showinfo('Finalizado', f'{self.SBox.get()} foi finalizado.')
+                    ScriptSelectionArea.lookupTable[self.SBox.get()].run()
+                    messagebox.showinfo('Finalizado', f'{self.SBox.get()} foi executado.')
                     LOGGER(f'{self.SBox.get()} executado', "INFO")
             else:
                 messagebox.showinfo('Recusado', f'{self.SBox.get()} não foi executado.')
