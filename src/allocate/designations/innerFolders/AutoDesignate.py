@@ -22,7 +22,7 @@ class DIFAutoDesignation:
 
     def analyse(self):
         for key, folder in self.RULES.items():
-            if key in DIFAutoDesignation.getMainFilename(self.file.name):
+            if key in DIFAutoDesignation.getMainFilename(str(self.file.name).upper()):
                 self.newPathTo = self.pathTo / folder
                 self.newPathTo.mkdir(parents=True, exist_ok=True)
                 return True
@@ -37,8 +37,10 @@ class DIFAutoDesignation:
     def getMainFilename(file):
         listFile = file.split('-')
         try:
-            res = listFile[-2]
-            return res
+            if len(listFile) == 1:
+                return file
+            return file.replace(listFile[-1], "")
+        
         except IndexError:
             return file
 

@@ -1,12 +1,13 @@
-from datetime import datetime
 import os
 import shutil
 import pandas as pd
 
+from datetime import datetime
 from tkinter import messagebox
 from pathlib import Path, WindowsPath
 
 
+from src.data.dirSpotCheck import SpotCheck
 from src.LOG.LOG_manager import LOGGER
 from src.data.exportData import Archives
 from src.allocate.designations.innerFolders.AutoDesignate import DIFAutoDesignation
@@ -22,58 +23,55 @@ class SortGlobalFiles:
 0 - PROCESSO DE CONTRATAÇÃO
 1 - ADMINISTRATIVO
 2 - OPERAÇÃO
-
-*Ainda não funcional*"""
+"""
     
     @staticmethod
     def run():
         SortGlobalFiles.permutate()
-        
+            
         
     @staticmethod
     def permutate():
         SortGlobalFiles.prepareConfigurations()
-        # print(ShareHereby.FOLDER_UNION)
-        
-        
-        # para cada pasta da lista de ShareHereby.FOLDER_UNION
-        
-        # for folder in ShareHereby.FOLDER_UNION:
-        
-        folder = WindowsPath('G:/Recursos Humanos/01 - PESSOAL/01 - FUNCIONÁRIOS/1 - ADMINISTRATIVO/LUCAS LOURENÇO')
-            
-            #encontrar todos os arquivos e alocar em uma list
-        filesAtCurrentFolder:list = SortGlobalFiles.findAllFilesAtFile(folder)
+        print(ShareHereby.FOLDER_UNION)
         filesConcluded:list = list()
         filesNotConcluded:list = list()
+        
+        
+        contagem = 0
+        for folder in ShareHereby.FOLDER_UNION:
+            if contagem == 18:
+                break
 
-            # validar esta lista com o .json 
-        for file in filesAtCurrentFolder:            
-            DIF_AD = DIFAutoDesignation(file, folder, "DIF")
-            validator = DIF_AD.analyse()
-            
-            try:
-                if validator:
-                    path = DIF_AD.get()
-                    pathTo = DIF._generate_unique_filename(path, file.name)
-                    shutil.move(file, pathTo)
-                    filesConcluded.append((file, pathTo))
+            filesAtCurrentFolder:list = SortGlobalFiles.findAllFilesAtFile(folder)
+
+
+            for file in filesAtCurrentFolder:            
+                DIF_AD = DIFAutoDesignation(file, folder, "DIF")
+                validator = DIF_AD.analyse()
                 
-                else:
-                    filesNotConcluded.append((file, 'Parâmetro de Alocação Inexistente'))
-            except Exception as e:
-                filesNotConcluded.append((file, e))
+                try:
+                    if validator:
+                        path = DIF_AD.get()
+                        pathTo = DIF._generate_unique_filename(path, file.name)
+                        shutil.move(file, pathTo)
+                        filesConcluded.append((file, path))
+                    
+                    else:
+                        filesNotConcluded.append((file, 'Parâmetro de Alocação Inexistente'))
+                except Exception as e:
+                    filesNotConcluded.append((file, e))
                 
+            contagem += 1
         
-        if messagebox.askyesno("Exportar", 'Deseja exportar os dados?'):
-            
-            data = {
-                "filesConcluded": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in filesConcluded],
-                "filesNotConcluded": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in filesNotConcluded],
-            }
-            
-            SortGlobalFiles.__export(data)
+        data = {
+            "filesConcluded": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in filesConcluded],
+            "filesNotConcluded": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in filesNotConcluded],
+        }
         
+        SortGlobalFiles.__export(data)
+        messagebox.showinfo("Exportar",'exportando arquivo XLSX...')
+
             
     @staticmethod
     def findAllFilesAtFile(path):
@@ -84,7 +82,6 @@ class SortGlobalFiles:
             return arquivos
         
         else:
-            print("A pasta não existe ou não é um diretório válido.")
             return []     
                 
         
