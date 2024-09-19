@@ -74,9 +74,12 @@ class ShareHereby:
     # DIR - Orientation 
     #----------
     DIR_ORIENTATION:str
-    DEFAULT_PATH_TO = SpotCheck.defaultPathTo()
     #----------
     
+    # Rule's Key Reached
+    #----------
+    rulesKeyReached = ...
+    #----------
     
     
     

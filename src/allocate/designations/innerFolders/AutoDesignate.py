@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 
+from src.data.shareables import ShareHereby
 from src.data.dirSpotCheck import SpotCheck
 
 
@@ -23,6 +24,7 @@ class DIFAutoDesignation:
     def analyse(self):
         for key, folder in self.RULES.items():
             if key in DIFAutoDesignation.getMainFilename(str(self.file.name).upper()):
+                ShareHereby.rulesKeyReached = key
                 self.newPathTo = self.pathTo / folder
                 self.newPathTo.mkdir(parents=True, exist_ok=True)
                 return True

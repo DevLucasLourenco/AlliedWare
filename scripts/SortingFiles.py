@@ -36,13 +36,8 @@ class SortGlobalFiles:
         filesConcluded:list = list()
         filesNotConcluded:list = list()
         
-        contagem = 0
         for folder in ShareHereby.FOLDER_UNION:
-            if contagem == 31:
-                break
-
             filesAtCurrentFolder:list = SortGlobalFiles.findAllFilesAtFile(folder)
-
 
             for file in filesAtCurrentFolder:            
                 DIF_AD = DIFAutoDesignation(file, folder, "DIF")
@@ -53,17 +48,16 @@ class SortGlobalFiles:
                         path = DIF_AD.get()
                         pathTo = DIF._generate_unique_filename(path, file.name)
                         shutil.move(file, pathTo)
-                        filesConcluded.append((file, path))
+                        filesConcluded.append((file, path, ShareHereby.rulesKeyReached))
                     
                     else:
                         filesNotConcluded.append((file, 'Parâmetro de Alocação Inexistente'))
                 except Exception as e:
                     filesNotConcluded.append((file, e))
                 
-            contagem += 1
         
         data = {
-            "filesConcluded": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in filesConcluded],
+            "filesConcluded": [("File", "Destination", "Key Reached")] + [(str(file), str(destination), str(key)) for file, destination, key in filesConcluded],
             "filesNotConcluded": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in filesNotConcluded],
         }
         
