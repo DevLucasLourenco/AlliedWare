@@ -57,7 +57,7 @@ class SortGlobalFiles:
                 
         
         data = {
-            "filesConcluded": [("File", "Destination", "Key Reached")] + [(str(file), str(destination), str(key)) for file, destination, key in filesConcluded],
+            "filesConcluded": [("File", "Destination", "Key Triggered")] + [(str(file), str(destination), str(key)) for file, destination, key in filesConcluded],
             "filesNotConcluded": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in filesNotConcluded],
         }
         

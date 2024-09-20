@@ -54,10 +54,10 @@ class Archives:
     @staticmethod
     def generateDictToExport():
         data = {
-                "RelocatedFromEmployee": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.RelocatedFromEmployee],
+                "RelocatedFromEmployee": [("File", "Destination", "Key Triggered")] + [(str(file), str(destination), str(key)) for file, destination, key in Archives.RelocatedFromEmployee],
                 "NotRelocatedFromEmployee": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.NotRelocatedFromEmployee],
                 
-                "RelocatedFromEmployeeFired":[("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.RelocatedFromEmployeeFired],
+                "RelocatedFromEmployeeFired":[("File", "Destination", "Key Triggered")] + [(str(file), str(destination), str(key)) for file, destination, key in Archives.RelocatedFromEmployeeFired],
                 "NotRelocatedFromEmployeeFired":[("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.NotRelocatedFromEmployeeFired],
                 
                 "RelocatedCC": [("File", "Destination")] + [(str(file), str(destination)) for file, destination in Archives.RelocatedCC],

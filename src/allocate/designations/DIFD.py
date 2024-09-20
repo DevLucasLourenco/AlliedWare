@@ -78,14 +78,14 @@ class DIFD:
                 if ShareHereby.VALIDATIONS["InnerFolder"].get():
                     self.__move(path, file)
                     
-                    Archives.RelocatedFromEmployeeFired.append((file, path))
+                    Archives.RelocatedFromEmployeeFired.append((file, path, ShareHereby.rulesKeyReached))
                     LOGGER(f'ALOCAÇÃO DIFD:\nDE:\n{file}\nPARA: \n{path}\n--------------------', 'INFO')
                     self.removeFromList = True
                     
                 elif not ShareHereby.VALIDATIONS["InnerFolder"].get():
                     self.__move(pathTo, file)
                     
-                    Archives.RelocatedFromEmployeeFired.append((file, pathTo))
+                    Archives.RelocatedFromEmployeeFired.append((file, pathTo, ShareHereby.rulesKeyReached))
                     LOGGER(f'ALOCAÇÃO DIFD:\nDE:\n{file}\nPARA: \n{pathTo}\n--------------------', 'INFO')
                     self.removeFromList = True
                 

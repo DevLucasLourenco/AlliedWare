@@ -109,14 +109,14 @@ class DIF:
                 if ShareHereby.VALIDATIONS["InnerFolder"].get():
                     self.__move(path, file)
                     
-                    Archives.RelocatedFromEmployee.append((file, path))
+                    Archives.RelocatedFromEmployee.append((file, path, ShareHereby.rulesKeyReached))
                     LOGGER(f'ALOCAÇÃO DIF:\nDE:\n{file}\nPARA: \n{path}\n--------------------', 'INFO')
                     self.removeFromList = True
                     
                 elif not ShareHereby.VALIDATIONS["InnerFolder"].get():
                     self.__move(pathTo, file)
                     
-                    Archives.RelocatedFromEmployee.append((file, pathTo))
+                    Archives.RelocatedFromEmployee.append((file, pathTo, ShareHereby.rulesKeyReached))
                     LOGGER(f'ALOCAÇÃO DIF:\nDE:\n{file}\nPARA: \n{pathTo}\n--------------------', 'INFO')
                     self.removeFromList = True
                 
