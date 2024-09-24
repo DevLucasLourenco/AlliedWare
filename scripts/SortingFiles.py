@@ -20,9 +20,12 @@ class SortGlobalFiles:
     
     DESCRIPTION = """Organiza a documentação de todas as pastas internas de:
     
-0 - PROCESSO DE CONTRATAÇÃO
-1 - ADMINISTRATIVO
-2 - OPERAÇÃO
+1 - PROCESSO DE CONTRATAÇÃO
+2 - ADMINISTRATIVO
+3 - OPERAÇÃO
+4 - RPA
+5 - J.A.
+6 - AFASTADOS
 """
     
     @staticmethod

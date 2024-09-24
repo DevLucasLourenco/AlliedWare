@@ -17,12 +17,15 @@ class DIF:
     HIRING_FOLDER_NAME:str = r'0 - PROCESSO DE CONTRATAÇÃO'
     ADM_FOLDER_NAME:str = r'1 - ADMINISTRATIVO'
     OP_FOLDER_NAME:str = r'2 - OPERAÇÃO'
+    J_A__FOLDER_NAME:str = r'3 - JOVEM APRENDIZ'
+    AWAY_FOLDER_NAME:str = r'10 - AFASTADOS INSS.CÁRCERE'
     
     
     HIRING_DIR:Path = FATHERDIR / HIRING_FOLDER_NAME
     ADM_DIR:Path = FATHERDIR / ADM_FOLDER_NAME
     OP_DIR:Path = FATHERDIR / OP_FOLDER_NAME
-    
+    J_A_DIR:Path = FATHERDIR / J_A__FOLDER_NAME
+    AWAY_DIR:Path = FATHERDIR / AWAY_FOLDER_NAME
     RPA_DIR:Path = Path(r'G:\Recursos Humanos\05 - RPA\01 - DOCUMENTOS COLABORADORES')
     
     def __init__(self, validations):
@@ -31,9 +34,11 @@ class DIF:
         self.hiring_folders_inside:list[Path] = DIF.getFolders(DIF.HIRING_DIR)
         self.adm_folders_inside:list[Path] = DIF.getFolders(DIF.ADM_DIR)
         self.op_folders_inside:list[Path] = DIF.getFolders(DIF.OP_DIR)
+        self.j_a_folders_inside:list[Path] = DIF.getFolders(DIF.J_A_DIR)
+        self.away_folders_inside:list[Path] = DIF.getFolders(DIF.AWAY_DIR)
         self.rpa_folders_inside:list[Path] = DIF.getFolders(DIF.RPA_DIR)
         
-        ShareHereby.FOLDER_UNION = self.hiring_folders_inside + self.adm_folders_inside + self.op_folders_inside + self.rpa_folders_inside
+        ShareHereby.FOLDER_UNION = self.hiring_folders_inside + self.adm_folders_inside + self.op_folders_inside + self.j_a_folders_inside + self.away_folders_inside + self.rpa_folders_inside
         
     
     @staticmethod
