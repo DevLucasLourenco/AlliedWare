@@ -64,12 +64,14 @@ class GUIMain:
         
         self.master.protocol("WM_DELETE_WINDOW", self.on_close)
         
+        
     def on_close(self):
         res = messagebox.askyesno("Exportar", "Antes de fechar, deseja exportar os dados alocados?")
         if res:
             ExportWindow(self.master)
         else:
             self.master.destroy()
+        
         
     def executeGUI(self) -> None:
         self.InicialExecutions()
