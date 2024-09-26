@@ -62,8 +62,6 @@ class ScriptSelectionArea:
         
         
     def __execute(self):
-        
-        
         if self.SBox.get() != "":
             res = messagebox.askquestion("Confirmação", "Tem certeza que deseja executar {}?".format(self.SBox.get()))
             if res=='yes':

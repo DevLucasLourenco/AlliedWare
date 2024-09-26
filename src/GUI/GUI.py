@@ -57,7 +57,7 @@ class GUIMain:
         customtkinter.set_appearance_mode(APPEARANCE_MODE)
         customtkinter.set_default_color_theme(COLOR_THEME)
         
-        # self.master.iconbitmap(r'src\GUI\images\allied.ico')
+        self.master.iconbitmap(ShareHereby.resource_path(r'src\GUI\images\allied.ico'))
         
         self.master.geometry(f'{self.windowSize}+{self.windowPosition}')
         self.master.resizable(False, False)

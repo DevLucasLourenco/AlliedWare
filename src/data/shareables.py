@@ -1,7 +1,5 @@
-from pathlib import WindowsPath
-
-from src.data.dirSpotCheck import SpotCheck
-
+from pathlib import Path, WindowsPath
+import sys
 
 
 class ShareHereby:
@@ -92,3 +90,8 @@ class ShareHereby:
     def reset_counter():
         for key in ShareHereby.countedSection:
             ShareHereby.countedSection[key] = 0
+            
+            
+    def resource_path(relative_path):
+        base_path = getattr(sys, '_MEIPASS', Path(__file__).parent)
+        return Path(base_path).joinpath(relative_path)

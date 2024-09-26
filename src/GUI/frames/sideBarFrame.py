@@ -5,6 +5,7 @@ import customtkinter
 
 from PIL import Image
 
+from src.data.shareables import ShareHereby
 from src.data.exportData import ExportWindow
 from src.data.dirSpotCheck import SpotCheck
 from src.GUI.frames.patternAbstractClass import AbstractGlobalObject
@@ -57,8 +58,8 @@ class ObjectSideBar(AbstractGlobalObject):
                                                 border_width=2,
                                                 font=('Robolo', 14, 'bold'), 
                                                 image=customtkinter.CTkImage(
-                                                    light_image=Image.open(r'src\GUI\images\reload.png').resize((50, 50)),
-                                                    dark_image=Image.open(r'src\GUI\images\reload.png').resize((50, 50)),
+                                                    light_image=Image.open(ShareHereby.resource_path(r'src\GUI\images\reload.png')).resize((50, 50)),
+                                                    dark_image=Image.open(ShareHereby.resource_path(r'src\GUI\images\reload.png')).resize((50, 50)),
                                                     ),
                                                )
         
@@ -73,8 +74,8 @@ class ObjectSideBar(AbstractGlobalObject):
                                             border_width=2,
                                             font=('Robolo', 14, 'bold'), 
                                             image=customtkinter.CTkImage(
-                                                light_image=Image.open(r'src\GUI\images\export_icon.png').resize((50,50)), 
-                                                dark_image=Image.open(r'src\GUI\images\export_icon.png').resize((50,50))
+                                                light_image=Image.open(ShareHereby.resource_path(r'src\GUI\images\export_icon.png')).resize((50,50)), 
+                                                dark_image=Image.open(ShareHereby.resource_path(r'src\GUI\images\export_icon.png')).resize((50,50))
                                                 ),
                                             )
         logButton.grid(row=2, column=0, pady=(0, 20))
@@ -88,8 +89,8 @@ class ObjectSideBar(AbstractGlobalObject):
                                             border_width=2,
                                             font=('Robolo', 14, 'bold'), 
                                             image=customtkinter.CTkImage(
-                                                light_image=Image.open(r'src\GUI\images\log_icon.png').resize((50,50)), 
-                                                dark_image=Image.open(r'src\GUI\images\log_icon.png').resize((50,50))
+                                                light_image=Image.open(ShareHereby.resource_path(r'src\GUI\images\log_icon.png')).resize((50,50)), 
+                                                dark_image=Image.open(ShareHereby.resource_path(r'src\GUI\images\log_icon.png')).resize((50,50))
                                                 ),
                                             )
         logButton.grid(row=3, column=0, pady=(0, 20))
@@ -103,8 +104,8 @@ class ObjectSideBar(AbstractGlobalObject):
                                             border_width=2,
                                             font=('Robolo', 14, 'bold'), 
                                             image=customtkinter.CTkImage(
-                                                light_image=Image.open(r'src\GUI\images\indicator_icon.png').resize((50,50)), 
-                                                dark_image=Image.open(r'src\GUI\images\indicator_icon.png').resize((50,50))
+                                                light_image=Image.open(ShareHereby.resource_path(r'src\GUI\images\indicator_icon.png')).resize((50,50)), 
+                                                dark_image=Image.open(ShareHereby.resource_path(r'src\GUI\images\indicator_icon.png')).resize((50,50))
                                                 ),
                                             )
         logButton.grid(row=4, column=0, pady=(0, 20))
@@ -118,8 +119,8 @@ class ObjectSideBar(AbstractGlobalObject):
                                             border_width=2,
                                             font=('Robolo', 14, 'bold'), 
                                             image=customtkinter.CTkImage(
-                                                light_image=Image.open(r'src\GUI\images\tutorial_icon.png').resize((50,50)), 
-                                                dark_image=Image.open(r'src\GUI\images\tutorial_icon.png').resize((50,50))
+                                                light_image=Image.open(ShareHereby.resource_path(r'src\GUI\images\tutorial_icon.png')).resize((50,50)), 
+                                                dark_image=Image.open(ShareHereby.resource_path(r'src\GUI\images\tutorial_icon.png')).resize((50,50))
                                                 ),
                                             )
         logButton.grid(row=5, column=0, pady=(0, 20))
@@ -148,7 +149,7 @@ class ObjectSideBar(AbstractGlobalObject):
     def __command_Tutorial(self):
         options = {
             'Tutorial - Allied': tutorial_exec,
-            'Tutorial - Renomeio': lambda:os.startfile(r'tutorial\data\Allied - Padrão de Renomeio.pdf'),
+            'Tutorial - Renomeio': lambda:os.startfile(ShareHereby.resource_path(r'tutorial\data\Allied - Padrão de Renomeio.pdf')),
         }
         
         app = DynamicalWindowApproach(master=self.sidebarFrame)
