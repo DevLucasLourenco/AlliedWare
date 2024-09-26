@@ -173,7 +173,7 @@ class ExportWindow:
     
     
     def _openDir(self):
-        os.startfile(SpotCheck.defaultPathTo() / r'filesGenerated')
+        os.startfile(Archives.PATH)
         
     
     def export(self):
