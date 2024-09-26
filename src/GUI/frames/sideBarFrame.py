@@ -158,8 +158,4 @@ class ObjectSideBar(AbstractGlobalObject):
     
     def __comand_Reload(self):
         self.master.destroy()
-        
-        subprocess.Popen([sys.executable] + sys.argv)
-        sys.exit()
-        
-    
+        os.execl(sys.executable, sys.executable, *sys.argv)
